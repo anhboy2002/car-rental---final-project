@@ -3,15 +3,17 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="description" content=" Car Rental Website ">
         <meta name="keywords" content="">
         <title>Car Rental Website</title>
         <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
         {!! Html::style('app/css/app.css') !!}
+        {!! Html::style('app/css/fileinput.css') !!}
         <!-- reset css -->
         {!! Html::style('assets/css/css_reset.css') !!}
         <!-- bootstrap -->
-        {!! Html::style('assets/css/bootstrap.min.css') !!}
+{{--        {!! Html::style('assets/css/bootstrap.min.css') !!}--}}
         {!! Html::style('app/css/bootstrap.min.css') !!}
         {!! Html::style('assets/css/jquery.datetimepicker.min.css') !!}
         <!-- Latest compiled and minified CSS -->

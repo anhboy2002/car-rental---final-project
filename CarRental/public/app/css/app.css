@@ -657,3 +657,7 @@ a, a:hover {
     color: #141414;
     cursor: pointer;
 }
+
+.trip-title-tabs{
+    margin-left: 150px;
+}

@@ -11,38 +11,39 @@
             </div>
             <div class="col-lg-6 col-lg-pull-6  padd-lr0">
                 <div class="wheel-start-form">
-                    <form action="#">
+                    <form action="{{ action("SearchController@searchCar") }}" method="POST" enctype="multipart/form-data">
+                        {{ csrf_field()}}
                         <label for="input-val11"><span>Where</span>
-                            <input type="text" id='input-val11' placeholder="City, Airport or Address" required>
+                            <input type="text" id='inputAddressSearch1' placeholder="City, Airport or Address" required name="addressSearch">
                         </label>
                         <div class="clearfix">
                             <div class="wheel-date">
                                 <span>From</span>
                                 <label for="input-val13" class="fa fa-calendar">
-                                    <input  class="datetimepicker" id='input-val13' type="text" value="29 Apr">
+                                    <input class="date" id='dateBegin1' type="date"  value="10/26/2019" name="dateBegin">
                                 </label>
                             </div>
                             <div class="wheel-date ">
                                 <span>Time</span>
                                 <label for="input-val14" class="fa fa-clock-o">
-                                    <input class="timepicker" id='input-val14' type="text" value="18:00">
+                                    <input class="timepicker" id='timeBegin1' type="text" value="18:00" name="timeBegin">
                                 </label>
                             </div>
                             <div class="wheel-date">
                                 <span>Until</span>
                                 <label for="input-val15" class="fa fa-calendar">
-                                    <input  class="datetimepicker" id='input-val15' type="text" value="29 Apr">
+                                    <input  class="" id='dateEnd1' type="date" value="10/26/2019" data-date-format="DD MMMM YYYY" name="dateEnd">
                                 </label>
                             </div>
                             <div class="wheel-date">
                                 <span>Time</span>
                                 <label for="input-val16" class="fa fa-clock-o">
-                                    <input class="timepicker" id='input-val16' type="text" value="18:00">
+                                    <input class="timepicker" id='timeEnd1' type="text" value="18:00" name="timeEnd">
                                 </label>
                             </div>
                         </div>
                         <label for="input-val18" class="promo promo2">
-                            <button class="wheel-btn" id="input-val18">Search</button>
+                            <button class="wheel-btn" id="searchCarIndex" type="submit">Search</button>
                         </label>
                     </form>
                 </div>
@@ -127,22 +128,16 @@
                                 <div class="swiper-container" data-autoplay="0" data-touch="1" data-mouse="0" data-xs-slides="1" data-sm-slides="2" data-md-slides="4" data-lg-slides="6" data-add-slides="6" data-slides-per-view="responsive" data-loop="1" data-speed="1000">
                                     <div class="swiper-wrapper">
                                         <div class="swiper-slide">
-                                            <div class="wheel-collection-item" data-name='2016 Nissan Juke' data-carClass='Luxury Sports Car' data-price='$100' data-text='Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsu nec sagittis sem nibh id elit.' data-bags='2 Bags' data-passenger='2 PASSENGERS' data-speed='5.6/100 MPG' data-img='images/z-car-1.png'><img src="images/i3.png" alt=""></div>
+                                            <div class="wheel-collect"><img src="{{ asset('images/audi.jpg') }}" alt="Audi"></div>
                                         </div>
                                         <div class="swiper-slide">
-                                            <div class="wheel-collection-item" data-name='2016 Chevrolet Malibu' data-carClass='Luxury Sports Car' data-price='$100' data-text='Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsu nec sagittis sem nibh id elit.' data-bags='2 Bags' data-passenger='2 PASSENGERS' data-speed='5.6/100 MPG' data-img='images/i32.jpg'><img src="images/i5.png" alt=""></div>
+                                            <div class="wheel-collect"><img  src="{{ asset('images/honda.jpg') }}" alt="Honda"></div>
                                         </div>
                                         <div class="swiper-slide">
-                                            <div class="wheel-collection-item" data-name='Bugatti Veyron' data-carClass='Luxury Sports Car' data-price='2' data-text='Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsu nec sagittis sem nibh id elit.' data-bags='2 Bags' data-passenger='2 PASSENGERS' data-speed='5.6/100 MPG' data-img='images/i33.jpg'><img src="images/i3.png" alt=""></div>
+                                            <div class="wheel-collect"><img src="{{ asset('images/mitsubisi.jpg') }}" alt="mitsubisi"></div>
                                         </div>
                                         <div class="swiper-slide">
-                                            <div class="wheel-collection-item" data-name='2016 Audi S4' data-carClass='Luxury Sports Car' data-price='$10' data-text='Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsu nec sagittis sem nibh id elit.' data-bags='2 Bags' data-passenger='2 PASSENGERS' data-speed='5.6/100 MPG' data-img='images/i34.jpg'><img src="images/i4.png" alt=""></div>
-                                        </div>
-                                        <div class="swiper-slide">
-                                            <div class="wheel-collection-item" data-name='2017 Hyundai Santa Fe' data-carClass='Luxury Sports Car' data-price='4' data-text='Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsu nec sagittis sem nibh id elit.' data-bags='2 Bags' data-passenger='2 PASSENGERS' data-speed='5.6/100 MPG' data-img='images/i36.jpg'><img src="images/i3.png" alt=""></div>
-                                        </div>
-                                        <div class="swiper-slide">
-                                            <div class="wheel-collection-item" data-name='Porsche Boxter Spyder' data-carClass='Luxury Sports Car' data-price='4' data-text='Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsu nec sagittis sem nibh id elit.' data-bags='2 Bags' data-passenger='2 PASSENGERS' data-speed='5.6/100 MPG' data-img='images/i37.jpg'><img src="images/i2.png" alt=""></div>
+                                            <div class="wheel-collect"><img src="{{ asset('images/mercedes.jpg') }}" alt="mercedes"></div>
                                         </div>
                                     </div>
                                     <div class="swiper-arrow-left fa fa-angle-left"></div>

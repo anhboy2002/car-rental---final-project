@@ -17,14 +17,16 @@
             </div>
         </div>
     </div>
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-        <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-        <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
-        <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item  trip-title-tabs">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Chuyến hiện tại</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Lịch sử chuyến</a>
+        </li>
     </ul>
-    <div class="trip-container">
-        <div class="has-trip">
+    <div class="trip-container tab-content" id="myTabContent">
+        <div class="has-trip tab-pane fade show active"  id="home" role="tabpanel" aria-labelledby="home-tab">
             <div>
                 <div class="trip-box new-box">
                     <div class="trip-header"><h4 class="car-name"><span>CHEVROLET CRUZE 2017</span></h4></div>
@@ -63,6 +65,7 @@
             </div>
 
         </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">  không có chuyên</div>
     </div>
 
 @endsection

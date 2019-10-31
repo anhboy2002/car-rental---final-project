@@ -21,45 +21,21 @@
                         <div class="top-menu-item">
                             <div class="dropdown wheel-user-ico">
                                 <button class="btn btn-default dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    Account
+                                    @if (Auth::check())
+                                      {{auth()->user()->user_name}}
+                                    @else
+                                        Account
+                                    @endif
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="register.html">Login</a></li>
-                                    <li><a href="register.html">Register</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="top-menu-item">
-                            <div class="dropdown wheel-lang-ico">
-                                <button class="btn btn-default dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    Eng
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Brazil</a></li>
-                                    <li><a href="#">France</a></li>
-                                    <li><a href="#">Germany</a></li>
-                                    <li><a href="#">India</a></li>
-                                    <li><a href="#">Japan</a></li>
-                                    <li><a href="#">Serbia</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="top-menu-item">
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    USD
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">USD</a></li>
-                                    <li><a href="#">EUR</a></li>
-                                    <li><a href="#">JPY</a></li>
-                                    <li><a href="#">DKK</a></li>
-                                    <li><a href="#">GBP</a></li>
-                                    <li><a href="#">CHF</a></li>
-                                    <li><a href="#">NZD</a></li>
+                                    @if (Auth::check())
+                                        <li><a href="{{ route('getLogin') }}">Profile</a></li>
+                                        <li><a href="{{ route('logout') }}">Logout</a></li>
+                                    @else
+                                        <li><a href="{{ route('getLogin') }}">Login</a></li>
+                                        <li><a href="{{ route('getLogin') }}">Register</a></li>
+                                    @endif
                                 </ul>
                             </div>
                         </div>
@@ -72,30 +48,25 @@
                         <!-- class="dl-menu" -->
                         <ul class="main-menu dl-menu">
                             <li class="menu-item   current-menu-parent menu-item-has-children   active-color ">
-                                <a href="#">Home</a>
+                                <a href="/index">Home</a>
                             </li>
                             <li class="menu-item   ">
-                                <a href="reservation1.html">List your car</a>
+                                <a href="/list-your-car">List your car</a>
+                                <ul class="sub-menu">
+                                    <li class="menu-item "><a href="/mycar">Your car</a></li>
+                                    <li class="menu-item "><a href="/myfavorite">Your favorite car</a></li>
+                                </ul>
                             </li>
                             <li class="menu-item   ">
-                                <a href="reservation1.html">Trips</a>
+                                <a href="/trip">Trips</a>
                             </li>
                             <li class="menu-item menu-item-has-children  ">
                                 <a href="#">Pages</a>
                                 <ul class="sub-menu">
-                                    <li class="menu-item "><a href="contact.html">contact</a></li>
-                                    <li class="menu-item "><a href="register.html">Register</a></li>
-                                    <li class="menu-item "><a href="checkout.html">Checkout</a></li>
-                                    <li class="menu-item "><a href="about.html">About</a></li>
-                                    <li class="menu-item "><a href="shopping.html">shopping cart</a></li>
-                                    <li class="menu-item menu-item-has-children">
-                                        <a href="#">Level 2</a>
-                                        <ul class="sub-menu">
-                                            <li class="menu-item"><a href="#">Level 3</a></li>
-                                            <li class="menu-item"><a href="#">Level 3</a></li>
-                                            <li class="menu-item"><a href="#">Level 3</a></li>
-                                        </ul>
-                                    </li>
+                                    <li class="menu-item "><a href="/profile">Profile</a></li>
+                                    <li class="menu-item "><a href="/search">Search</a></li>
+                                    <li class="menu-item "><a href="/checkout">Checkout</a></li>
+                                    <li class="menu-item "><a href="/book">Book</a></li>
                                 </ul>
                             </li>
                         </ul>

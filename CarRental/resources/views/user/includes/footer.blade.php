@@ -86,13 +86,15 @@
 
 <!-- Scripts project -->
 <script type="text/javascript" src="assets/js/jquery-2.2.4.min.js"></script>
+{{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>--}}
 {{--<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>--}}
 <script type="text/javascript" src="app/js/bootstrap.min.js"></script>
 <!-- count -->
 <script type="text/javascript" src='assets/js/jquery.countTo.js'></script>
 <!-- google maps -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBt5tJTim4lOO3ojbGARhPd1Z3O3CnE-C8&libraries=places&callback=initAutocomplete"
-        async defer></script>
+{{--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBt5tJTim4lOO3ojbGARhPd1Z3O3CnE-C8&libraries=places&callback=initAutocomplete"--}}
+{{--        async defer></script>--}}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBt5tJTim4lOO3ojbGARhPd1Z3O3CnE-C8&libraries=places"></script>
 <script type="text/javascript" src='app/js/gmap.js'></script>
 <!-- swiper -->
 <script type="text/javascript" src="assets/js/idangerous.swiper.min.js"></script>
@@ -101,5 +103,6 @@
 <!-- Latest compiled and minified JavaScript -->
 <script type="text/javascript" src="assets/js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="assets/js/index.js"></script>
-<!-- sixth block end -->
-
+<script type="text/javascript" src='app/js/app.js'></script>
+<script type="text/javascript" src='app/js/fileinput/fileinput.js'></script>
+<script type="text/javascript" src='app/js/fileinput/vi.js'></script>

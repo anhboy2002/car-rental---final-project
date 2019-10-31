@@ -18,6 +18,7 @@
         </div>
     </div>
     <!-- /////////////////////////////////// -->
+    @include('include.errors')
     <div class="wheel-register-block">
         <div class="container">
             <div class="row">
@@ -26,10 +27,12 @@
                         <div class="wheel-header">
                             <h5>have an account? Log In</h5>
                         </div>
-                        <form action="#">
-                            <label for="userName" class="fa fa-user"><input type="text" id="userName" placeholder='Username / Email'></label>
-                            <label for="userPass" class="fa fa-lock"><input type="text" id='userPass' placeholder='Passsword'></label>
-                            <button class="wheel-btn">Login Now</button>
+                        <form action="{{ action('UserController@postLogin') }}" method="POST">
+                            {{ csrf_field()}}
+                            @include('include.toast')
+                            <label for="userName" class="fa fa-user"><input type="text" id="userName" name="emailLogin" placeholder='Email'></label>
+                            <label for="userPass" class="fa fa-lock"><input type="password" id='userPass' name="passwordLogin" placeholder='Passsword'></label>
+                            <button type="submit" class="wheel-btn">Login Now</button>
                             <label class="password-sing clearfix" for="input-val2">
                                 <input type='checkbox' id='input-val2'> <span>Keep me signed in</span>
                                 <a href="">Forgot password?</a>
@@ -47,18 +50,17 @@
                             <h5>Sign up Now </h5>
                             <h3>Get <span>Registered</span></h3>
                         </div>
-                        <form action="#">
-                            <input type="text" placeholder="First Name">
-                            <input type="text" placeholder="Last Name">
-                            <input type="text" placeholder="Email">
-                            <input type="text" placeholder="Username">
-                            <input type="text" placeholder="Password">
-                            <input type="text" placeholder="Confirm Password">
+                        <form action="{{ action('UserController@postRegister') }}" method="POST">
+                            {{ csrf_field()}}
+                            <input type="text" placeholder="Username" name="userName">
+                            <input type="text" placeholder="Email" name="email">
+                            <input type="text" placeholder="Password" name="password">
+                            <input type="text" placeholder="Confirm Password" name="confirm_password">
                             <label for="input-val1">
-                                <input type="checkbox" id='input-val1'> <span>I agree with the </span>
+                                <input type="checkbox" id='input-val1' name="checkTerms"> <span>I agree with the </span>
                                 <a href="">Terms and Conditions</a>
                             </label>
-                            <button class="wheel-btn">Sign Up</button>
+                            <button class="wheel-btn" type="submit">Sign Up</button>
                         </form>
                     </div>
                 </div>

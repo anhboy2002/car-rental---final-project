@@ -23,35 +23,73 @@
                 <h1>
                     Status
                 </h1>
-                <select>
-                    <option>
-                        Dang cho
+                <select id="choice">
+                    <option value="all">
+                        Tất cả
                     </option>
-                    <option>
-                        Dang hoat dong
+                    <option value="0">
+                        Đang chờ duyệt
+                    </option>
+                    <option value="1">
+                        Đang hoạt động
+                    </option>
+                    <option value="2">
+                        Đã bị từ chối
+                    </option>
+                    <option value="3">
+                        Đang tạm ngừng
                     </option>
                 </select>
             </div>
             <div class="col-lg-8 list-my-car">
-                <div class="box-car row">
-                    <div class="col-sm-7">
-                        <div class="img-my-car">
-                            <img width="400" height="300" src="https://media.wired.com/photos/5d09594a62bcb0c9752779d9/master/w_2560%2Cc_limit/Transpo_G70_TA-518126.jpg">
-                        </div>
-                    </div>
-                    <div class="col-sm-5">
-                        <div class="desc-car">
-                            <h2>2016 Marcedes-Benz SLK</h2>
-                            <span class="badge badge-warning">Waitng</span>
-                            <div class="price-mycar">
-                                <span>$79</span><sup>00</sup>/Day
+{{--                @if($cars)--}}
+                    @foreach($cars as $car)
+                    <div class="box-car row choice choice{{$car->status}}">
+                        <div class="col-sm-7">
+                            <div class="img-my-car">
+                                <img width="400" height="300" src="{{ asset('storage/uploads/car_photos/'.$car->photos[0]) }}" alt="{{$car->name}}">
                             </div>
                         </div>
-                        <hr class="line-mycar">
-                        <button class="btn-detail btn-mycar">Detail</button>
-                        <button class="btn-manage btn-mycar">Manage</button>
+                        <div class="col-sm-5">
+                            <div class="desc-car">
+                                <h2>{{$car->name}}</h2>
+
+                                    @switch($car->status)
+                                        @case(0)
+                                        <span class="badge badge-warning">
+                                            Đang chờ duyệt
+                                        </span>
+                                        @break
+                                        @case(1)
+                                        <span class="badge badge-success">
+                                            Đang hoạt động
+                                        </span>
+                                        @break
+                                        @case(2)
+                                        <span class="badge badge-danger">
+                                            Đã bị từ chối
+                                        </span>
+                                        @break
+                                        @case(3)
+                                        <span class="badge badge-dark">
+                                            Đang tạm ngừng
+                                        </span>
+                                        @break
+                                    @endswitch
+
+                                <div class="price-mycar">
+                                    <span>${{$car->price}}</span><sup>00</sup>/Day
+                                </div>
+                            </div>
+                            <hr class="line-mycar">
+                            <button class="btn-detail btn-mycar">Detail</button>
+                            <button class="btn-manage btn-mycar">Manage</button>
+                        </div>
                     </div>
-                </div>
+                    @endforeach
+{{--                @else--}}
+{{--                        Bạn chưa đăng ký xe nào cả~--}}
+{{--                @endif--}}
             </div>
         </div>
     </div>
