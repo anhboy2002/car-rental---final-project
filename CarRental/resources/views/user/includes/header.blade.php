@@ -1,6 +1,6 @@
 <div class="load-wrap">
     <div class="wheel-load">
-        <img src="images/loader.gif" alt="" class="image">
+        <img src="{{ asset('images/loader.gif') }}" alt="" class="image">
     </div>
 </div>
 <div class="wheel-menu-wrap ">
@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-sm-3">
                 <div class="wheel-logo">
-                    <a href="index.html"><img src="images/logo.png" alt=""></a>
+                    <a href="index.html"><img src="{{ asset('images/logo.png') }}" alt=""></a>
                 </div>
             </div>
             <div class="col-sm-9 col-xs-12 padd-lr0">

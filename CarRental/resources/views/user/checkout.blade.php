@@ -24,19 +24,26 @@
                     <div class="container-checkout">
                         <header>
                             <div class="bio">
-                                <img src="http://www.croop.cl/UI/twitter/images/up.jpg" alt="background" class="bg">
+                                <img src="{{ asset('storage/uploads/profile/'. $car->user->avatar) }}" alt="{{$car->user->user_name}}" class="bg">
                             </div>
                             <div class="avatarcontainer">
-                                <img src="http://www.croop.cl/UI/twitter/images/carl.jpg" alt="avatar" class="avatar">
+                                <img src="{{ asset('storage/uploads/car_photos/'. $car->photos[0]->feature) }}" alt="{{$car->name}}" class="avatar">
                             </div>
                         </header>
                         <div class="content">
                             <div class="data">
-                                Philippe’s
-                                <span class="name-car-checkout">Chevrolet Corve 2015</span>
-                                <div class="">
-                                    <img src="images/stars.png" alt="">
-                                    <span class="trip">. 2 trips</span>
+                                {{$car->user->user_name}}’s
+                                <span class="name-car-checkout">{{$car->name}}</span>
+                                <div class="row">
+                                    <div class="wheel-quote-stars col-lg-5">
+                                        @for($i = 0; $i <$car->rate; $i++)
+                                            <span class="fa fa-star checked"></span>
+                                        @endfor
+                                        @for($i =0; $i < 5 -$car->rate; $i++)
+                                            <span class="fa fa-star"></span>
+                                        @endfor
+                                    </div>
+                                    <div class="col-lg-5"> <span class="trip ">. {{$car->total_trip}} trips</span></div>
                                 </div>
                             </div>
                             <div class="tripTime">
@@ -60,8 +67,8 @@
                             </div>
                             <hr>
                             <div class="tripLocation">
-                                <span>Meeting Location</span>
-                                <p><i> + </i>Laval, QC H7C 1M6</p>
+                                <span>Địa điểm giao nhận xe</span>
+                                <p><i> + </i>{{$car->location_name}}</p>
                             </div>
                             <div class="tripLocation">
                                 <div class="">
@@ -117,7 +124,6 @@
                                         </h3>
                                     </a>
                                 </div>
-
                                 <!-- Card body -->
                                 <div id="collapseThree21" class="collapse" role="tabpanel" aria-labelledby="headingThree21"
                                      data-parent="#accordionEx1">
@@ -125,8 +131,10 @@
                                         <form>
                                             <div class="row form-group">
                                                 <div class="col-lg-3">
+                                                    @if($car->user->phone == "")
                                                     <label for="formGroupExampleInput2">Phone number</label>
                                                     <input type="text" class="form-control " id="formGroupExampleInput" placeholder="Example input">
+                                                    @endif
                                                 </div>
                                             <button class="btn-info">Continue</button>
                                             </div>

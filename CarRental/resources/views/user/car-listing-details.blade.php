@@ -2,25 +2,24 @@
 @section('content')
     <div class="">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-
             <div class="carousel-inner">
-{{--                <div class="carousel-item active">--}}
-{{--                    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(45).jpg"--}}
-{{--                         alt="First slide">--}}
-{{--                </div>--}}
-{{--                <div class="carousel-item">--}}
-{{--                    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(46).jpg"--}}
-{{--                         alt="Second slide">--}}
-{{--                </div>--}}
-{{--                <div class="carousel-item">--}}
-{{--                    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(47).jpg"--}}
-{{--                         alt="Third slide">--}}
-{{--                </div>--}}
-                @for($i = 0; $i < count($car->photos); $i++)
-                    <div class="carousel-item {{ $i == 0 ? "active" : "" }}">
-                        <img class="d-block w-100" src="{{ asset('storage/uploads/car_photos/'. $car->photos[$i]->feature) }}" alt="{{$car->name}}">
-                    </div>
-                @endfor
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(45).jpg"
+                         alt="First slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(46).jpg"
+                         alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(47).jpg"
+                         alt="Third slide">
+                </div>
+{{--                @for($i = 0; $i < count($car->photos); $i++)--}}
+{{--                    <div class="carousel-item {{ $i == 0 ? "active" : "" }}">--}}
+{{--                        <img class="d-block w-100" src="{{ asset('storage/uploads/car_photos/'. $car->photos[$i]->feature) }}" alt="{{$car->name}}">--}}
+{{--                    </div>--}}
+{{--                @endfor--}}
             </div>
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -42,11 +41,12 @@
                                 <h5 class="title">{{$car->name}}</h5>
                                 <div class="subtitle">{{$car->user->user_name}}</div>
                                 <div class="wheel-quote-stars col-lg-12">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
+                                    @for($i = 0; $i <$car->rate; $i++)
+                                        <span class="fa fa-star checked"></span>
+                                    @endfor
+                                    @for($i =0; $i < 5 -$car->rate; $i++)
+                                        <span class="fa fa-star"></span>
+                                    @endfor
                                 </div>
                             </div>
                         </div>
@@ -92,9 +92,9 @@
                                             </div>
                                             <span class="lstitle-new">VI TRI</span>
                                             <div class="row marg-lg-t55 marg-sm-t0 marg-sm-b0 marg-lg-b75">
-{{--                                                <div class="col-md-12 marg-lg-b75 marg-sm-b0 padd-lr0">--}}
-{{--                                                    <div class="wheel-map style-1" id = "map" data-lat="40.7143528" data-lng="-74.0059731" data-marker="images/marker.png" data-zoom="10" data-style="style-1" data-string="WPC string"></div>--}}
-{{--                                                </div>--}}
+                                                <div class="col-md-12 marg-lg-b75 marg-sm-b0 padd-lr0">
+                                                    <div class="wheel-map style-1" id = "mapSingleCar" data-lat="{{ $car->lat }}" data-lng="{{ $car->long }}" data-car="{{ $car }}" data-marker="images/marker.png"></div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="tabs-item text-item">
@@ -113,8 +113,13 @@
                                                                     <div class="comment-author">
                                                                         <img height="90px" width="90px" src="{{ asset('storage/uploads/profile/'. $feedback->user->avatar) }}" alt="">
                                                                         <a href="">{{$feedback->user->user_name}}</a>
-                                                                        <div class="ratings">
-                                                                            <img src="images/stars.png" alt="">
+                                                                        <div class="wheel-quote-stars ratings">
+                                                                            @for($i = 0; $i <$feedback->rate; $i++)
+                                                                                <span class="fa fa-star checked"></span>
+                                                                            @endfor
+                                                                            @for($i =0; $i < 5 - $feedback->rate; $i++)
+                                                                                <span class="fa fa-star"></span>
+                                                                            @endfor
                                                                         </div>
                                                                     </div>
                                                                     <div class="comment-metadata">
@@ -175,40 +180,42 @@
                     <div class="row marg-lg-b20">
                         <div class="col-md-12 padd-lr0 xs-padd marg-lg-b60 marg-sm-b10">
                             <div class="wheel-start-form wheel-start-form2    ">
-                                <fickorm action="#">
+                                <form action="{{ action("CheckoutController@checkoutCar", [$car->id]) }}" method="POST" enctype="multipart/form-data">
+                                    {{ csrf_field()}}
                                     <div class="clearfix">
+                                        <input type="hidden" id='inputLocationCar' name="addressSearch">
                                         <div class="wheel-date">
                                             <span>Trip start</span>
                                             <label class="fa fa-calendar" for="input-val22">
-                                                <input  class="datetimepicker" type="text" id=input-val22 value="29 Apr">
+                                                <input  class="date" id='dateBegin3' type="date"  value="10/26/2019" name="dateBegin">
                                             </label>
                                         </div>
                                         <div class="wheel-date ">
                                             <span>Pickup time</span>
                                             <label for="input-val23" class="fa fa-clock-o">
-                                                <input class="timepicker" type="text" id=input-val23 value="18:00">
+                                                <input class="timepicker" type="text" id='timeBegin3' value="18:00" name="timeBegin">
                                             </label>
                                         </div>
                                         <div class="wheel-date">
                                             <span>Trip end</span>
                                             <label class="fa fa-calendar" for="input-val24">
-                                                <input  class="datetimepicker" type="text" id=input-val24 value="29 Apr">
+                                                <input  class="date" id='dateEnd3' type="date"  value="10/26/2019" name="dateEnd">
                                             </label>
                                         </div>
                                         <div class="wheel-date">
                                             <span>Return Time</span>
                                             <label for="input-val25" class="fa fa-clock-o">
-                                                <input class="timepicker" type="text" id='input-val25' value="18:00">
+                                                <input class="timepicker" type="text" id='timeEnd3' value="18:00" name="timeEnd">
                                             </label>
                                         </div>
                                         <label for="input-val26" class="promo">
-                                            <input type="text" id=input-val21 placeholder="Pickup & return location" required>
+                                            <input type="text" id=input-val21 placeholder="Pickup & return location">
                                         </label>
                                         <label for="input-val27" class="promo promo2">
                                             <button class="wheel-btn" id='input-val27'>Checkout</button>
                                         </label>
                                     </div>
-                                </fickorm>
+                                </form>
                             </div>
                         </div>
                     </div>

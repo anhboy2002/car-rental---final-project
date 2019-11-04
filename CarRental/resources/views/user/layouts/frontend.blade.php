@@ -7,13 +7,12 @@
         <meta name="description" content=" Car Rental Website ">
         <meta name="keywords" content="">
         <title>Car Rental Website</title>
-        <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
         {!! Html::style('app/css/app.css') !!}
         {!! Html::style('app/css/fileinput.css') !!}
         <!-- reset css -->
         {!! Html::style('assets/css/css_reset.css') !!}
         <!-- bootstrap -->
-{{--        {!! Html::style('assets/css/bootstrap.min.css') !!}--}}
         {!! Html::style('app/css/bootstrap.min.css') !!}
         {!! Html::style('assets/css/jquery.datetimepicker.min.css') !!}
         <!-- Latest compiled and minified CSS -->

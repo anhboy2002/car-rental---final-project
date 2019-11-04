@@ -22,74 +22,66 @@
             <div class="row">
                 <div class="wheel-start-form col-lg-6">
                     <div id="dataAllCar" style="display: none;" data-car="{{ $cars }}"></div>
-                    <form>
-                        <label for="input-val11"><span>Where</span>
-                            <input type="text" id='inputLocationCar' placeholder="City, Airport or Address" required value="{{$search['location']}}">
-                        </label>
-                        <div class="clearfix">
-                            <div class="wheel-date">
-                                <span>From</span>
-                                <label for="input-val13" class="fa fa-calendar">
-                                    <input class="date" id='dateBegin11' type="date"  value="{{$search['dateBegin']}}" name="dateBegin">
-                                </label>
+                        <form>
+                            <label for="input-val11"><span>Where</span>
+                                <input type="text" id='inputLocationCar' placeholder="City, Airport or Address" required value="{{$search['location']}}" name="addressSearch">
+                            </label>
+                            <div class="clearfix">
+                                <div class="wheel-date">
+                                    <span>From</span>
+                                    <label for="input-val13" class="fa fa-calendar">
+                                        <input class="date" id='dateBegin2' type="date"  value="{{$search['dateBegin']}}" name="dateBegin">
+                                    </label>
+                                </div>
+                                <div class="wheel-date ">
+                                    <span>Time</span>
+                                    <label for="input-val14" class="fa fa-clock-o">
+                                        <input class="timepicker" id='timeBegin2' type="text" value="{{$search['timeBegin']}}" name="timeBegin">
+                                    </label>
+                                </div>
+                                <div class="wheel-date">
+                                    <span>Until</span>
+                                    <label for="input-val15" class="fa fa-calendar">
+                                        <input class="date" id='dateEnd2' type="date"  value="{{$search['dateEnd']}}" name="dateEnd">
+                                    </label>
+                                </div>
+                                <div class="wheel-date">
+                                    <span>Time</span>
+                                    <label for="input-val16" class="fa fa-clock-o">
+                                        <input class="timepicker" id='timeEnd2' type="text" value="{{$search['timeBegin']}}" name="timeEnd">
+                                    </label>
+                                </div>
                             </div>
-                            <div class="wheel-date ">
-                                <span>Time</span>
-                                <label for="input-val14" class="fa fa-clock-o">
-                                    <input class="timepicker" id='input-val14' type="text" value="{{$search['timeBegin']}}" name="timeBegin">
-                                </label>
-                            </div>
-                            <div class="wheel-date">
-                                <span>Until</span>
-                                <label for="input-val15" class="fa fa-calendar">
-                                    <input class="date" id='dateEnd1' type="date"  value="{{$search['dateEnd']}}" name="dateEnd">
-                                </label>
-                            </div>
-                            <div class="wheel-date">
-                                <span>Time</span>
-                                <label for="input-val16" class="fa fa-clock-o">
-                                    <input class="timepicker" id='input-val16' type="text" value="{{$search['timeBegin']}}" name="timeEnd">
-                                </label>
-                            </div>
-                        </div>
-                        <label for="input-val18" class="promo promo2">
-                            <button class="btn wheel-btn" id="input-val18">Search</button>
-                        </label>
-                    </form>
+                            <label for="input-val18" class="promo promo2">
+                                <button class="btn wheel-btn" id="btnSearch">Search</button>
+                            </label>
+                        </form>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-2">
-                    <div class="select select-1">
-                        <span class="">All category</span>
-                        <ul class="list">
-                            <li>All category</li>
-                            <li>Item1</li>
-                            <li>Item2</li>
-                            <li>Item3</li>
-                            <li>Item4</li>
-                        </ul>
+                    <span class="">Any price</span>
+                    <div class="slidecontainer">
+                        <input type="range" min="100" max="3000"  value="3000" class="slider" id="myRange" step="100">
+                        <p>Value: < <span id="demo"></span>K VNĐ</p>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-2">
-                    <div class="select select-3">
-                        <span class="">Any price</span>
-                        <ul class="list">
-                            <li>Any price</li>
-                            <li>Item1</li>
-                            <li>Item2</li>
-                            <li>Item3</li>
-                            <li>Item4</li>
+                    <div class="select select-1">
+                        <span class="">Loại xe</span>
+                        <ul class="list choose-num-seat-car">
+                            <li value="0">Tất cả</li>
+                            <li value="4">4 chỗ</li>
+                            <li value="7">7 chỗ</li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-2">
                     <div class="select select-2">
-                        <span class="">All brands</span>
-                        <ul class="list">
-                            <li>All brands</li>
-                            <li>Item1</li>
-                            <li>Item2</li>
-                            <li>Item3</li>
-                            <li>Item4</li>
+                        <span class="">Hãng xe</span>
+                        <ul class="list choose-brand-car">
+                            <li value="0">Tất cả</li>
+                            @foreach($categories as $category)
+                                <li value={{ $category->id }}>{{$category->name}}</li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -108,15 +100,16 @@
                                 </div>
                             </div>
                             <div class="img-wrap img-wrap3 product-cell">
-                                <a href="{{ route('carDetail', [ 'id' => $car->id ]) }}"><img width="400" height="300" src="{{ asset('storage/uploads/car_photos/'. $car->photos[0]->feature) }}" alt="{{$car->name}}"></a>
+                                <a href="{{ route('car.carDetail', [ 'id' => $car->id ]) }}" target="_blank"><img width="400" height="300" src="{{ asset('storage/uploads/car_photos/'. $car->photos[0]->feature) }}" alt="{{$car->name}}"></a>
                             </div>
                             <div class="row m-2">
                                 <div class="wheel-quote-stars col-lg-3">
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
+                                    @for($i = 0; $i <$car->rate; $i++)
+                                        <span class="fa fa-star checked"></span>
+                                    @endfor
+                                    @for($i =0; $i < 5 -$car->rate; $i++)
+                                        <span class="fa fa-star"></span>
+                                    @endfor
                                 </div>
                                 <div class="col-lg-6"><h4 >.{{ $car->total_trip }} trips</h4></div>
                                 <div class="col-lg-3">

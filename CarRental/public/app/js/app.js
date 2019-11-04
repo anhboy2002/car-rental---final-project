@@ -140,8 +140,6 @@ $(document).on('click', '.review', function(e){
             _token: token,
         },
         success:function(response) {
-            console.log(response);
-            console.log(response.feedback.comment);
             // $('.single__review_user').remove();
             $('.review__wrapper ul').append(
                 "<li>" +
@@ -149,7 +147,7 @@ $(document).on('click', '.review', function(e){
                 "        <div class='clearfix'>" +
                 "            <div class='comment-author'>" +
                 "                <img src='http://localhost:8000/"+ response.avatar +"'alt='"+ response.user_name +"'>" +
-                "                    <a href=''> HHHHHHHHHHHHHHHHHH </a>" +
+                "                    <a href=''> " + response.user_name + "</a>" +
                 "                        <div class='ratings'>" +
                 "                            <img src='images/stars.png' alt=''>" +
                 "                        </div>" +
@@ -171,4 +169,15 @@ $(document).on('click', '.review', function(e){
     };
     e.preventDefault();
     $.ajax(options);
+});
+
+$(document).on('click', '#searchCarIndex', function(e){
+    var data = {
+        addressSearch : $('#inputAddressSearch1').val(),
+        dateBegin :  $('#dateBegin1').val(),
+        dateEnd :  $('#dateEnd1').val(),
+        timeBegin :  $('#timeBegin1').val(),
+        timeEnd :  $('#timeEnd1').val(),
+    };
+    localStorage.setItem('searchIndex', JSON.stringify(data));
 });
