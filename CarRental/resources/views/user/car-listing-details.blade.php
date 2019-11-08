@@ -183,7 +183,7 @@
                                 <form action="{{ action("CheckoutController@checkoutCar", [$car->id]) }}" method="POST" enctype="multipart/form-data">
                                     {{ csrf_field()}}
                                     <div class="clearfix">
-                                        <input type="hidden" id='inputLocationCar' name="addressSearch">
+                                        <input type="hidden" id='inputLocationCar3' name="addressSearch">
                                         <div class="wheel-date">
                                             <span>Trip start</span>
                                             <label class="fa fa-calendar" for="input-val22">
@@ -211,9 +211,11 @@
                                         <label for="input-val26" class="promo">
                                             <input type="text" id=input-val21 placeholder="Pickup & return location">
                                         </label>
-                                        <label for="input-val27" class="promo promo2">
-                                            <button class="wheel-btn" id='input-val27'>Checkout</button>
-                                        </label>
+                                        @if($car->user_id != auth()->id())
+                                            <label for="input-val27" class="promo promo2">
+                                                <button class="wheel-btn" >Checkout</button>
+                                            </label>
+                                        @endif
                                     </div>
                                 </form>
                             </div>

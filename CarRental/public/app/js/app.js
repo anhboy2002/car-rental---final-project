@@ -171,7 +171,7 @@ $(document).on('click', '.review', function(e){
     $.ajax(options);
 });
 
-$(document).on('click', '#searchCarIndex', function(e){
+$(document).on('click', '#searchCarIndex', function(){
     var data = {
         addressSearch : $('#inputAddressSearch1').val(),
         dateBegin :  $('#dateBegin1').val(),
@@ -180,4 +180,177 @@ $(document).on('click', '#searchCarIndex', function(e){
         timeEnd :  $('#timeEnd1').val(),
     };
     localStorage.setItem('searchIndex', JSON.stringify(data));
+});
+
+$(document).on('click', '#policyCheckout', function(){
+    if ($('.bookCar').attr('disabled')) $('.bookCar').removeAttr('disabled');
+    else $('.bookCar').attr('disabled', 'disabled');
+});
+
+$(document).on('click', '.bookCar', function(e){
+
+    var token = $('meta[name="csrf-token"]').attr('content');
+    var id = $(this).attr('id');
+    var totalDayRental =  $('#totalDayRental').val();
+    var totalPrice =  $('#totalPrice').val();
+    var search =  $('#search').val();
+    var url = "/book/" + id;
+    var options = {
+        url:url,
+        method:"post",
+        data:{
+            totalDayRental: totalDayRental,
+            totalPrice: totalPrice,
+            search: search,
+            _token: token,
+        },
+        success:function(response) {
+            //show confirm view detail
+
+            $('#bookCarModal').modal('hide');
+            $('#modalConfirmViewDetailCheckout').modal('show');
+            $('#btnViewDetailTrip').attr("href", "http://localhost:8000/trip/detail/" + response.checkoutId);
+        },
+        error: function (err) {
+            console.log(arguments);
+        }
+    };
+    e.preventDefault();
+    $.ajax(options);
+});
+
+$(document).on('click', '#btnRejectTripContinue', function(){
+    $('#modalConfirmRejectTrip').modal('hide');
+    $('#modalSelectReasonRejectTrip').modal('show');
+});
+
+$(document).on('click', '#btnRejectTrip', function(){
+    changeStatusTrip(0,1,0);
+    var valueSelect = $('#reasonSelect :selected').text();
+    if ($('#reasonSelect :selected').val() ==="1") {
+        valueSelect = $('#reasonSelectText').val();
+    }
+    $('#modalSelectReasonRejectTrip').modal('hide');
+    $('.info-trip').prepend(
+    "  <div class='status-wrap col-md-12 padd-lr0'>" +
+            "                            <p style='background-color: black;'>" +
+            "                                <span class='status red-dot'></span>" +
+            "                                <span>Chuyến đã bị huỷ. Lý do: " + valueSelect +"</span>" +
+            "                            </p>" +
+            "                        </div>"
+    );
+    $('.btnRejectTrip').hide();
+    $('.pending-trip').hide();
+    $("html, body").animate({ scrollTop: 600 }, "slow");
+});
+
+// set count down time and change status
+
+$(document).ready(function() {
+    if (document.getElementById('created_at_checkout') !== null) {
+        var status_ck = document.getElementById('created_at_checkout').dataset.createdat;
+        if (status_ck === "1") {
+            var date = document.getElementById('created_at_checkout').value;
+            var countDownDate = new Date(date).getTime() + 28800000;
+
+            // Update the count down every 1 second
+            var x = setInterval(function () {
+
+                // Get today's date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now and the count down date
+                var distance = countDownDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display the result in the element with id="demo"
+                document.getElementById("pending-text").innerHTML = hours + " tiếng "
+                    + minutes + " phút " + seconds + " giây ";
+
+                // If the count down is finished, write some text
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("pending-text").innerHTML = "Hết hạn";
+                    changeStatusTrip(2,1,1);
+                }
+            }, 1000);
+        }
+    }
+});
+
+
+//change status checkout
+function changeStatusTrip(status, status_1, status_2) {
+    var token = $('meta[name="csrf-token"]').attr('content');
+    var idCheckout = document.getElementById('created_at_checkout').dataset.idcheckout;
+    var url = '/change-status-checkout/' + idCheckout;
+    var options = {
+        url:url,
+        method:"post",
+        data:{
+            status : status,
+            status_1 : status_1,
+            status_2 : status_2,
+            _token: token,
+        },
+        success:function(response) {
+        },
+        error: function (err) {
+            console.log(arguments);
+        }
+    };
+    $.ajax(options);
+}
+//favotire car
+
+$(document).on('click', '.btnFavorite', function(e){
+    var token = $('meta[name="csrf-token"]').attr('content');
+    var id = $(this).attr('id');
+    var url = "my-favorite-car/" + id;
+    var options = {
+        url:url,
+        method:"post",
+        data:{
+            _token: token
+        },
+        success:function(response) {
+            if(response.status === "1") {
+                $('.btnFavorite'+ id).text('Đã yêu thích');
+            }else {
+                $('.btnFavorite'+ id).text('Yêu thích');
+            }
+
+        },
+        error: function (err) {
+            console.log(arguments);
+        }
+    };
+    e.preventDefault();
+    $.ajax(options);
+});
+$(document).on('click', '.btnRemoveFavorite', function(e){
+    var token = $('meta[name="csrf-token"]').attr('content');
+    var id = $(this).attr('id');
+    var url = "remove-favorite-car/" + id;
+    var options = {
+        url:url,
+        method:"post",
+        data:{
+            _token: token
+        },
+        success:function(response) {
+            if(response.status === "0") {
+                $('.favorite'+ id).hide();
+            }
+        },
+        error: function (err) {
+            console.log(arguments);
+        }
+    };
+    e.preventDefault();
+    $.ajax(options);
 });

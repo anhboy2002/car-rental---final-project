@@ -47,7 +47,7 @@
                     <div class="box-car row choice choice{{$car->status}}">
                         <div class="col-sm-7">
                             <div class="img-my-car">
-                                <img width="400" height="300" src="{{ asset('storage/uploads/car_photos/'.$car->photos[0]) }}" alt="{{$car->name}}">
+                                <img width="400" height="300" src="{{ asset('storage/uploads/car_photos/'. $car->photos[0]->feature) }}" alt="{{$car->name}}">
                             </div>
                         </div>
                         <div class="col-sm-5">

@@ -27,45 +27,136 @@
     </ul>
     <div class="trip-container tab-content" id="myTabContent">
         <div class="has-trip tab-pane fade show active"  id="home" role="tabpanel" aria-labelledby="home-tab">
-            <div>
-                <div class="trip-box new-box">
-                    <div class="trip-header"><h4 class="car-name"><span>CHEVROLET CRUZE 2017</span></h4></div>
-                    <div class="trip-body trip-header">
-                        <div class="left">
-                            <div class="car-img">
-                                <a href="/trip/detail/MDUWGQ5J">
-                                    <div class="fix-img">
-                                        <img src="https://n1-pstg.mioto.vn/cho_thue_xe_tu_lai_tphcm/chevrolet_cruze_2017/p/g/2019/06/03/16/pPGKyOWd8MmjXBZRvSRMag.jpg" alt="Cho thuê xe tự lái CHEVROLET CRUZE 2017">
-                                    </div>
-                                </a>
+            @foreach($checkouts as $checkout)
+                @if($checkout->status_ck == 1 || $checkout->status_ck == 3)
+                    <div class="trip-box new-box">
+                        <div class="trip-header"><h4 class="car-name"><span>{{$checkout->car->name}}</span></h4></div>
+                        <div class="trip-body trip-header">
+                            <div class="left">
+                                <div class="car-img">
+                                    <a href="{{ route('trip.detail', [ 'id' => $checkout->id ]) }}">
+                                        <div class="fix-img">
+                                            <img src="{{ asset('storage/uploads/car_photos/'. $checkout->car->photos[0]->feature) }}" alt="{{$checkout->car->name}}" width="142px" height="107px">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="right">
+                                <p> Bắt đầu: {{ Carbon\Carbon::parse($checkout->trip_start)->format('H:i ,l')}} , {{ Carbon\Carbon::parse($checkout->trip_start)->format('d/m/Y')}}</p>
+                                <p> Kết thúc: {{ Carbon\Carbon::parse($checkout->trip_end)->format('H:i ,l')}} , {{ Carbon\Carbon::parse($checkout->trip_end)->format('d/m/Y')}}</p>
+                                <p class="total-price">Tổng tiền {{$checkout->price}}K</p>
                             </div>
                         </div>
-                        <div class="right">
-                            <p> Bắt đầu: 21:00 Thứ 2, 23/09/2019</p>
-                            <p> Kết thúc: 20:00 Thứ 3, 24/09/2019</p>
-                            <p class="total-price">Tổng tiền 803K</p>
-                        </div>
+                        <a href="{{ route('trip.detail', [ 'id' => $checkout->id ]) }}">
+                            <div class="trip-footer">
+                                <div class="status-trips">
+                                    @switch($checkout->status_ck)
+                                        @case(1)
+                                        <p>
+                                            <span class="status yellow-dot"></span>
+                                            Đang chờ chủ xe duyệt
+                                        </p>
+                                        @break
+
+                                        @case(0)
+                                        <p>
+                                            <span class="status red-dot"></span>
+                                            Khách thuê đã huỷ chuyến
+                                        </p>
+                                        @break
+
+                                        @case(2)
+                                        <p>
+                                            <span class="status blue-dot"></span>
+                                            Hết hạn
+                                        </p>
+                                        @break
+
+                                        @case(3)
+                                        <p>
+                                            <span class="status green-dot"></span>
+                                            Chủ xe đã duyệt
+                                        </p>
+                                        @break
+                                        @default
+                                        <span>Something went wrong, please try again</span>
+                                    @endswitch
+                                </div>
+                                <div class="time">
+                                    <p>{{$checkout->created_at->diffForHumans()}}</p>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                    <a href="/trip/detail/MDUWGQ5J">
-                        <div class="trip-footer">
-                            <div class="status-trips">
-                                <p>
-                                        <span class="status red-dot">
-
-                                        </span>
-                                    Khách thuê đã huỷ chuyến
-                                </p>
-                            </div>
-                            <div class="time">
-                                <p>8 ngày trước</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
+                @endif
+            @endforeach
         </div>
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">  không có chuyên</div>
-    </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="has-trip tab-pane fade show active"  id="home" role="tabpanel" aria-labelledby="home-tab">
+                @foreach($checkouts as $checkout)
+                    @if($checkout->status_ck == 2 || $checkout->status_ck == 0)
+                        <div class="trip-box new-box">
+                            <div class="trip-header"><h4 class="car-name"><span>{{$checkout->car->name}}</span></h4></div>
+                            <div class="trip-body trip-header">
+                                <div class="left">
+                                    <div class="car-img">
+                                        <a href="{{ route('trip.detail', [ 'id' => $checkout->id ]) }}">
+                                            <div class="fix-img">
+                                                <img src="{{ asset('storage/uploads/car_photos/'. $checkout->car->photos[0]->feature) }}" alt="{{$checkout->car->name}}" width="142px" height="107px">
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="right">
+                                    <p> Bắt đầu: {{ Carbon\Carbon::parse($checkout->trip_start)->format('H:i ,l')}} , {{ Carbon\Carbon::parse($checkout->trip_start)->format('d/m/Y')}}</p>
+                                    <p> Kết thúc: {{ Carbon\Carbon::parse($checkout->trip_end)->format('H:i ,l')}} , {{ Carbon\Carbon::parse($checkout->trip_end)->format('d/m/Y')}}</p>
+                                    <p class="total-price">Tổng tiền {{$checkout->price}}K</p>
+                                </div>
+                            </div>
+                            <a href="{{ route('trip.detail', [ 'id' => $checkout->id ]) }}">
+                                <div class="trip-footer">
+                                    <div class="status-trips">
+                                        @switch($checkout->status_ck)
+                                            @case(1)
+                                            <p>
+                                                <span class="status yellow-dot"></span>
+                                                Đang chờ chủ xe duyệt
+                                            </p>
+                                            @break
 
+                                            @case(0)
+                                            <p>
+                                                <span class="status red-dot"></span>
+                                                Khách thuê đã huỷ chuyến
+                                            </p>
+                                            @break
+
+                                            @case(2)
+                                            <p>
+                                                <span class="status blue-dot"></span>
+                                                Hết hạn
+                                            </p>
+                                            @break
+
+                                            @case(3)
+                                            <p>
+                                                <span class="status green-dot"></span>
+                                                Chủ xe đã duyệt
+                                            </p>
+                                            @break
+                                            @default
+                                            <span>Something went wrong, please try again</span>
+                                        @endswitch
+                                    </div>
+                                    <div class="time">
+                                        <p>{{$checkout->created_at->diffForHumans()}}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        </div>
+    </div>
 @endsection

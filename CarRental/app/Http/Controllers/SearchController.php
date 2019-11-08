@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\Category;
+use App\Models\Favorite;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
     public function searchCar(Request $request) {
-        $cars = Car::all();
         $search = [
             'location' => $request->addressSearch,
             'dateBegin' => $request->dateBegin,
@@ -17,11 +18,32 @@ class SearchController extends Controller
             'timeBegin' => $request->timeBegin,
             'timeEnd' => $request->timeEnd,
         ];
+        $dateBegin = new Carbon($request->dateBegin . " ". $request->timeBegin );
+        $dateEnd = new Carbon($request->dateEnd . " ". $request->timeEnd );
+        $cars = Car::where('status', 1)->get();
+        foreach ($cars as $key => $car){
+            foreach ($car->trips as $trip ) {
+                $trip_end = Carbon::createFromFormat('Y-m-d H:i:s', $trip->trip_end);
+                $trip_start = Carbon::createFromFormat('Y-m-d H:i:s', $trip->trip_start);
+                if($dateBegin->gt($trip_end)) {
+                } else if($trip_start->gt($dateBegin) && $trip_start->gt($dateEnd)){
+                } else {
+                    $cars->forget($key);
+                }
+            }
+        }
+        $i = 0;
+        $newCars = collect ([]);
+        foreach ($cars as $key => $car){
+            $newCars[$i] = $car;
+            $i++;
+        }
         $categories = Category::where('id_parent', 0)->get();
-
+        $favorites = Favorite::where('user_id', \auth()->id())->get();
         return view('user.car-list-search', [
-                                            'cars' => $cars,
+                                            'cars' => $newCars,
                                             'search' => $search,
+                                            'favorites' => $favorites,
                                             'categories' => $categories]);
     }
 

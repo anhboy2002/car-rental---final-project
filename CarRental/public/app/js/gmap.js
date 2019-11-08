@@ -66,11 +66,15 @@
 $( document ).ready(function() {
     if (localStorage.getItem("searchIndex") !== null) {
         var data = JSON.parse(localStorage.getItem('searchIndex'));
-        document.getElementsByName('addressSearch')[0].value = data.addressSearch;
-        document.getElementsByName('dateBegin')[0].value = data.dateBegin;
-        document.getElementsByName('dateEnd')[0].value = data.dateEnd;
-        document.getElementsByName('timeBegin')[0].value = data.timeBegin;
-        document.getElementsByName('timeEnd')[0].value = data.timeEnd;
+        if (document.getElementsByName('addressSearch').length >0) {
+            document.getElementsByName('addressSearch')[0].value = data.addressSearch;
+        }
+        if (document.getElementsByName('dateBegin').length >0) {
+            document.getElementsByName('dateBegin')[0].value = data.dateBegin;
+            document.getElementsByName('dateEnd')[0].value = data.dateEnd;
+            document.getElementsByName('timeBegin')[0].value = data.timeBegin;
+            document.getElementsByName('timeEnd')[0].value = data.timeEnd;
+        }
     }
     if (document.getElementById('mapSingleCar') !== null) {
         var point = {lat: parseFloat(document.getElementById('mapSingleCar').dataset.lat), lng: parseFloat(document.getElementById('mapSingleCar').dataset.lng, 10)};
@@ -97,6 +101,7 @@ $( document ).ready(function() {
         localStorage.setItem('num_seat', "0");
         localStorage.setItem('brand_car', "0");
         var cars = JSON.parse(document.getElementById('dataAllCar').dataset.car);
+        console.log(cars);
         $('ul.choose-num-seat-car li').click(function(e)
         {
             localStorage.setItem('num_seat', this.value.toString());
@@ -154,7 +159,6 @@ $( document ).ready(function() {
             if (status == 'OK') {
                 map.setCenter(results[0].geometry.location);
                 myLatLng = {lat: results[0].geometry.location.lat, lng: results[0].geometry.location.lat().lng};
-
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
             }
@@ -489,7 +493,7 @@ google.maps.event.addDomListener(window, 'load', init);
 function init() {
     var input;
     if (location.href === "http://localhost:8000/search-post") {
-        input = document.getElementById('inputLocationCar');
+        input = document.getElementById('inputAddressSearch1');
     } else if (location.href === "http://localhost:8000/index") {
         input = document.getElementById('inputAddressSearch1');
     }

@@ -648,11 +648,6 @@ li { list-style-type:none;}
 .trip-box.new-box span:first-child {
     padding-right: 10px;
 }
-.status-trips p span.status.red-dot {
-    background-color: #f44336;
-    box-shadow: 0 0 10px 0 #f44336;
-}
-
 a, a:hover {
     color: #141414;
     cursor: pointer;
@@ -700,3 +695,99 @@ a, a:hover {
     background: #4CAF50;
     cursor: pointer;
 }
+/*checkout*/
+.avatar-checkout{
+    border-radius: 100%;
+    position: absolute;
+    z-index: 1;
+}
+
+.status-wrap {
+    background-color: #3c4858;
+    height: 54px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.red-dot {
+    background-color:
+        #f44336;
+    -webkit-box-shadow: 0 0 10px 0 #f44336;
+    box-shadow: 0 0 10px 0
+    #f44336;
+}
+
+.yellow-dot {
+    background-color:
+        orange;
+    -webkit-box-shadow: 0 0 10px 0 #f44336;
+    box-shadow: 0 0 10px 0
+    #f44336;
+}
+
+.green-dot {
+    background-color:
+        green;
+    -webkit-box-shadow: 0 0 10px 0 #f44336;
+    box-shadow: 0 0 10px 0
+    #f44336;
+}
+
+.blue-dot {
+    background-color:
+        blue;
+    -webkit-box-shadow: 0 0 10px 0 #f44336;
+    box-shadow: 0 0 10px 0
+    #f44336;
+}
+
+.status-wrap p span.status {
+    width: 16px;
+    height: 16px;
+    border-radius: 100%;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.status-wrap p{
+    color: #fff;
+    padding: 17px;
+}
+
+/*profile card book*/
+
+.profile{
+    margin:auto;
+}
+
+.profile img{
+    border-radius:100%;
+    width:40%;
+    height: 40%;
+}
+
+.profile .card-body{
+    text-align:center;
+}
+
+.rule-row{
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.border-table{
+    border: 1px solid #e8eaef;
+    border-radius: 3px;
+    padding: 15px 25px;
+}
+
+.title-bill{
+    display: block;
+    margin-bottom: 20px;
+    color:
+        #141414;
+    font-size: 1em;
+    font-weight: 700;
+    line-height: 1.5;
+}
+

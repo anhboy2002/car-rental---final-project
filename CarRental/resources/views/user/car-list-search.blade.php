@@ -16,44 +16,44 @@
             </div>
         </div>
     </div>
-    <!-- ////////////////////////////////////////// -->
     <div class="body-search">
         <div class="container">
             <div class="row">
                 <div class="wheel-start-form col-lg-6">
                     <div id="dataAllCar" style="display: none;" data-car="{{ $cars }}"></div>
-                        <form>
+                        <form action="{{ action("SearchController@searchCar") }}" method="POST" enctype="multipart/form-data">
+                            {{ csrf_field()}}
                             <label for="input-val11"><span>Where</span>
-                                <input type="text" id='inputLocationCar' placeholder="City, Airport or Address" required value="{{$search['location']}}" name="addressSearch">
+                                <input type="text" id='inputAddressSearch1' placeholder="City, Airport or Address" required value="{{$search['location']}}" name="addressSearch">
                             </label>
                             <div class="clearfix">
                                 <div class="wheel-date">
                                     <span>From</span>
                                     <label for="input-val13" class="fa fa-calendar">
-                                        <input class="date" id='dateBegin2' type="date"  value="{{$search['dateBegin']}}" name="dateBegin">
+                                        <input class="date" id='dateBegin1' type="date"  value="{{$search['dateBegin']}}" name="dateBegin">
                                     </label>
                                 </div>
                                 <div class="wheel-date ">
                                     <span>Time</span>
                                     <label for="input-val14" class="fa fa-clock-o">
-                                        <input class="timepicker" id='timeBegin2' type="text" value="{{$search['timeBegin']}}" name="timeBegin">
+                                        <input class="timepicker" id='timeBegin1' type="text" value="{{$search['timeBegin']}}" name="timeBegin">
                                     </label>
                                 </div>
                                 <div class="wheel-date">
                                     <span>Until</span>
                                     <label for="input-val15" class="fa fa-calendar">
-                                        <input class="date" id='dateEnd2' type="date"  value="{{$search['dateEnd']}}" name="dateEnd">
+                                        <input class="date" id='dateEnd1' type="date"  value="{{$search['dateEnd']}}" name="dateEnd">
                                     </label>
                                 </div>
                                 <div class="wheel-date">
                                     <span>Time</span>
                                     <label for="input-val16" class="fa fa-clock-o">
-                                        <input class="timepicker" id='timeEnd2' type="text" value="{{$search['timeBegin']}}" name="timeEnd">
+                                        <input class="timepicker" id='timeEnd1' type="text" value="{{$search['timeBegin']}}" name="timeEnd">
                                     </label>
                                 </div>
                             </div>
                             <label for="input-val18" class="promo promo2">
-                                <button class="btn wheel-btn" id="btnSearch">Search</button>
+                                <button class="btn wheel-btn" id="searchCarIndex" type="submit">Search</button>
                             </label>
                         </form>
                 </div>
@@ -112,8 +112,8 @@
                                     @endfor
                                 </div>
                                 <div class="col-lg-6"><h4 >.{{ $car->total_trip }} trips</h4></div>
-                                <div class="col-lg-3">
-                                    <button class="btn btn-success pull-right btnFavorite" id="{{$car->id}}">Yêu thích</button>
+                                <div class="col-lg-4">
+                                    <button class="btn btn-success pull-right btnFavorite btnFavorite{{$car->id}}" id="{{$car->id}}">yêu thích</button>
                                 </div>
                             </div>
                         </div>

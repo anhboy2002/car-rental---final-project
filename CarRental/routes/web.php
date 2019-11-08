@@ -74,10 +74,47 @@ Route::post('checkout/{id}', [
     'uses' => 'CheckoutController@checkoutCar',
 ]);
 
+Route::post('change-status-checkout/{id}', [
+    'as' => 'trip.change',
+    'uses' => 'TripController@changeStatusTrip',
+]);
+
+Route::post('book/{id}', [
+    'as' => 'car.book',
+    'uses' => 'CheckoutController@bookCarAjax',
+]);
+
+Route::get('trip/detail/{id}', [
+    'as' => 'trip.detail',
+    'uses' => 'CheckoutController@tripDetailIndex',
+]);
+
 Route::post('/feedback/{id}/{point}', [
     'as' => 'feedback',
     'uses' => 'CarController@feedback',
 ]);
+
+Route::get('trip', [
+    'as' => 'car.trip',
+    'uses' => 'TripController@index',
+]);
+
+Route::get('my-favorite', [
+    'as' => 'car.favorite',
+    'uses' => 'UserController@indexMyFavoriteCar',
+]);
+
+Route::post('my-favorite-car/{id}', [
+    'as' => 'car.favorite.post',
+    'uses' => 'UserController@myFavoriteCar',
+]);
+Route::post('remove-favorite-car/{id}', [
+    'as' => 'car.favorite.remove',
+    'uses' => 'UserController@removeFavoriteCar',
+]);
+Route::get('/profile', function () {
+    return view('user/profile');
+});
 
 
 
@@ -105,9 +142,4 @@ Route::post('/feedback/{id}/{point}', [
 //Route::get('/myfavorite', function () {
 //    return view('user/favorite');
 //});
-//Route::get('/profile', function () {
-//    return view('user/profile');
-//});
-//Route::get('/trip', function () {
-//    return view('user/trip');
-//});
+

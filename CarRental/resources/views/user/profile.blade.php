@@ -39,7 +39,6 @@
                                 Tham gia: 23/09/2019
                                 Chưa có chuyến
                             </h6>
-                            <p class="proile-rating">Star : <span>4/5</span></p>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
@@ -167,131 +166,128 @@
             </form>
             <hr>
             <h1 class="title-list-car-profile">Your Car List (4)</h1>
-            <div class="col-xs-12">
-                <div class="">
-                    <div class="">
-                        <div class="item active">
-                            <ul class="thumbnails">
-                                <li class="col-sm-3">
-                                    <div class="casing">
-                                        <div class="thumbnail">
-                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                        </div>
-                                        <div class="caption">
-                                            <h4>Lux A2.2</h4>
-                                            <div class="star-profile-car">
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                            </div>
-                                            <p>Sơn trà, Đà Nẵng</p>
-                                            <a class="btn btn-mini" href="#">» Detail</a>
-                                        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="item active">
+                        <div class="thumbnails">
+                            <div class="col-sm-3">
+                                <div class="casing">
+                                    <div class="thumbnail">
+                                        <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
                                     </div>
-                                </li>
-                                <li class="col-sm-3">
-                                    <div class="casing">
-                                        <div class="thumbnail">
-                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                    <div class="caption">
+                                        <h4>Lux A2.2</h4>
+                                        <div class="star-profile-car">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
                                         </div>
-                                        <div class="caption">
-                                            <h4>Lux A2.2</h4>
-                                            <div class="star-profile-car">
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                            </div>
-                                            <p>Sơn trà, Đà Nẵng</p>
-                                            <a class="btn btn-mini" href="#">» Detail</a>
-                                        </div>
+                                        <p>Sơn trà, Đà Nẵng</p>
+                                        <a class="btn btn-mini" href="#">» Detail</a>
                                     </div>
-                                </li>
-                                <li class="col-sm-3">
-                                    <div class="casing">
-                                        <div class="thumbnail">
-                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                        </div>
-                                        <div class="caption">
-                                            <h4>Lux A2.2</h4>
-                                            <div class="star-profile-car">
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                            </div>
-                                            <p>Sơn trà, Đà Nẵng</p>
-                                            <a class="btn btn-mini" href="#">» Detail</a>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="casing">
+                                    <div class="thumbnail">
+                                        <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
                                     </div>
-                                </li>
-                                <li class="col-sm-3">
-                                    <div class="casing">
-                                        <div class="thumbnail">
-                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                    <div class="caption">
+                                        <h4>Lux A2.2</h4>
+                                        <div class="star-profile-car">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
                                         </div>
-                                        <div class="caption">
-                                            <h4>Lux A2.2</h4>
-                                            <div class="star-profile-car">
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                            </div>
-                                            <p>Sơn trà, Đà Nẵng</p>
-                                            <a class="btn btn-mini" href="#">» Detail</a>
-                                        </div>
+                                        <p>Sơn trà, Đà Nẵng</p>
+                                        <a class="btn btn-mini" href="#">» Detail</a>
                                     </div>
-                                </li>
-                                <li class="col-sm-3">
-                                    <div class="casing">
-                                        <div class="thumbnail">
-                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                        </div>
-                                        <div class="caption">
-                                            <h4>Lux A2.2</h4>
-                                            <div class="star-profile-car">
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                            </div>
-                                            <p>Sơn trà, Đà Nẵng</p>
-                                            <a class="btn btn-mini" href="#">» Detail</a>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="casing">
+                                    <div class="thumbnail">
+                                        <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
                                     </div>
-                                </li>
-                                <li class="col-sm-3">
-                                    <div class="casing">
-                                        <div class="thumbnail">
-                                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                    <div class="caption">
+                                        <h4>Lux A2.2</h4>
+                                        <div class="star-profile-car">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
                                         </div>
-                                        <div class="caption">
-                                            <h4>Lux A2.2</h4>
-                                            <div class="star-profile-car">
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                            </div>
-                                            <p>Sơn trà, Đà Nẵng</p>
-                                            <a class="btn btn-mini" href="#">» Detail</a>
-                                        </div>
+                                        <p>Sơn trà, Đà Nẵng</p>
+                                        <a class="btn btn-mini" href="#">» Detail</a>
                                     </div>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="casing">
+                                    <div class="thumbnail">
+                                        <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                    </div>
+                                    <div class="caption">
+                                        <h4>Lux A2.2</h4>
+                                        <div class="star-profile-car">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                        </div>
+                                        <p>Sơn trà, Đà Nẵng</p>
+                                        <a class="btn btn-mini" href="#">» Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="casing">
+                                    <div class="thumbnail">
+                                        <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                    </div>
+                                    <div class="caption">
+                                        <h4>Lux A2.2</h4>
+                                        <div class="star-profile-car">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                        </div>
+                                        <p>Sơn trà, Đà Nẵng</p>
+                                        <a class="btn btn-mini" href="#">» Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="casing">
+                                    <div class="thumbnail">
+                                        <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                    </div>
+                                    <div class="caption">
+                                        <h4>Lux A2.2</h4>
+                                        <div class="star-profile-car">
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star checked"></span>
+                                            <span class="fa fa-star"></span>
+                                            <span class="fa fa-star"></span>
+                                        </div>
+                                        <p>Sơn trà, Đà Nẵng</p>
+                                        <a class="btn btn-mini" href="#">» Detail</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
