@@ -80,6 +80,8 @@ $(document).ready(function() {
                     $('#inputCarLocation').val(results[0].formatted_address);
                     $('#inputLatCar').val(myMarker.getPosition().lat());
                     $('#inputLongCar').val(myMarker.getPosition().lng());
+                    // $('#mapSingleCar').data('lat', myMarker.getPosition().lat());
+                    // $('#mapSingleCar').data('long', myMarker.getPosition().lng());
                 } else {
                     window.alert('No results found');
                 }
@@ -346,6 +348,29 @@ $(document).on('click', '.btnRemoveFavorite', function(e){
         success:function(response) {
             if(response.status === "0") {
                 $('.favorite'+ id).hide();
+            }
+        },
+        error: function (err) {
+            console.log(arguments);
+        }
+    };
+    e.preventDefault();
+    $.ajax(options);
+});
+$(document).on('click', '.btnHideCar', function(e){
+    var token = $('meta[name="csrf-token"]').attr('content');
+    var id = $(this).attr('id');
+    var url = "/hide-car/" + id;
+    var options = {
+        url:url,
+        method:"post",
+        data:{
+            _token: token
+        },
+        success:function(response) {
+            if(response.status === "1") {
+                $('#modalConfirmHideCar').modal('hide');
+                $('#btnDisableCar').text('Đã tạm ngưng');
             }
         },
         error: function (err) {

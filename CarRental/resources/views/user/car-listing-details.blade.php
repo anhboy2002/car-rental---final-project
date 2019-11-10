@@ -211,11 +211,11 @@
                                         <label for="input-val26" class="promo">
                                             <input type="text" id=input-val21 placeholder="Pickup & return location">
                                         </label>
-                                        @if($car->user_id != auth()->id())
+{{--                                        @if($car->user_id != auth()->id())--}}
                                             <label for="input-val27" class="promo promo2">
                                                 <button class="wheel-btn" >Checkout</button>
                                             </label>
-                                        @endif
+{{--                                        @endif--}}
                                     </div>
                                 </form>
                             </div>

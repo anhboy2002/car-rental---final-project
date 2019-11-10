@@ -134,9 +134,25 @@ Route::post('/change-avatar', [
     'uses' => 'UserController@changeAvatar',
 ]);
 
-Route::get('/manage', function () {
-    return view('user/manage-car-detail');
-});
+Route::get('/carsetting/{id}', [
+    'as' => 'carSetting',
+    'uses' => 'CarController@carSettingIndex',
+]);
+
+Route::post('/carsetting-post/{id}', [
+    'as' => 'carSettingUpdate',
+    'uses' => 'CarController@carSettingUpdate',
+]);
+
+Route::post('hide-car/{id}', [
+    'as' => 'changeStatusHideCar',
+    'uses' => 'CarController@changeStatusHideCar',
+]);
+
+Route::post('update-image-car/{id}', [
+    'as' => 'updateImageCar',
+    'uses' => 'CarController@updateImageCar',
+]);
 
 
 

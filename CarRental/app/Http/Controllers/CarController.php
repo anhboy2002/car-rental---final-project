@@ -60,19 +60,21 @@ class CarController extends Controller
 
     public function storePhotosCar($request, $car, $check)
     {
-
         if ($request->has('photoCar')) {
             if (!$check){
                 $photos_old = $car->photos;
+
                 foreach ($photos_old as $photo_old) {
-                    $file = 'app/public/uploads/car_photos/' . $photo_old->url;
+                    $file = 'app/public/uploads/car_photos/' . $photo_old->feature;
                     if (file_exists(storage_path($file))) {
                         unlink(storage_path($file));
                     }
                 }
-                Image::where('car_id', $car->id)->delete();
+                Photo::where('car_id', $car->id)->delete();
             }
-            foreach ($request->file('photoCar') as $image) {
+
+            $photos = $request->file('photoCar');
+            foreach ($photos as $image) {
                 $filenameWithExt = $image->getClientOriginalName();
                 $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
                 $extension = $image->getClientOriginalExtension();
@@ -120,6 +122,7 @@ class CarController extends Controller
     public function getMyCar() {
         $user_id = auth()->id();
         $cars = Car::where('user_id', $user_id)->get();
+
         return view('user.list--car', ['cars' => $cars]);
     }
 
@@ -151,4 +154,54 @@ class CarController extends Controller
             'feedback' => $feedback,
         ]);
     }
+
+    public function carSettingIndex($id)
+    {
+        $car = Car::where('id', $id)->first();
+
+        return view('user.manage-car-detail', ['car' => $car]);
+    }
+
+    public function carSettingUpdate(Request $request, $id)
+    {
+        $json_featured= json_encode($request->featured,JSON_FORCE_OBJECT);
+        $car = Car::where('id', $id)->update([
+            'location_name' => $request->carLocation,
+            'description' => $request->description,
+            'featured' => $json_featured
+        ]);
+
+        return redirect()->route('carSetting', ['id'=> $id]);
+    }
+    public function changeStatusHideCar($id)
+    {
+        $car = Car::where('id', $id)->first();
+        $statusOld = $car->status;
+        if($car->status == 3) {
+            $car->status = 1;
+            $car->save();
+
+            return response()->json([
+                'status' => '0',
+                'message' => 'Xe của bạn đang hoạt động',
+            ]);
+        }
+        $car->status = 3;
+        $car->save();
+
+        return response()->json([
+            'status' => '1',
+            'message' => 'Xe của bạn đang bị tạm ngưng',
+        ]);
+    }
+
+    public function updateImageCar(Request $request, $id)
+    {
+        $car = Car::where('id', $id)->first();
+        $this->storePhotosCar($request, $car, false);
+
+        return redirect()->route('carSetting', ['id'=> $id]);
+    }
+
+
 }
