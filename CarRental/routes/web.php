@@ -108,12 +108,34 @@ Route::post('my-favorite-car/{id}', [
     'as' => 'car.favorite.post',
     'uses' => 'UserController@myFavoriteCar',
 ]);
+
 Route::post('remove-favorite-car/{id}', [
     'as' => 'car.favorite.remove',
     'uses' => 'UserController@removeFavoriteCar',
 ]);
-Route::get('/profile', function () {
-    return view('user/profile');
+
+Route::post('/change-password', [
+    'as' => 'changePassword',
+    'uses' => 'UserController@changePassword',
+]);
+
+Route::get('/profile', [
+    'as' => 'myProflie',
+    'uses' => 'UserController@profileIndex',
+]);
+
+Route::post('/change-profile', [
+    'as' => 'editProfile',
+    'uses' => 'UserController@editProfile',
+]);
+
+Route::post('/change-avatar', [
+    'as' => 'changeAvatar',
+    'uses' => 'UserController@changeAvatar',
+]);
+
+Route::get('/manage', function () {
+    return view('user/manage-car-detail');
 });
 
 

@@ -111,9 +111,9 @@
                                         <span class="fa fa-star"></span>
                                     @endfor
                                 </div>
-                                <div class="col-lg-6"><h4 >.{{ $car->total_trip }} trips</h4></div>
+                                <div class="col-lg-5"><h4 >.{{ $car->total_trip }} trips</h4></div>
                                 <div class="col-lg-4">
-                                    <button class="btn btn-success pull-right btnFavorite btnFavorite{{$car->id}}" id="{{$car->id}}">yêu thích</button>
+                                    <button class="btn btn-success btnFavorite btnFavorite{{$car->id}}" id="{{$car->id}}">Yêu thích</button>
                                 </div>
                             </div>
                         </div>

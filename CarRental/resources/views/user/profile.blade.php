@@ -10,7 +10,7 @@
                         <ol class="breadcrumb">
                             <li><a href="#">Home</a></li>
                             <li><a href="#"> pages </a></li>
-                            <li class="active">Profile</li>
+                            <li class="active">Tài khoản</li>
                         </ol>
                     </div>
                 </div>
@@ -19,270 +19,188 @@
     </div>
     <div class="prosuct-wrap">
         <div class="container emp-profile">
-            <form method="post">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="profile-img">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
-                            <div class="file btn btn-lg btn-primary">
-                                Change Photo
-                                <input type="file" name="file"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="profile-head">
-                            <h5>
-                                Kshiti Ghelani
-                            </h5>
-                            <h6>
-                                Tham gia: 23/09/2019
-                                Chưa có chuyến
-                            </h6>
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="profile-work">
-                            <p>WORK LINK</p>
-                            <a href="">Website Link</a><br/>
-                            <a href="">Bootsnipp Profile</a><br/>
-                            <a href="">Bootply Profile</a>
-                            <p>SKILLS</p>
-                            <a href="">Web Designer</a><br/>
-                            <a href="">Web Developer</a><br/>
-                            <a href="">WordPress</a><br/>
-                            <a href="">WooCommerce</a><br/>
-                            <a href="">PHP, .Net</a><br/>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="tab-content profile-tab" id="myTabContent">
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>User Id</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>Kshiti123</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Name</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>Kshiti Ghelani</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Email</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>kshitighelani@gmail.com</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Phone</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>123 456 7890</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Profession</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>Web Developer and Designer</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Experience</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>Expert</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Hourly Rate</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>10$/hr</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Total Projects</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>230</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>English Level</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>Expert</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Availability</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>6 months</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label>Your Bio</label><br/>
-                                        <p>Your detail description</p>
-                                    </div>
-                                </div>
-                            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-img">
+                        <img src="{{ asset('storage/uploads/profile/'. $user->avatar) }}" width="245px" height="163px" alt=" {{$user->user_name}}"/>
+                        <div class="file btn btn-lg btn-primary">
+                            Change Photo
+                            <form action="{{action('UserController@changeAvatar')}}" method="POST" enctype="multipart/form-data">
+                                {{csrf_field()}}
+                                <input type="file" name="avatar" onchange="this.form.submit()"/>
+                            </form>
                         </div>
                     </div>
                 </div>
-            </form>
-            <hr>
-            <h1 class="title-list-car-profile">Your Car List (4)</h1>
+                <div class="col-md-6 mb-3">
+                    <div class="profile-head ">
+                        <h3>
+                            {{$user->user_name}}
+                        </h3>
+                        <h6 class="mt-2">
+                            Tham gia: {{ $user->created_at->toFormattedDateString()}}  -
+                            Chưa có chuyến
+                        </h6>
+                        <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Change password</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <input type="button" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" data-toggle="modal" data-target="#editProfile"/>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="item active">
-                        <div class="thumbnails">
-                            <div class="col-sm-3">
-                                <div class="casing">
-                                    <div class="thumbnail">
-                                        <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                                    </div>
-                                    <div class="caption">
-                                        <h4>Lux A2.2</h4>
-                                        <div class="star-profile-car">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
+                    <div class="tab-content profile-tab" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="row">
+                                <div class="col-md-4 ">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Tên</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>{{$user->user_name}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 ">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Email</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p> {{$user->email}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 ">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Điện thoại</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>{{$user->phone}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label></label>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Địa chỉ</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>{{$user->address}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <hr>
+                                <h1 class="title-list-car-profile">Your Car List ({{count($cars)}} xe)</h1>
+                                <div class="container padd-lr0 xs-padd">
+                                    <div class="product-list product-list2 wheel-bgt clearfix">
+                                        <div class="row">
+                                            @foreach($cars as $car)
+                                                <div class="col-sm-3 mt-2">
+                                                    <div class="casing">
+                                                        <div class="thumbnail">
+                                                            <a href="#"><img src="{{ asset('storage/uploads/car_photos/'. $car->photos[0]->feature) }}" alt="{{$car->name}}" width="245px" height="164px"></a>
+                                                        </div>
+                                                        <div class="caption">
+                                                            <h4>{{$car->name}}</h4>
+                                                            <div class="wheel-quote-stars col-lg-6">
+                                                                @for($i = 0; $i <$car->rate; $i++)
+                                                                    <span class="fa fa-star checked"></span>
+                                                                @endfor
+                                                                @for($i =0; $i < 5 -$car->rate; $i++)
+                                                                    <span class="fa fa-star"></span>
+                                                                @endfor
+                                                            </div>
+                                                            <p>Sơn trà, Đà Nẵng</p>
+                                                            <a href="{{ route('car.carDetail', [ 'id' => $car->id ]) }}" class="text-decoration-none ml-2">» Detail</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
-                                        <p>Sơn trà, Đà Nẵng</p>
-                                        <a class="btn btn-mini" href="#">» Detail</a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
-                                <div class="casing">
-                                    <div class="thumbnail">
-                                        <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <form action="{{ action("UserController@changePassword") }}" method="POST" enctype="multipart/form-data">
+                                {{ csrf_field()}}
+                                <div class="row">
+                                    <div class="col-md-4 ">
+                                        <label></label>
                                     </div>
-                                    <div class="caption">
-                                        <h4>Lux A2.2</h4>
-                                        <div class="star-profile-car">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                        </div>
-                                        <p>Sơn trà, Đà Nẵng</p>
-                                        <a class="btn btn-mini" href="#">» Detail</a>
+                                    <div class="col-md-4">
+                                        <label>Mật khẩu mới</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="password" class="form-group" name="password_new"/>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="casing">
-                                    <div class="thumbnail">
-                                        <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                <div class="row">
+                                    <div class="col-md-4 ">
+                                        <label></label>
                                     </div>
-                                    <div class="caption">
-                                        <h4>Lux A2.2</h4>
-                                        <div class="star-profile-car">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                        </div>
-                                        <p>Sơn trà, Đà Nẵng</p>
-                                        <a class="btn btn-mini" href="#">» Detail</a>
+                                    <div class="col-md-4">
+                                        <label>Nhập lại mật khẩu</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="password" class="form-group" name="password_again"/>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="casing">
-                                    <div class="thumbnail">
-                                        <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                <button type="submit" class="btn btn-primary" style="margin: auto; display: block;" > Lưu mật khẩu</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="editProfile" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="row">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="panel panel-primary">
+                            <div class="panel-body">
+                                <form method="POST" action="{{action('UserController@editProfile')}}" class="edit-profile-modal " enctype="multipart/form-data">
+                                    {{ csrf_field()}}
+                                    <div class="form-group">
+                                        <h2 class="title-modal-edit ">Sửa thông tin</h2>
                                     </div>
-                                    <div class="caption">
-                                        <h4>Lux A2.2</h4>
-                                        <div class="star-profile-car">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                        </div>
-                                        <p>Sơn trà, Đà Nẵng</p>
-                                        <a class="btn btn-mini" href="#">» Detail</a>
+                                    <div class="form-group">
+                                        <label class="control-label">Tên</label>
+                                        <input name="user_name" type="text" maxlength="50" class="form-control" value="{{$user->user_name}}"/>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="casing">
-                                    <div class="thumbnail">
-                                        <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                    <div class="form-group">
+                                        <label class="control-label">Email</label>
+                                        <input name="email" type="email" maxlength="50" class="form-control" value="{{$user->email}}"/>
                                     </div>
-                                    <div class="caption">
-                                        <h4>Lux A2.2</h4>
-                                        <div class="star-profile-car">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                        </div>
-                                        <p>Sơn trà, Đà Nẵng</p>
-                                        <a class="btn btn-mini" href="#">» Detail</a>
+                                    <div class="form-group">
+                                        <label class="control-label" >Phone</label>
+                                        <input name="phone"  type="text" maxlength="50" class="form-control" value="{{$user->phone}}"/>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="casing">
-                                    <div class="thumbnail">
-                                        <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                                    <div class="form-group">
+                                        <label class="control-label" >Address</label>
+                                        <input name="address" type="text" maxlength="25" class="form-control" value="{{$user->address}}"/>
                                     </div>
-                                    <div class="caption">
-                                        <h4>Lux A2.2</h4>
-                                        <div class="star-profile-car">
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>
-                                        </div>
-                                        <p>Sơn trà, Đà Nẵng</p>
-                                        <a class="btn btn-mini" href="#">» Detail</a>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-info btn-block">Lưu lại</button>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>

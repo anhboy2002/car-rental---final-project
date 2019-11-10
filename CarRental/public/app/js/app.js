@@ -332,6 +332,7 @@ $(document).on('click', '.btnFavorite', function(e){
     e.preventDefault();
     $.ajax(options);
 });
+
 $(document).on('click', '.btnRemoveFavorite', function(e){
     var token = $('meta[name="csrf-token"]').attr('content');
     var id = $(this).attr('id');

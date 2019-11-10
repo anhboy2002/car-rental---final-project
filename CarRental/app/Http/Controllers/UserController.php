@@ -6,6 +6,7 @@ use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
 use App\Models\Favorite;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -90,5 +91,47 @@ class UserController extends Controller
         return response()->json([
             'status' => '0',
         ]);
+    }
+
+    public function profileIndex() {
+        $user = User::where('id', \auth()->id())->first();
+        $cars = $user->cars;
+        return view('user.profile', ['user' => $user,
+                                            'cars' => $cars]);
+    }
+
+    public function changePassword(Request $request) {
+        $user = User::where('id', \auth()->id())->first();
+        $user->password = bcrypt($request->password_new);
+        $user->save();
+
+        return redirect()->route('myProflie');
+    }
+
+    public function changeAvatar(Request $request) {
+        $user = User::where('id', \auth()->id())->first();
+        $avatar = $request->avatar;
+
+        $filenameWithExt = $avatar->getClientOriginalName();
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        $extension = $avatar->getClientOriginalExtension();
+        $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+        $avatar->storeAs('public/uploads/profile', $fileNameToStore);
+
+        $user->avatar = $fileNameToStore;
+        $user->save();
+
+        return redirect()->route('myProflie');
+    }
+
+    public function editProfile(Request $request) {
+
+        $user = User::where('id', \auth()->id())->update([
+            'user_name' => $request->user_name,
+            'email' => $request->email,
+            'phone' => $request->phone
+        ]);
+
+        return redirect()->route('myProflie');
     }
 }

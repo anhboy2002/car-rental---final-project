@@ -42,7 +42,6 @@
                 </select>
             </div>
             <div class="col-lg-8 list-my-car">
-{{--                @if($cars)--}}
                     @foreach($cars as $car)
                     <div class="box-car row choice choice{{$car->status}}">
                         <div class="col-sm-7">
@@ -82,14 +81,13 @@
                                 </div>
                             </div>
                             <hr class="line-mycar">
-                            <button class="btn-detail btn-mycar">Detail</button>
-                            <button class="btn-manage btn-mycar">Manage</button>
+{{--                            <a href="{{ route('car.carDetail', [ 'id' => $car->id ]) }}" class="btn btn-dark btn-detail btn-mycar" role="button">Detail</a>--}}
+{{--                            <button class="btn-manage btn-mycar">Manage</button>--}}
+                            <a href="{{ route('car.carDetail', [ 'id' => $car->id ]) }}" class="btn btn-dark mb-2 btn-detail btn-mycar" role="button">Chi tiết</a>
+                            <a href="#" class="btn btn-success mb-2 btn-manage btn-mycar" role="button">Quản lí</a>
                         </div>
                     </div>
                     @endforeach
-{{--                @else--}}
-{{--                        Bạn chưa đăng ký xe nào cả~--}}
-{{--                @endif--}}
             </div>
         </div>
     </div>
