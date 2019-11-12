@@ -21,19 +21,19 @@
             <div class="row">
                 <div class="col-xs-12 padd-lr0">
                     <ul class="steps">
-                        <li class="title-wrap active" data-toggle="collapse" href="#reservation1" aria-expanded="false" aria-controls="reservation1">
+                        <li class="title-wrap " data-toggle="collapse" href="#reservation1" aria-expanded="false" aria-controls="reservation1">
                             <div class="title">
-                                <a><span>1.</span>Duyệt yêu cầu</a>
+                                <a href="/trip/detail/{{$checkout->id}}"><span>1.</span>Duyệt yêu cầu</a>
+                            </div>
+                        </li>
+                        <li class="title-wrap active">
+                            <div class="title">
+                                <a  href='{{ ($checkout->status_ck == 5) ? "/trip/deposit/" .$checkout->id: ""}}'><span>2.</span>Thanh toán cọc</a>
                             </div>
                         </li>
                         <li class="title-wrap ">
                             <div class="title">
-                                <a  href='{{ ($checkout->status_ck == 3 || $checkout->status_ck == 4 || $checkout->status_ck == 5) ? "/trip/deposit/" .$checkout->id: ""}}'><span>2.</span>Thanh toán cọc</a>
-                            </div>
-                        </li>
-                        <li class="title-wrap ">
-                            <div class="title">
-                                <a><span>3.</span>Khởi hành</a>
+                                <a  href='{{ ($checkout->status_ck == 3 || $checkout->status_ck == 4) ? "/trip/process/" .$checkout->id: ""}}'><span>3.</span>Khởi hành</a>
                             </div>
                         </li>
                         <li class="title-wrap ">
@@ -51,62 +51,26 @@
             <div class="row info-trip">
                 <input type="hidden" value="{{$checkout->created_at}}" id="created_at_checkout" data-createdat ="{{$checkout->status_ck}}" data-idcheckout = "{{$checkout->id}}"/>
                 @switch($checkout->status_ck)
-                    @case(1)
-                        <div class="status-wrap ol-xs-12 padd-lr0 pending-trip" style="height: 70px;">
+                    @case(5)
+                        <div class="status-wrap col-md-12 padd-lr0 status-trip deposit-trip">
                             <p>
                                 <span class="status yellow-dot"></span>
                                 @if($checkout->user_id_1 == auth()->id())
-                                    <span>Đang chờ bạn duyệt ...</span></br>
+                                    <span>Chờ khách cọc</span></br>
                                 @else
-                                    <span>Đang chờ chủ xe duyệt...</span></br>
+                                    <span>Vui lòng hoàn thành tiền cọc theo bên dưới</span></br>
                                 @endif
-                                <span class="countdown font-weight-bold">Thời gian còn lại: <strong id="pending-text" ></strong></span>
                             </p>
                         </div>
-                    @break
-
-                    @case(0)
-                        <div class="status-wrap col-md-12 padd-lr0">
-                            <p style="background-color: black;">
-                                <span class="status red-dot"></span>
-                                <span>Chuyến đã bị huỷ. Lý do: Thay đổi lịch trình</span>
-                            </p>
-                        </div>
-                    @break
-
-                    @case(2)
-                        <div class="status-wrap col-md-12 padd-lr0">
-                            <p>
-                                <span class="status blue-dot"></span>
-                                <span>Hết hạn</span>
-                            </p>
-                        </div>
-                    @break
-
-                    @case(5)
-
+                        @break
                     @case(3)
                     <div class="status-wrap col-md-12 padd-lr0 status-trip">
                         <p>
                             <span class="status green-dot"></span>
-                            @if($checkout->user_id_1 == auth()->id())
-                                <span>Đã duyệt</span></br>
-                            @else
-                                <span>Chủ xe đã duyệt</span></br>
-                            @endif
+                            <span>Khách hàng đã đặt cọc</span></br>
                         </p>
                     </div>
                     @break
-                    @case(4)
-                    <div class="status-wrap col-md-12 padd-lr0 status-trip">
-                        <p>
-                            <span class="status green-dot"></span>
-                            <span>Đã hoàn thành</span></br>
-                        </p>
-                    </div>
-                    @break
-                    @default
-                    <span>Something went wrong, please try again</span>
                 @endswitch
                 <div class="col-md-12 padd-lr0">
                     <div class="wheel-start-form wheel-start-form2" style="background-color: #ffffff">
@@ -234,58 +198,75 @@
                         </form>
                     </div>
                 </div>
-                @if($checkout->status_ck == 1)
-                    @if($checkout->user_id_1 != auth()->id())
-                        <button class="btn btn-danger status-wrap ol-xs-12 padd-lr0 mt-2 btnRejectTrip" data-toggle="modal" data-target="#modalConfirmRejectTrip" >Hủy chuyến</button>
-                    @elseif ($checkout->status_ck != 3)
-                        <button class="btn btn-danger status-wrap ol-xs-12 padd-lr0 mt-2 "  id="btnRejectTrip2" >Hủy chuyến</button>
-                        <button class="btn btn-success status-wrap ol-xs-12 padd-lr0"  id="btnAcceptTrip" >Đồng ý</button>
-                    @endif
+                @if($checkout->status_ck == 5 && $checkout->user_id_2 == auth()->id())
+                    <button class="btn btn-primary status-wrap ol-xs-12 padd-lr0 mt-2 " data-toggle="modal" data-target="#modalConfirmDepositTrip" >Đặt cọc</button>
+                @elseif($checkout->user_id_1 == auth()->id() && $checkout->status_ck == 5)
+                    <button class="btn btn-primary status-wrap ol-xs-12 padd-lr0 mt-2 btnDepositTrip" data-toggle="modal" data-target="#modalConfirmAcceptProcessTrip" >Khách đã đặt cọc</button>
                 @endif
             </div>
         </div>
     </div>
 {{--    modal confirm--}}
-    <div class="modal fade" id="modalConfirmRejectTrip" tabindex="-1" role="dialog" aria-labelledby="modalConfirmViewDetailCheckout" aria-hidden="true">
+    <div class="modal fade" id="modalConfirmDepositTrip" tabindex="-1" role="dialog" aria-labelledby="modalConfirmViewDetailCheckout" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hủy chuyến</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Thông tin đặt cọc</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>
-                        <span>Bạn có chắc muốn hủy chuyến?</span>
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" id="btnRejectTripContinue">Tiếp tục</button>
+                    <div class="row">
+                        <div class="col-md-12 col-md-4">
+                            <div class='row'>
+                                <div class='col-md-12'>
+                                    <div class='form-row'>
+                                        <div class='col-xs-12 form-group'>
+                                            <label class='control-label font-weight-bold'>Chuyển khoản ngân hàng:</label>
+                                            </br>
+                                            <span>Ngân hàng Vietcombank Đà Nẵng</span>    </br>
+                                            <span>STK : 00410000111111</span>    </br>
+                                            <span>Tên : Trần Mạnh Hùng</span>
+                                        </div>
+                                    </div>
+                                    <div class='form-row'>
+                                        <div class='col-xs-12 form-group '>
+                                            <label class='control-label font-weight-bold'>Thanh toán tiền mặt</label> </br>
+                                            <span>Đ/c : 58 Cù Chính Lan</span> </br>
+                                            <span>SĐT : 0905192156</span>
+                                        </div>
+                                    </div>
+                                    <div class='form-row'>
+                                        <div class='col-md-12'>
+                                            <div class='form-control total btn btn-info'>
+                                                Tổng:
+                                                <span class='amount'>$300</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="modalSelectReasonRejectTrip" tabindex="-1" role="dialog" aria-labelledby="modalConfirmViewDetailCheckout" aria-hidden="true">
+    <div class="modal fade" id="modalConfirmAcceptProcessTrip" tabindex="-1" role="dialog" aria-labelledby="modalConfirmViewDetailCheckout" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hủy chuyến</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Xác nhận</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <select class="browser-default custom-select" id="reasonSelect">
-                        <option value="3">Thay đổi lịch trình</option>
-                        <option value="2">Lựa chọn xe khác phù hợp hơn</option>
-                        <option selected  value="1">Lý do khác</option>
-                    </select>
-                    <input  class="form-control mt-3" id="reasonSelectText" placeholder = "  Vui lòng nhập lý do khác"/>
+                   <label>Khách đã hoàn thành tiền cọc cho bạn?</label>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" id="btnRejectTrip" >Hủy chuyên</button>
+                    <button class="btn btn-primary" id="btnProcessTrip">Đã cọc</button>
                 </div>
             </div>
         </div>

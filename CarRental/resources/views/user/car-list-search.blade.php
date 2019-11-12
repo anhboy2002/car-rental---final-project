@@ -20,7 +20,7 @@
         <div class="container">
             <div class="row">
                 <div class="wheel-start-form col-lg-6">
-                    <div id="dataAllCar" style="display: none;" data-car="{{ $cars }}"></div>
+                    <div id="dataAllCar" style="display: none;" data-car="{{ $cars }}" data-photos="{{ $photos }}"></div>
                         <form action="{{ action("SearchController@searchCar") }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field()}}
                             <label for="input-val11"><span>Where</span>

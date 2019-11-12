@@ -84,7 +84,7 @@
 {{--                            <a href="{{ route('car.carDetail', [ 'id' => $car->id ]) }}" class="btn btn-dark btn-detail btn-mycar" role="button">Detail</a>--}}
 {{--                            <button class="btn-manage btn-mycar">Manage</button>--}}
                             <a href="{{ route('car.carDetail', [ 'id' => $car->id ]) }}" class="btn btn-dark mb-2 btn-detail btn-mycar" role="button">Chi tiết</a>
-                            <a href="#" class="btn btn-success mb-2 btn-manage btn-mycar" role="button">Quản lí</a>
+                            <a href="{{route('carSetting', ['id' => $car->id])}}" class="btn btn-success mb-2 btn-manage btn-mycar" role="button">Quản lí</a>
                         </div>
                     </div>
                     @endforeach

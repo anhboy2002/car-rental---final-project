@@ -57,14 +57,14 @@
                                 <div class="tabs">
                                     <div class="tabs-header">
                                         <ul>
-                                            <li class="active"><a href="#">Common</a></li>
-                                            <li><a href="#">Description</a></li>
-                                            <li><a href="#">({{ $countReview }}) reviews</a></li>
+                                            <li class="active"><a href="#">Thông tin</a></li>
+                                            <li><a href="#">Mô tả</a></li>
+                                            <li><a href="#">({{ $countReview }}) Nhận xét</a></li>
                                         </ul>
                                     </div>
                                     <div class="tabs-content marg-lg-b30">
                                         <div class="tabs-item text-item active group-car-detail">
-                                            <span class="lstitle-new">Features</span>
+                                            <span class="lstitle-new">Tính năng</span>
                                             <?php $featured = json_decode($car->featured,true); ?>
                                             <div>
                                                 <ul class="tabslist">
@@ -90,7 +90,7 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <span class="lstitle-new">VI TRI</span>
+                                            <span class="lstitle-new">VỊ TRÍ</span>
                                             <div class="row marg-lg-t55 marg-sm-t0 marg-sm-b0 marg-lg-b75">
                                                 <div class="col-md-12 marg-lg-b75 marg-sm-b0 padd-lr0">
                                                     <div class="wheel-map style-1" id = "mapSingleCar" data-lat="{{ $car->lat }}" data-lng="{{ $car->long }}" data-car="{{ $car }}" data-marker="images/marker.png"></div>
@@ -138,10 +138,10 @@
                                             @if (Auth::check())
                                             <section class="wheel-reply-form wheel-bg1 single__review_user">
                                                 <header>
-                                                    <h3>Add Your Review</h3>
+                                                    <h3>Thêm nhận xét</h3>
                                                 </header>
                                                 <form>
-                                                    <label placeholder="Your Name *">Rating</label>
+                                                    <label placeholder="Your Name *">Đánh giá</label>
                                                     <div class="wheel-quote-stars col-lg-12 rating rating-review">
                                                         <span class="fa fa-star" data-rating="1"></span>
                                                         <span class="fa fa-star" data-rating="2"></span>
@@ -151,7 +151,7 @@
                                                         <input type="hidden" name="whatever1" class="rating-value" value="2.56">
                                                     </div>
                                                     <textarea placeholder="Your Message *" class="review-text"></textarea>
-                                                    <button class="review"  id="{{$car->id}}">Submit Now</button>
+                                                    <button class="review"  id="{{$car->id}}">Nhật xét</button>
                                                 </form>
                                             </section>
                                             @endif

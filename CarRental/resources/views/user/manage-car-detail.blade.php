@@ -194,118 +194,166 @@
                                             <div class="panel-body">
                                                 <div class="pull-right">
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-success btn-filter" data-target="pagado">Hoàn thành</button>
-                                                        <button type="button" class="btn btn-warning btn-filter" data-target="pendiente">Bị trễ</button>
-                                                        <button type="button" class="btn btn-danger btn-filter" data-target="cancelado">Bị hủy</button>
+                                                        <button type="button" class="btn btn-success btn-filter" data-target="success">Hoàn thành</button>
+                                                        <button type="button" class="btn btn-primary btn-filter" data-target="process">Tiến hành</button>
+                                                        <button type="button" class="btn btn-warning btn-filter" data-target="pending">Chờ duyệt</button>
+                                                        <button type="button" class="btn btn-dark btn-filter" data-target="later">Bị trễ</button>
+                                                        <button type="button" class="btn btn-danger btn-filter" data-target="reject">Bị hủy</button>
                                                         <button type="button" class="btn btn-secondary btn-filter" data-target="all">Tất cả</button>
                                                     </div>
                                                 </div>
                                                 <div class="table-container">
                                                     <table class="table table-filter">
                                                         <tbody>
-                                                        <tr data-status="pagado">
-                                                            <td style="width: 5%">1</td>
-                                                            <td>
-                                                                <div class="media">
-                                                                    <a href="#" class="pull-left">
-                                                                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo">
-                                                                    </a>
-                                                                    <div class="media-body">
-                                                                        <span class="media-meta pull-right">Febrero 13, 2016</span>
-                                                                        <h4 class="title ml-2">
-                                                                            Mạnh Hùng
-                                                                            <span class="pull-right pagado">(Hoàn thành)</span>
-                                                                        </h4>
-{{--                                                                        <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="width: 10%">
-                                                                <div class="media">
-                                                                    <div class="media-body">
-                                                                        <h4 class="title">
-                                                                            <span class="pull-right "> 500 K</span>
-                                                                        </h4>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr data-status="pendiente">
-                                                            <td style="width: 5%">1</td>
-                                                            <td>
-                                                                <div class="media">
-                                                                    <a href="#" class="pull-left">
-                                                                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo">
-                                                                    </a>
-                                                                    <div class="media-body">
-                                                                        <span class="media-meta pull-right">Febrero 13, 2016</span>
-                                                                        <h4 class="title">
-                                                                            Lorem Impsum
-                                                                            <span class="pull-right pendiente">(Pendiente)</span>
-                                                                        </h4>
-                                                                        <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="width: 10%">500 K</td>
-                                                        </tr>
-                                                        <tr data-status="cancelado">
-                                                            <td style="width: 5%">1</td>
-                                                            <td>
-                                                                <div class="media">
-                                                                    <a href="#" class="pull-left">
-                                                                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo">
-                                                                    </a>
-                                                                    <div class="media-body">
-                                                                        <span class="media-meta pull-right">Febrero 13, 2016</span>
-                                                                        <h4 class="title">
-                                                                            Lorem Impsum
-                                                                            <span class="pull-right cancelado">(Cancelado)</span>
-                                                                        </h4>
-                                                                        <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="width: 10%">500 K</td>
-                                                        </tr>
-                                                        <tr data-status="pagado" class="selected">
-                                                            <td style="width: 5%">1</td>
-                                                            <td>
-                                                                <div class="media">
-                                                                    <a href="#" class="pull-left">
-                                                                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo">
-                                                                    </a>
-                                                                    <div class="media-body">
-                                                                        <span class="media-meta pull-right">Febrero 13, 2016</span>
-                                                                        <h4 class="title">
-                                                                            Lorem Impsum
-                                                                            <span class="pull-right pagado">(Pagado)</span>
-                                                                        </h4>
-                                                                        <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="width: 10%">500 K</td>
-                                                        </tr>
-                                                        <tr data-status="pendiente">
-                                                            <td style="width: 5%">1</td>
-                                                            <td>
-                                                                <div class="media">
-                                                                    <a href="#" class="pull-left">
-                                                                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo">
-                                                                    </a>
-                                                                    <div class="media-body">
-                                                                        <span class="media-meta pull-right">Febrero 13, 2016</span>
-                                                                        <h4 class="title">
-                                                                            Lorem Impsum
-                                                                            <span class="pull-right pendiente">(Pendiente)</span>
-                                                                        </h4>
-                                                                        <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td style="width: 10%">500 K</td>
-                                                        </tr>
+                                                        @foreach($trips as $key => $trip)
+                                                            @switch($trip->status_ck)
+                                                                @case(0)
+                                                                <tr data-status="reject">
+                                                                    <td style="width: 5%">{{$key}}</td>
+                                                                    <td>
+                                                                        <div class="media">
+                                                                            <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
+                                                                                <img src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" class="media-photo" width="35px" height="35px">
+                                                                            </a>
+                                                                            <div class="media-body">
+                                                                                <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
+                                                                                <h4 class="title ml-2">
+                                                                                    {{ $trip->user2->user_name }}
+                                                                                    <span class="pull-right text-danger">(Bị hủy)</span>
+                                                                                </h4>
+        {{--                                                                        <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="width: 10%">
+                                                                        <div class="media">
+                                                                            <div class="media-body">
+                                                                                <h4 class="title">
+                                                                                    <span class="pull-right "> {{ $trip->price }} K</span>
+                                                                                </h4>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                @break
+                                                                @case(1)
+                                                                <tr data-status="pending">
+                                                                    <td style="width: 5%">{{$key}}</td>
+                                                                    <td>
+                                                                        <div class="media">
+                                                                            <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
+                                                                                <img src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" class="media-photo" width="35px" height="35px">
+                                                                            </a>
+                                                                            <div class="media-body">
+                                                                                <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
+                                                                                <h4 class="title ml-2">
+                                                                                    {{ $trip->user2->user_name }}
+                                                                                    <span class="pull-right text-warning">(Đang chờ duyệt)</span>
+                                                                                </h4>
+                                                                                {{--  <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="width: 10%">
+                                                                        <div class="media">
+                                                                            <div class="media-body">
+                                                                                <h4 class="title">
+                                                                                    <span class="pull-right "> {{ $trip->price }} K</span>
+                                                                                </h4>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                @break
+                                                                @case(2)
+                                                                <tr data-status="later">
+                                                                    <td style="width: 5%">{{$key}}</td>
+                                                                    <td>
+                                                                        <div class="media">
+                                                                            <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
+                                                                                <img src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" class="media-photo" width="35px" height="35px">
+                                                                            </a>
+                                                                            <div class="media-body">
+                                                                                <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
+                                                                                <h4 class="title ml-2">
+                                                                                    {{ $trip->user2->user_name }}
+                                                                                    <span class="pull-right text-dark">(Bị hết hạn)</span>
+                                                                                </h4>
+                                                                                {{--  <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="width: 10%">
+                                                                        <div class="media">
+                                                                            <div class="media-body">
+                                                                                <h4 class="title">
+                                                                                    <span class="pull-right "> {{ $trip->price }} K</span>
+                                                                                </h4>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                @break
+                                                                @case(3)
+                                                                <tr data-status="process">
+                                                                    <td style="width: 5%">{{$key}}</td>
+                                                                    <td>
+                                                                        <div class="media">
+                                                                            <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
+                                                                                <img src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" class="media-photo" width="35px" height="35px">
+                                                                            </a>
+                                                                            <div class="media-body">
+                                                                                <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
+                                                                                <h4 class="title ml-2">
+                                                                                    {{ $trip->user2->user_name }}
+                                                                                    <span class="pull-right later">(Tiến hành)</span>
+                                                                                </h4>
+{{--                                                                                <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="width: 10%">
+                                                                        <div class="media">
+                                                                            <div class="media-body">
+                                                                                <h4 class="title">
+                                                                                    <span class="pull-right "> {{ $trip->price }} K</span>
+                                                                                </h4>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                @break
+                                                                @case(4)
+                                                                <tr data-status="success">
+                                                                    <td style="width: 5%">{{$key}}</td>
+                                                                    <td>
+                                                                        <div class="media">
+                                                                            <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
+                                                                                <img src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" class="media-photo" width="35px" height="35px">
+                                                                            </a>
+                                                                            <div class="media-body">
+                                                                                <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
+                                                                                <h4 class="title ml-2">
+                                                                                    {{ $trip->user2->user_name }}
+                                                                                    <span class="pull-right text-success">(Hoàn thành)</span>
+                                                                                </h4>
+                                                                                {{-- <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td style="width: 10%">
+                                                                        <div class="media">
+                                                                            <div class="media-body">
+                                                                                <h4 class="title">
+                                                                                    <span class="pull-right "> {{ $trip->price }} K</span>
+                                                                                </h4>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                @break
+                                                                @endswitch
+                                                        @endforeach
                                                         </tbody>
                                                     </table>
                                                 </div>

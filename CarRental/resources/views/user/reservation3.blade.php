@@ -9,7 +9,7 @@
                         <h3>Reservation</h3>
                         <ol class="breadcrumb">
                             <li><a href="#">Home</a></li>
-                            <li class="active">Reservation</li>
+                            <li class="active">Khởi hành</li>
                         </ol>
                     </div>
                 </div>
@@ -21,24 +21,24 @@
             <div class="row">
                 <div class="col-xs-12 padd-lr0">
                     <ul class="steps">
-                        <li class="title-wrap active" data-toggle="collapse" href="#reservation1" aria-expanded="false" aria-controls="reservation1">
+                        <li class="title-wrap" data-toggle="collapse" href="#reservation1" aria-expanded="false" aria-controls="reservation1">
                             <div class="title">
-                                <a><span>1.</span>Duyệt yêu cầu</a>
+                                <a href="/trip/detail/{{$checkout->id}}"><span>1.</span>Duyệt yêu cầu</a>
+                            </div>
+                        </li>
+                        <li class="title-wrap">
+                            <div class="title">
+                                <a  href='{{"/trip/deposit/" .$checkout->id}}'><span>2.</span>Thanh toán cọc</a>
                             </div>
                         </li>
                         <li class="title-wrap ">
                             <div class="title">
-                                <a  href='{{ ($checkout->status_ck == 3 || $checkout->status_ck == 4 || $checkout->status_ck == 5) ? "/trip/deposit/" .$checkout->id: ""}}'><span>2.</span>Thanh toán cọc</a>
+                                <a  href='{{"/trip/process/" .$checkout->id}}'><span>3.</span>Khởi hành</a>
                             </div>
                         </li>
-                        <li class="title-wrap ">
+                        <li class="title-wrap active">
                             <div class="title">
-                                <a><span>3.</span>Khởi hành</a>
-                            </div>
-                        </li>
-                        <li class="title-wrap ">
-                            <div class="title">
-                                <a><span>4.</span>Kết thúc</a>
+                                <a  href='{{"/trip/end/" .$checkout->id}}'><span>4.</span>Kết thúc</a>
                             </div>
                         </li>
                     </ul>
@@ -51,62 +51,36 @@
             <div class="row info-trip">
                 <input type="hidden" value="{{$checkout->created_at}}" id="created_at_checkout" data-createdat ="{{$checkout->status_ck}}" data-idcheckout = "{{$checkout->id}}"/>
                 @switch($checkout->status_ck)
-                    @case(1)
-                        <div class="status-wrap ol-xs-12 padd-lr0 pending-trip" style="height: 70px;">
+                    @case(6)
+                        <div class="status-wrap col-md-12 padd-lr0 status-trip no-handing-end-car">
                             <p>
                                 <span class="status yellow-dot"></span>
-                                @if($checkout->user_id_1 == auth()->id())
-                                    <span>Đang chờ bạn duyệt ...</span></br>
-                                @else
-                                    <span>Đang chờ chủ xe duyệt...</span></br>
-                                @endif
-                                <span class="countdown font-weight-bold">Thời gian còn lại: <strong id="pending-text" ></strong></span>
+                                <span>Đang tiến hành cho thuê.</span></br>
                             </p>
                         </div>
-                    @break
-
-                    @case(0)
-                        <div class="status-wrap col-md-12 padd-lr0">
-                            <p style="background-color: black;">
-                                <span class="status red-dot"></span>
-                                <span>Chuyến đã bị huỷ. Lý do: Thay đổi lịch trình</span>
-                            </p>
-                        </div>
-                    @break
-
-                    @case(2)
-                        <div class="status-wrap col-md-12 padd-lr0">
-                            <p>
-                                <span class="status blue-dot"></span>
-                                <span>Hết hạn</span>
-                            </p>
-                        </div>
-                    @break
-
-                    @case(5)
-
-                    @case(3)
-                    <div class="status-wrap col-md-12 padd-lr0 status-trip">
-                        <p>
-                            <span class="status green-dot"></span>
-                            @if($checkout->user_id_1 == auth()->id())
-                                <span>Đã duyệt</span></br>
-                            @else
-                                <span>Chủ xe đã duyệt</span></br>
-                            @endif
-                        </p>
-                    </div>
-                    @break
+                        @break
                     @case(4)
-                    <div class="status-wrap col-md-12 padd-lr0 status-trip">
-                        <p>
-                            <span class="status green-dot"></span>
-                            <span>Đã hoàn thành</span></br>
-                        </p>
-                    </div>
+                        @if($checkout->status_1 == 9)
+                        <div class="status-wrap col-md-12 padd-lr0 status-trip">
+                            <p>
+                                @if($checkout->user_id_1 == auth()->id())
+                                    <span class="status yellow-dot"></span>
+                                    <span>Khách hàng đã trả xe, bạn đã nhận được xe? Nếu chưa hãy báo cáo</span></br>
+                                @else
+                                    <span class="status red-dot"></span>
+                                    <span>Chờ chủ xe xác nhận </span></br>
+                                @endif
+                            </p>
+                        </div>
+                        @else
+                            <div class="status-wrap col-md-12 padd-lr0 status-trip">
+                                <p>
+                                    <span class="status yellow-dot"></span>
+                                    <span>Chuyến đã hoàn thành.</span></br>
+                                </p>
+                            </div>
+                        @endif
                     @break
-                    @default
-                    <span>Something went wrong, please try again</span>
                 @endswitch
                 <div class="col-md-12 padd-lr0">
                     <div class="wheel-start-form wheel-start-form2" style="background-color: #ffffff">
@@ -179,113 +153,84 @@
                                     <p class="mt-2">{{$checkout->car->location_name}}.</p>
                                     <div class="wheel-map style-1" id = "mapSingleCar" data-lat="{{ $checkout->car->lat }}" data-lng="{{ $checkout->car->long }}" data-car="{{ $checkout->car }}" data-marker="images/marker.png" style="height: 331px; width: 100% "></div>
                                 </div>
-                                <div class="m-1 mt-3 row ">
-                                    <h6 class="title-list">BẢNG GIÁ</h6>
-                                    <table class="table table-borderless border-table col-lg-6 mt-5">
-                                        <thead>
-                                        <tr>
-                                            <th>Đơn giá thuê</th>
-                                            <th>{{$checkout->car->price}} 000 / Ngày</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr >
-                                                <td>Phí dịch vụ</td>
-                                                <td>0 / Ngày</td>
-                                            </tr>
-                                            <tr class="rule-row">
-                                                <td >Tổng phí thuê xe</td>
-                                                <td>{{$checkout->car->price}} 000 x <strong>2 Ngày</strong></td>
-                                            </tr>
-                                            <tr>
-                                                <th><strong>Tổng cộng</strong></th>
-                                                <th><strong>{{$checkout->price}} 000 VNĐ</strong></th>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <div class="col-lg-4 mt-5">
-                                        <h4>Tiền cọc <span class="badge badge-secondary">200 000</span></h4>
-
-                                        <h4 class="mt-2">Tiền trả sau <span class="badge badge-success">200 000</span></h4>
-                                    </div>
-                                </div>
-                                <div class="mt-3">
-                                    <h6 class="title-list">GIẤY TỜ THUÊ XE (BẢN GỐC)</h6>
-                                    <div class="group-car-detail mt-2">
-                                        <div class="ctn-desc-new ml-3">
-                                            <ul class="required">
-                                                <li> <img style="width: 20px; height: 20px; margin-right: 10px;" class="img-ico" src="https://n1-cstg.mioto.vn/v4/p/m/icons/papers/cmnd.png" alt="Mioto - Thuê xe tự lái"> CMND và GPLX (đối chiếu)</li>
-                                                <li> <img style="width: 20px; height: 20px; margin-right: 10px;" class="img-ico" src="https://n1-cstg.mioto.vn/v4/p/m/icons/papers/passport.png" alt="Mioto - Thuê xe tự lái"> Hộ Khẩu hoặc KT3 hoặc Passport (giữ lại)</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mt-3">
-                                    <h6 class="title-list">TÀI SẢN THẾ CHẤP</h6>
-                                    <div class="group-car-detail mt-2">
-                                        <div class="ctn-desc-new ml-3">
-                                            <ul class="required">
-                                                <li>15 triệu tiền mặt hoặc Xe máy (cà vẹt gốc) giá trị 15 triệu</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </form>
                     </div>
                 </div>
-                @if($checkout->status_ck == 1)
-                    @if($checkout->user_id_1 != auth()->id())
-                        <button class="btn btn-danger status-wrap ol-xs-12 padd-lr0 mt-2 btnRejectTrip" data-toggle="modal" data-target="#modalConfirmRejectTrip" >Hủy chuyến</button>
-                    @elseif ($checkout->status_ck != 3)
-                        <button class="btn btn-danger status-wrap ol-xs-12 padd-lr0 mt-2 "  id="btnRejectTrip2" >Hủy chuyến</button>
-                        <button class="btn btn-success status-wrap ol-xs-12 padd-lr0"  id="btnAcceptTrip" >Đồng ý</button>
+                @if($checkout->user_id_1 == auth()->id())
+                    @if($checkout->status_ck != 4)
+                        <button class="btn btn-primary status-wrap ol-xs-12 padd-lr0 mt-2 btnReceiveEndCar" data-toggle="modal" data-target="#modalReceiveEndCar" >Đã nhận lại xe</button>
+                    @endif
+                    @if($checkout->status_1 == 9)
+                        <button class="btn btn-danger status-wrap ol-xs-12 padd-lr0 mt-2 btnReportEnd" data-toggle="modal" data-target="#modalReportEndCar" >Báo xấu</button>
+                    @endif
+                @else
+                    @if($checkout->status_ck != 4)
+                        <button class="btn btn-primary status-wrap ol-xs-12 padd-lr0 mt-2 btnHandingEndCar" data-toggle="modal" data-target="#modalHandingEndCar">Đã giao lại xe</button>
                     @endif
                 @endif
             </div>
         </div>
     </div>
 {{--    modal confirm--}}
-    <div class="modal fade" id="modalConfirmRejectTrip" tabindex="-1" role="dialog" aria-labelledby="modalConfirmViewDetailCheckout" aria-hidden="true">
+    <div class="modal fade" id="modalReceiveEndCar" tabindex="-1" role="dialog" aria-labelledby="modalConfirmHandingCar" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hủy chuyến</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Xác nhận</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>
-                        <span>Bạn có chắc muốn hủy chuyến?</span>
-                    </p>
+                    <label>Bạn đã nhận lại xe từ khách hàng?</label>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" id="btnRejectTripContinue">Tiếp tục</button>
+                    <button class="btn btn-primary" id="btnReceiveEndCar" >Đã nhận</button>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="modalSelectReasonRejectTrip" tabindex="-1" role="dialog" aria-labelledby="modalConfirmViewDetailCheckout" aria-hidden="true">
+    <div class="modal fade" id="modalHandingEndCar" tabindex="-1" role="dialog" aria-labelledby="modalConfirmHandingCar" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hủy chuyến</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Đánh giá chuyến đi</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <select class="browser-default custom-select" id="reasonSelect">
-                        <option value="3">Thay đổi lịch trình</option>
-                        <option value="2">Lựa chọn xe khác phù hợp hơn</option>
-                        <option selected  value="1">Lý do khác</option>
-                    </select>
-                    <input  class="form-control mt-3" id="reasonSelectText" placeholder = "  Vui lòng nhập lý do khác"/>
+                    <div class="wheel-quote-stars col-lg-12 rating rating-review">
+                        <span class="fa fa-star" data-rating="1"></span>
+                        <span class="fa fa-star" data-rating="2"></span>
+                        <span class="fa fa-star" data-rating="3"></span>
+                        <span class="fa fa-star" data-rating="4"></span>
+                        <span class="fa fa-star" data-rating="5"></span>
+                        <input type="hidden" name="whatever1" class="rating-value" value="2.56">
+                    </div>
+                    <textarea class="col-md-12 review-text"></textarea>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" id="btnRejectTrip" >Hủy chuyên</button>
+                    <button class="btn btn-primary review-end-car" id="{{$checkout->id}}">Đánh giá</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalReportEndCar" tabindex="-1" role="dialog" aria-labelledby="modalReportCar" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Báo cáo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                   <label>Bạn chưa nhận được ô tô? Báo xấu chủ xe.  </label>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" id="btnReport" >Báo xấu</button>
                 </div>
             </div>
         </div>

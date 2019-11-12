@@ -6,288 +6,207 @@
             <div class="row">
                 <div class="col-xs-12 padd-lr0">
                     <div class="wheel-start3-body clearfix marg-lg-t255 marg-lg-b75 marg-sm-t190 marg-xs-b30">
-                        <h3>List your car</h3>
+                        <h3>Đăng ký xe</h3>
                         <ol class="breadcrumb">
                             <li><a href="#">Home</a></li>
                             <li><a href="#"> pages </a></li>
-                            <li class="active">List your car</li>
+                            <li class="active">Đăng ký xe</li>
                         </ol>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- /////////////////////////////////// -->
     <div class="wheel-register-block">
         <div class="container container-list-car">
             <form action="{{ action('CarController@createCar') }}" method="POST" enctype="multipart/form-data">
             {{ csrf_field()}}
-            <!--Accordion wrapper-->
                 <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
-
-                <!-- Accordion card -->
-                <div class="card">
-
-                    <!-- Card header -->
-                    <div class="card-header" role="tab" id="headingTwo1">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo11"
-                           aria-expanded="false" aria-controls="collapseTwo11">
-                            <h3 class="mb-0 title-list">
-                                Your car
-                            </h3>
-                        </a>
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingTwo1">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo11"
+                               aria-expanded="false" aria-controls="collapseTwo11">
+                                <h3 class="mb-0 title-list">
+                                    Thông tin xe
+                                </h3>
+                            </a>
+                        </div>
+                        <div id="collapseTwo11" class="collapse" role="tabpanel" aria-labelledby="headingTwo11"
+                             data-parent="#accordionEx1">
+                            <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="formGroupExampleInput">Địa chỉ xe</label>
+                                        <input type="hidden" id="inputLatCar" name="lat">
+                                        <input type="hidden" id="inputLongCar" name="lng">
+                                        <div class="row ml-1">
+                                            <input type="text" class="form-control w-25" id="inputCarLocation" name="carLocation" data-lat="" data-lng="">
+                                            <button type="button" class="btn btn-primary ml-2" data-toggle="modal" data-target="#myModal">
+                                                Map
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-2">
+                                            <label for="formGroupExampleInput2">Hãng xe</label>
+                                            <select class="form-control" id="SelectCarCategoryParent" name="selectCarCategoryParent">
+                                                @foreach ($categories as $category)
+                                                    @if ($category->id_parent == '0')
+                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <label for="formGroupExampleInput2">Mẫu xe</label>
+                                            <select class="form-control" id="SelectCarCategoryChilren" name="selectCarCategoryChildren">
+                                                @foreach ($categories as $category)
+                                                    @if ($category->id_parent == '1')
+                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label for="formGroupExampleInput2">Năm sản xuất</label>
+                                            <select class="form-control" id="SelectCarYear" name="selectCarYear">
+                                                <option>2019</option>
+                                                <option>2018</option>
+                                                <option>2017</option>
+                                                <option>2016</option>
+                                                <option>2015</option>
+                                                <option>2014</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <!-- Card body -->
-                    <div id="collapseTwo11" class="collapse" role="tabpanel" aria-labelledby="headingTwo11"
-                         data-parent="#accordionEx1">
-                        <div class="card-body">
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingTwo2">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo21"
+                               aria-expanded="false" aria-controls="collapseTwo21">
+                                <h3 class="mb-0 title-list">
+                                    Thông tin chủ xe
+                                </h3>
+                            </a>
+                        </div>
+                        <div id="collapseTwo21" class="collapse" role="tabpanel" aria-labelledby="headingTwo21"
+                             data-parent="#accordionEx1">
+                            <div class="card-body">
                                 <div class="form-group">
-                                    <label for="formGroupExampleInput">Where is your car located?</label>
-                                    <input type="text" class="form-control w-25" id="inputCarLocation" name="carLocation" placeholder="Example input" data-lat="" data-lng="">
-                                    <input type="hidden" id="inputLatCar" name="lat">
-                                    <input type="hidden" id="inputLongCar" name="lng">
-                                    <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal">
-                                        Location
-                                    </button>
+                                    <p class="text-secondary">Chúng tôi xin số của bạn để liên lạc với bạn về chuyến đi của bạn và kết nối chủ nhà với khách..</p>
+                                    <label for="formGroupExampleInput2">Số điện thoại</label>
+                                    <input type="text" class="form-control w-25" id="formGroupExampleInput" name="phone" value="{{($user->phone != "") ? "" : $user->phone }}">
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-lg-2">
-                                        <label for="formGroupExampleInput2">Category</label>
-                                        <select class="form-control" id="SelectCarCategoryParent" name="selectCarCategoryParent">
-                                            @foreach ($categories as $category)
-                                                @if ($category->id_parent == '0')
-                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <label for="formGroupExampleInput2">Name</label>
-                                        <select class="form-control" id="SelectCarCategoryChilren" name="selectCarCategoryChildren">
-                                            @foreach ($categories as $category)
-                                                @if ($category->id_parent == '1')
-                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <label for="formGroupExampleInput2">Year</label>
-                                        <select class="form-control" id="SelectCarYear" name="selectCarYear">
-                                            <option>2020</option>
-                                            <option>2019</option>
-                                            <option>2018</option>
-                                            <option>2017</option>
-                                            <option>2016</option>
-                                            <option>2015</option>
-                                            <option>2014</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <button class="btn-info">Next</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
+                                    <div class="col-lg-12">
 
-                    <!-- Card header -->
-                    <div class="card-header" role="tab" id="headingTwo2">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo21"
-                           aria-expanded="false" aria-controls="collapseTwo21">
-                            <h3 class="mb-0 title-list">
-                                Profile
-                            </h3>
-                        </a>
-                    </div>
-
-                    <!-- Card body -->
-                    <div id="collapseTwo21" class="collapse" role="tabpanel" aria-labelledby="headingTwo21"
-                         data-parent="#accordionEx1">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <p>We ask for your number to contact you about your trip and to connect hosts with guests.</p>
-                                <label for="formGroupExampleInput2">Phone number</label>
-                                <input type="text" class="form-control w-25" id="formGroupExampleInput" name="phone" placeholder="Phone">
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-lg-5">
-                                    <label for="formGroupExampleInput2">Profile Photo</label>
-                                    <div class="file-loading">
-                                        <input id="file-5" type="file" class="file " name="profilePhoto" id="profilePhoto"  data-preview-file-type="any" data-upload-url="#">
+                                        @if($user->avatar != "")
+                                            <img src="{{ asset('storage/uploads/profile/'. $user->avatar) }}" width="245px" height="163px" alt=" {{$user->user_name}}"/>
+                                        @else
+                                            <label for="formGroupExampleInput2">Ảnh cá nhân</label>
+                                            <input type="file" class="file" name="profilePhoto" id="profilePhoto">
+                                        @endif
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn-info">Next</button>
                         </div>
                     </div>
-
-                </div>
-
-                <div class="card">
-
-                    <!-- Card header -->
-                    <div class="card-header" role="tab" id="headingThree31">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseThree31"
-                           aria-expanded="false" aria-controls="collapseThree31">
-                            <h3 class="mb-0 title-list">
-                                Driver’s license
-                            </h3>
-                        </a>
-                    </div>
-
-                    <!-- Card body -->
-                    <div id="collapseThree31" class="collapse" role="tabpanel" aria-labelledby="headingThree31"
-                         data-parent="#accordionEx1">
-                        <div class="card-body">
-                            <div class="row form-group">
-                                <div class="col-lg-3">
-                                    <label for="formGroupExampleInput2">First name</label>
-                                    <input type="text" class="form-control " name="fristName" placeholder="First name">
-                                </div>
-                                <div class="col-lg-4">
-                                    <label for="formGroupExampleInput2">Middle name</label>
-                                    <input type="text" class="form-control" name="middleName" placeholder="Middle name">
-                                </div>
-                                <div class="col-lg-2">
-                                    <label for="formGroupExampleInput2">Last name</label>
-                                    <input type="text" class="form-control" name="lastName" placeholder="Last name">
-                                </div>
-                            </div>
-                                <div class=" row form-group m-1">
-                                    <p class="text-black-50">Enter your name <strong class="text-danger">exactly as it appears on your driver's license
-                                        </strong></p>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col-lg-3">
-                                        <label for="formGroupExampleInput2">Day of birth</label>
-                                        <input type="date" class="form-control h-75" name="dayOfBirth" placeholder="Example input">
-                                    </div>
-                                </div>
-                            <button class="btn-info">Next</button>
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingThree41">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseThree41"
+                               aria-expanded="false" aria-controls="collapseThree41">
+                                <h3 class="mb-0 title-list">
+                                    Chi tiết xe
+                                </h3>
+                            </a>
                         </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <!-- Card header -->
-                    <div class="card-header" role="tab" id="headingThree41">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseThree41"
-                           aria-expanded="false" aria-controls="collapseThree41">
-                            <h3 class="mb-0 title-list">
-                                Car details
-                            </h3>
-                        </a>
-                    </div>
-                    <!-- Card body -->
-                    <div id="collapseThree41" class="collapse" role="tabpanel" aria-labelledby="headingThree41"
-                         data-parent="#accordionEx1">
-                        <div class="card-body">
+                        <div id="collapseThree41" class="collapse" role="tabpanel" aria-labelledby="headingThree41"
+                             data-parent="#accordionEx1">
+                            <div class="card-body">
                                 <div class="row form-group">
-                                    <div class="col-lg-5">
-                                        <label for="formGroupExampleInput2">License plate number</label>
-                                        <input type="text" class="form-control" name="plateNumber" placeholder="Plate Number">
+                                        <div class="col-lg-5">
+                                            <label for="formGroupExampleInput2">Biển số</label>
+                                            <input type="text" class="form-control" name="plateNumber">
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <label for="formGroupExampleInput2">Đơn giá thuê</label>
+                                            <input type="text" class="form-control" name="priceCar" value="1000">
+                                        </div>
                                     </div>
-                                    <div class="col-lg-5">
-                                        <label for="formGroupExampleInput2">Price/1 day</label>
-                                        <input type="text" class="form-control" name="priceCar" placeholder="Price Car 1 Day">
-                                    </div>
-                                </div>
                                 <div class="row form-group">
-                                    <div class="col-lg-5">
-                                        <label for="formGroupExampleInput2">Số ghế</label>
-                                        <select class="form-control" name="numSeat">
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="7">7</option>
-                                            <option value="16">16</option>
-                                        </select>
+                                        <div class="col-lg-5">
+                                            <label for="formGroupExampleInput2">Số ghế</label>
+                                            <select class="form-control" name="numSeat">
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="7">7</option>
+                                                <option value="16">16</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <label for="formGroupExampleInput2">Chuyển động xe</label>
+                                            <select class="form-control" name="moveCar">
+                                                <option value="Số sàn">Số sàn</option>
+                                                <option value="Số tự động">Số tự động</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-5">
-                                        <label for="formGroupExampleInput2">Chuyển động xe</label>
-                                        <select class="form-control" name="moveCar">
-                                            <option value="Số sàn">Số sàn</option>
-                                            <option value="Số tự động">Số tự động</option>
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class="row form-group m-1">
-                                    <label for="formGroupExampleInput2">Car description</label>
-                                    <textarea  cols="2" class="form-control" name="carDescription" placeholder="Car description"></textarea>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col-lg-3">
-                                        <label for="formGroupExampleInput2">Car features</label><br>
-                                        <input type="checkbox" name="featured[]" value="Cửa sổ trời"> Cửa sổ trời<br>
-                                        <input type="checkbox" name="featured[]" value="GPS"> GPS<br>
-                                        <input type="checkbox" name="featured[]" value="Ghế trẻ em"> Ghế trẻ em<br>
+                                        <label for="formGroupExampleInput2">Mô tả</label>
+                                        <textarea  cols="2" class="form-control" name="carDescription" placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách.
+                                            Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe trang bị hệ thống cảm biến lùi, gạt mưa tự động, đèn pha tự động, camera hành trình, hệ thống giải trí AV cùng nhiều tiện nghi khác.."></textarea>
                                     </div>
-                                    <div class="col-lg-3">
-                                        <label for="formGroupExampleInput2"></label><br>
-                                        <input type="checkbox" name="featured[]" value="Camera sau"> Camera sau<br>
-                                        <input type="checkbox" name="featured[]" value="Bluetooth"> Bluetooth<br>
-                                        <input type="checkbox" name="featured[]" value="USB port"> USB port<br>
+                                <div class="row form-group mt-3">
+                                        <div class="col-lg-3">
+                                            <label for="formGroupExampleInput2">Tính năng</label><br>
+                                            <input type="checkbox" name="featured[]" value="Cửa sổ trời"> Cửa sổ trời<br>
+                                            <input type="checkbox" name="featured[]" value="GPS"> GPS<br>
+                                            <input type="checkbox" name="featured[]" value="Ghế trẻ em"> Ghế trẻ em<br>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label for="formGroupExampleInput2"></label><br>
+                                            <input type="checkbox" name="featured[]" value="Camera sau"> Camera sau<br>
+                                            <input type="checkbox" name="featured[]" value="Bluetooth"> Bluetooth<br>
+                                            <input type="checkbox" name="featured[]" value="USB port"> USB port<br>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label for="formGroupExampleInput2"></label><br>
+                                            <input type="checkbox" name="featured[]" value="Map"> Map<br>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-3">
-                                        <label for="formGroupExampleInput2"></label><br>
-                                        <input type="checkbox" name="featured[]" value="Map"> Map<br>
-                                    </div>
-                                </div>
-                                <button class="btn-info">Next</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card">
-                    <!-- Card header -->
-                    <div class="card-header" role="tab" id="headingThree51">
-                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseThree51"
-                           aria-expanded="false" aria-controls="collapseThree51">
-                            <h3 class="mb-0 title-list">
-                                Car photos
-                            </h3>
-                        </a>
-                    </div>
-                    <!-- Card body -->
-                    <div id="collapseThree51" class="collapse" role="tabpanel" aria-labelledby="headingThree51"
-                         data-parent="#accordionEx1">
-                        <div class="card-body">
-                            <div class="row form-group">
-                                <div class="col-lg-7">
-                                    <p for="formGroupExampleInput2">It’s important for guests to see your car before they request it. Once you have a good photo that shows the whole car, add more photos displaying the car’s details and interior. Learn more about taking great photos.</p>
-                                    <p> Photos must be at least 640px by 320px and smaller than 10mb</p>
-                                    <div class="file-loading">
-                                        <input id="file-5" type="file" class="file " name="photoCar[]" multiple data-preview-file-type="any" data-upload-url="#">
+                    <div class="card">
+                        <div class="card-header" role="tab" id="headingThree51">
+                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseThree51"
+                               aria-expanded="false" aria-controls="collapseThree51">
+                                <h3 class="mb-0 title-list">
+                                    Hình ảnh
+                                </h3>
+                            </a>
+                        </div>
+                        <div id="collapseThree51" class="collapse" role="tabpanel" aria-labelledby="headingThree51"
+                             data-parent="#accordionEx1">
+                            <div class="card-body">
+                                <div class="row form-group">
+                                    <div class="col-lg-7">
+                                        <p class="text-secondary">Nó rất quan trọng đối với khách để xem xe của bạn trước khi họ yêu cầu. Khi bạn đã có một bức ảnh đẹp cho thấy toàn bộ chiếc xe, hãy thêm nhiều hình ảnh hiển thị chi tiết và nội thất của xe. Tìm hiểu thêm về chụp ảnh tuyệt vời.</p>
+                                        <p class="text-secondary">Đăng nhiều hình ở các góc độ khác nhau để tăng thông tin cho xe của bạn.</p>
+                                        <div class="file-loading">
+                                            <input id="file-5" type="file" class="file " name="photoCar[]" multiple data-preview-file-type="any" data-upload-url="#">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn-info">Next</button>
                         </div>
                     </div>
-                </div>
-                <div class="p-2">
-                    <button type="submit" class="wheel-btn">Public</button>
+                    <div class="p-2">
+                        <button type="submit" class="wheel-btn">Đăng kí</button>
+                    </div>
                 </div>
             </form>
-            </div>
-        </div>
-    </div>
-    <!-- /////////////////////////////// -->
-    <div class="wheel-subscribe wheel-bg2">
-        <div class="container ">
-            <div class="row">
-                <div class="col-md-6 padd-lr0">
-                    <div class="wheel-header">
-                        <h5>Newsletter Signup </h5>
-                        <h3>Subscribe & get<span> 20% </span> Off</h3>
-                    </div>
-                </div>
-                <div class="col-md-6 padd-lr0">
-                    <form action="#">
-                        <input type="text" placeholder="Your Email Adddress">
-                        <button class="wheel-btn">Subscribe</button>
-                    </form>
-                </div>
-            </div>
         </div>
     </div>
     <!-- Modal location -->
@@ -307,11 +226,6 @@
                             <div class="location-map" id="location-map">
                                 <div style="width: 600px; height: 400px;" id="map_canvas"></div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 modal_body_end">
-                            <button class="btn btn-info" id="saveCarLocation">Save</button>
                         </div>
                     </div>
                 </div>

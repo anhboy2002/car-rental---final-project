@@ -89,9 +89,29 @@ Route::get('trip/detail/{id}', [
     'uses' => 'CheckoutController@tripDetailIndex',
 ]);
 
+Route::get('trip/deposit/{id}', [
+    'as' => 'trip.deposit',
+    'uses' => 'CheckoutController@tripDepositIndex',
+]);
+
+Route::get('trip/process/{id}', [
+    'as' => 'trip.process',
+    'uses' => 'CheckoutController@tripProcessIndex',
+]);
+
+Route::get('trip/end/{id}', [
+    'as' => 'trip.end',
+    'uses' => 'CheckoutController@tripEndIndex',
+]);
+
 Route::post('/feedback/{id}/{point}', [
     'as' => 'feedback',
     'uses' => 'CarController@feedback',
+]);
+
+Route::post('/feedback-end/{id}/{point}', [
+    'as' => 'feedback.end',
+    'uses' => 'CarController@feedbackEndTrip',
 ]);
 
 Route::get('trip', [

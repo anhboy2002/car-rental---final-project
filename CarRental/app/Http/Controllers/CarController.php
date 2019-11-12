@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\Category;
+use App\Models\Checkout;
 use App\Models\Feedback;
 use App\Models\Photo;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -18,7 +20,7 @@ class CarController extends Controller
             'user_id' => auth()->user()->id,
             'car_category_id' => $request->selectCarCategoryChildren,
             'year' => $request->selectCarYear,
-            'description' => $request->selectCarYear,
+            'description' => $request->carDescription,
             'num_seat' => $request->numSeat,
             'rate' => 0,
             'status' => 0,
@@ -38,14 +40,15 @@ class CarController extends Controller
 
         $user->phone = $request->phone;
         $avatar =  $request->profilePhoto;
+        if($avatar != null) {
+            $filenameWithExt = $avatar->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $avatar->getClientOriginalExtension();
+            $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+            $avatar->storeAs('public/uploads/profile', $fileNameToStore);
 
-        $filenameWithExt = $avatar->getClientOriginalName();
-        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-        $extension = $avatar->getClientOriginalExtension();
-        $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-        $avatar->storeAs('public/uploads/profile', $fileNameToStore);
-
-        $user->avatar = $fileNameToStore;
+            $user->avatar = $fileNameToStore;
+        }
         $user->save();
 
         $this->storePhotosCar($request, $car, true);
@@ -102,8 +105,12 @@ class CarController extends Controller
 
     public function getCreateCar() {
         $categories = Category::all();
+        $user = User::where('id', auth()->id())->first();
 
-        return view('user.list-your-car', compact('categories'));
+        return view('user.list-your-car', [
+            'categories' => $categories,
+            'user' => $user,
+        ]);
     }
 
     public function getCategoryChildren($id) {
@@ -155,11 +162,31 @@ class CarController extends Controller
         ]);
     }
 
+    public function feedbackEndTrip($id , $rating, Request $request)
+    {
+        $content = $request->input('content');
+        $trip = Checkout::where('id', $id)->first();
+        $feedback = new Feedback([
+            'car_id' => $trip->car_id,
+            'user_id' => $trip->user_id_2,
+            'comment' => $content,
+            'rate' => $rating,
+        ]);
+        $feedback->save();
+
+        return response()->json([
+            'status' => "0" ]);
+    }
+
     public function carSettingIndex($id)
     {
         $car = Car::where('id', $id)->first();
+        $trips = Checkout::where('car_id', $id)->get();
 
-        return view('user.manage-car-detail', ['car' => $car]);
+        return view('user.manage-car-detail', [
+            'car' => $car,
+            'trips' => $trips,
+        ]);
     }
 
     public function carSettingUpdate(Request $request, $id)

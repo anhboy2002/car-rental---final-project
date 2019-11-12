@@ -172,6 +172,28 @@ $(document).on('click', '.review', function(e){
     e.preventDefault();
     $.ajax(options);
 });
+$(document).on('click', '.review-end-car', function(e){
+    var token = $('meta[name="csrf-token"]').attr('content');
+    var content = $('.review-text').val();
+    var idTrip = $(this).attr('id');
+    var url = "/feedback-end/" + idTrip + "/" + point;
+    var options = {
+        url:url,
+        method:"post",
+        data:{
+            content:content,
+            _token: token,
+        },
+        success:function(response) {
+        $('#modalHandingEndCar').modal('hide');
+        },
+        error: function (err) {
+            console.log(arguments);
+        }
+    };
+    e.preventDefault();
+    $.ajax(options);
+});
 
 $(document).on('click', '#searchCarIndex', function(){
     var data = {
@@ -188,7 +210,7 @@ $(document).on('click', '#policyCheckout', function(){
     if ($('.bookCar').attr('disabled')) $('.bookCar').removeAttr('disabled');
     else $('.bookCar').attr('disabled', 'disabled');
 });
-
+//book car
 $(document).on('click', '.bookCar', function(e){
 
     var token = $('meta[name="csrf-token"]').attr('content');
@@ -208,10 +230,13 @@ $(document).on('click', '.bookCar', function(e){
         },
         success:function(response) {
             //show confirm view detail
-
-            $('#bookCarModal').modal('hide');
-            $('#modalConfirmViewDetailCheckout').modal('show');
-            $('#btnViewDetailTrip').attr("href", "http://localhost:8000/trip/detail/" + response.checkoutId);
+            if(response.status != "0") {
+                $('#bookCarModal').modal('hide');
+                $('#modalConfirmViewDetailCheckout').modal('show');
+                $('#btnViewDetailTrip').attr("href", "http://localhost:8000/trip/detail/" + response.checkoutId);
+            } else {
+                alert("Lỗi");
+            }
         },
         error: function (err) {
             console.log(arguments);
@@ -226,6 +251,7 @@ $(document).on('click', '#btnRejectTripContinue', function(){
     $('#modalSelectReasonRejectTrip').modal('show');
 });
 
+//reject trip khach
 $(document).on('click', '#btnRejectTrip', function(){
     changeStatusTrip(0,1,0);
     var valueSelect = $('#reasonSelect :selected').text();
@@ -243,6 +269,122 @@ $(document).on('click', '#btnRejectTrip', function(){
     );
     $('.btnRejectTrip').hide();
     $('.pending-trip').hide();
+    $("html, body").animate({ scrollTop: 600 }, "slow");
+});
+//reject trip chu xe
+$(document).on('click', '#btnRejectTrip2', function(){
+    changeStatusTrip(0,0,1);
+    $('#modalSelectReasonRejectTrip').modal('hide');
+    $('.info-trip').prepend(
+    "  <div class='status-wrap col-md-12 padd-lr0'>" +
+            "                            <p style='background-color: black;'>" +
+            "                                <span class='status red-dot'></span>" +
+            "                                <span>Chuyến đã bị huỷ.</span>" +
+            "                            </p>" +
+            "                        </div>"
+    );
+    $('.btnRejectTrip').hide();
+    $('.pending-trip').hide();
+    $("html, body").animate({ scrollTop: 600 }, "slow");
+});
+// trip chu xe
+$(document).on('click', '#btnAcceptTrip', function(){
+   changeStatusTrip(5,0,0);
+    $('#modalSelectReasonRejectTrip').modal('hide');
+    $('.info-trip').prepend(
+    "  <div class='status-wrap col-md-12 padd-lr0'>" +
+            "                            <p>" +
+            "                                <span class='status green-dot'></span>" +
+            "                                <span>Đã duyệt.</span>" +
+            "                            </p>" +
+            "                        </div>"
+    );
+    $('#btnRejectTrip2').hide();
+    $('#btnAcceptTrip').hide();
+    $('.pending-trip').hide();
+    $("html, body").animate({ scrollTop: 600 }, "slow");
+});
+// xac nhan da coc
+$(document).on('click', '#btnProcessTrip', function(){
+    changeStatusTrip(3,0,0);
+    $('#modalConfirmAcceptProcessTrip').modal('hide');
+    $('.info-trip').prepend(
+    "  <div class='status-wrap col-md-12 padd-lr0'>" +
+            "                            <p>" +
+            "                                <span class='status green-dot'></span>" +
+            "                                <span>Đã cọc.</span>" +
+            "                            </p>" +
+            "                        </div>"
+    );
+    $('.btnDepositTrip').hide();
+    $('.deposit-trip').hide();
+    $("html, body").animate({ scrollTop: 600 }, "slow");
+});
+// xac nhan da giao xe
+$(document).on('click', '#btnHandingCar', function(){
+    changeStatusTrip(6,6, 0);
+    $('#modalConfirmHandingCar').modal('hide');
+    $('.info-trip').prepend(
+    "  <div class='status-wrap col-md-12 padd-lr0'>" +
+            "                            <p>" +
+            "                                <span class='status green-dot'></span>" +
+            "                                <span>Đã giao xe.</span>" +
+            "                            </p>" +
+            "                        </div>"
+    );
+    $('.btnHandingCar').hide();
+    $('.no-handing-car').hide();
+    $("html, body").animate({ scrollTop: 600 }, "slow");
+});
+
+// xac nhan da nhan xe
+$(document).on('click', '#btnReceiveCar', function(){
+    changeStatusTrip(6,0,6);
+    $('#modalConfirmReceiveCar').modal('hide');
+    $('.info-trip').prepend(
+    "  <div class='status-wrap col-md-12 padd-lr0'>" +
+            "                            <p>" +
+            "                                <span class='status green-dot'></span>" +
+            "                                <span>Đã nhận xe.</span>" +
+            "                            </p>" +
+            "                        </div>"
+    );
+    $('.btnDepositTrip').hide();
+    $('.deposit-trip').hide();
+    $("html, body").animate({ scrollTop: 600 }, "slow");
+});
+
+// xac nhan da giao lai xe
+$(document).on('click', '.btnHandingEndCar', function(){
+    // changeStatusTrip(4,0,4);
+    $('.info-trip').prepend(
+    "  <div class='status-wrap col-md-12 padd-lr0'>" +
+            "                            <p>" +
+            "                                <span class='status green-dot'></span>" +
+            "                                <span>Đã giao lại xe.</span>" +
+            "                            </p>" +
+            "                        </div>"
+    );
+    $('.no-handing-end-car').hide();
+    $('.btnHandingEndCar').hide();
+    $("html, body").animate({ scrollTop: 600 }, "slow");
+});
+// xac nhan da nhan lai xe
+$(document).on('click', '#btnReceiveEndCar', function(){
+    // changeStatusTrip(4,4,0);
+    $('#modalReceiveEndCar').modal('hide');
+    $('.info-trip').prepend(
+    "  <div class='status-wrap col-md-12 padd-lr0'>" +
+            "                            <p>" +
+            "                                <span class='status green-dot'></span>" +
+            "                                <span>Đã nhận lại xe.</span>" +
+            "                            </p>" +
+            "                        </div>"
+    );
+    $('.no-handing-end-car').hide();
+    $('.btnReceiveEndCar').hide();
+    $('.status-trip').hide();
+    $('.btnReportEnd').hide();
     $("html, body").animate({ scrollTop: 600 }, "slow");
 });
 
@@ -307,7 +449,7 @@ function changeStatusTrip(status, status_1, status_2) {
     };
     $.ajax(options);
 }
-//favotire car
+//favor car
 
 $(document).on('click', '.btnFavorite', function(e){
     var token = $('meta[name="csrf-token"]').attr('content');
@@ -357,6 +499,7 @@ $(document).on('click', '.btnRemoveFavorite', function(e){
     e.preventDefault();
     $.ajax(options);
 });
+
 $(document).on('click', '.btnHideCar', function(e){
     var token = $('meta[name="csrf-token"]').attr('content');
     var id = $(this).attr('id');

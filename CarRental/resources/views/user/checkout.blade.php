@@ -16,7 +16,6 @@
             </div>
         </div>
     </div>
-    <!-- /////////////////////////////////// -->
     <div class="wheel-register-block">
         <div class="container">
             <div class="row">
@@ -24,10 +23,10 @@
                     <div class="container-checkout">
                         <header>
                             <div class="bio">
-                                <img src="{{ asset('storage/uploads/profile/'. $car->user->avatar) }}" alt="{{$car->user->user_name}}" class="bg">
+                                <img src="{{ asset('storage/uploads/car_photos/'. $car->photos[0]->feature) }}" alt="{{$car->name}}" class="bg">
                             </div>
                             <div class="avatarcontainer">
-                                <img src="{{ asset('storage/uploads/car_photos/'. $car->photos[0]->feature) }}" alt="{{$car->name}}" class="avatar">
+                                <img src="{{ asset('storage/uploads/profile/'. $car->user->avatar) }}" alt="{{$car->user->user_name}}"  class="avatar">
                             </div>
                         </header>
                         <div class="content">
@@ -48,19 +47,19 @@
                             </div>
                             <div class="tripTime">
                                 <div class="row">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-5">
                                         <ul>
                                             <li class="day-tripTime" id ="dateBeginCheckout">{{$search['dateBegin']->toFormattedDateString()}}</li>
-                                            <li class="time-tripTime" id ="timeBeginCheckout">{{$search['timeBegin']->toTimeString()}}</li>
+                                            <li class="time-tripTime" id ="timeBeginCheckout">{{$search['timeBegin']->format('h:i')}}</li>
                                         </ul>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-2">
                                         <i class="center-block">=></i>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-5">
                                         <ul>
                                             <li  class="day-tripTime" id ="dateEndCheckout">{{$search['dateEnd']->toFormattedDateString()}}</li>
-                                            <li class="time-tripTime" id ="timeEndCheckout">{{$search['timeEnd']->toTimeString()}}</li>
+                                            <li class="time-tripTime" id ="timeEndCheckout">{{$search['timeEnd']->format('h:i') }}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -74,7 +73,7 @@
                                 <div class="">
                                     <ul>
                                         <li class="time-tripTime">Đơn giá : {{$car->price}}K/day</li>
-                                        <li class="time-tripTime">Trip fee : CA$16.90/day </li>
+                                        <li class="time-tripTime">Dịch vụ: 0/day </li>
                                     </ul>
                                 </div>
                             </div>
@@ -82,24 +81,9 @@
                                 <div class="card price-card">
                                     <div class="card-body ">
                                         <ul>
-                                            <li  class="time-tripTime">{{$checkoutDetail['totalDayRental']}}-day trip: {{$checkoutDetail['totalPrice']}}/k</li>
-                                            <li class="priceTotal">Trip total : {{$checkoutDetail['totalPrice']}}/K </li>
+                                            <li  class="time-tripTime">{{$checkoutDetail['totalDayRental']}}-ngày: {{$checkoutDetail['totalPrice']}}/k</li>
+                                            <li class="priceTotal">Tổng : {{$checkoutDetail['totalPrice']}}/K </li>
                                         </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tripLocation">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <img src="">
-                                    </div>
-                                    <div class="col-sm-8 ">
-                                        <span>
-                                            Free cancellation
-                                        </span>
-                                        <p>
-                                            Full refund before September 20, 10:00 AM in local time of the car
-                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -111,79 +95,28 @@
                         <div class="wheel-header">
                             <h3>Your <span>infomation</span></h3>
                         </div>
-                        <!--Accordion wrapper-->
-                        <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
+                        <div class="accordion md-accordion mt-5" id="accordionEx1" role="tablist" aria-multiselectable="true">
                             <div class="card">
-
-                                <!-- Card header -->
                                 <div class="card-header" role="tab" id="headingThree21">
                                     <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseThree21"
                                        aria-expanded="false" aria-controls="collapseThree21">
                                         <h3 class="mb-0 title-list">
-                                            Mobile number
+                                            Số điện thoại
                                         </h3>
                                     </a>
                                 </div>
-                                <!-- Card body -->
                                 <div id="collapseThree21" class="collapse" role="tabpanel" aria-labelledby="headingThree21"
                                      data-parent="#accordionEx1">
                                     <div class="card-body">
-                                        <form>
-                                            <div class="row form-group">
-                                                <div class="col-lg-10">
-                                                    <label for="formGroupExampleInput2">Số điện thoại của bạn : <p class="font-weight-bold">{{ $car->user->phone }}</p></label>
-                                                    <input type="text" class="form-control " id="formGroupExampleInput" placeholder="Phone number">
-                                                    <button class="btn-info mt-2" id="changePhoneNumber">Change</button>
-                                                </div>
-
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-
-                                <!-- Card header -->
-                                <div class="card-header" role="tab" id="headingThree31">
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseThree31"
-                                       aria-expanded="false" aria-controls="collapseThree31">
-                                        <h3 class="mb-0 title-list">
-                                            Driver’s license
-                                        </h3>
-                                    </a>
-                                </div>
-
-                                <!-- Card body -->
-                                <div id="collapseThree31" class="collapse" role="tabpanel" aria-labelledby="headingThree31"
-                                     data-parent="#accordionEx1">
-                                    <div class="card-body">
-                                        <form>
-                                            <div class="row form-group">
-                                                <div class="col-lg-3">
-                                                    <label for="formGroupExampleInput2">First name</label>
-                                                    <input type="text" class="form-control " id="formGroupExampleInput" placeholder="Example input">
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <label for="formGroupExampleInput2">Middle name</label>
-                                                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <label for="formGroupExampleInput2">Last name</label>
-                                                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                                        <div class="row form-group">
+                                            <div class="col-lg-10">
+                                                <label for="formGroupExampleInput2">Số điện thoại của bạn : <p class="font-weight-bold">{{ $car->user->phone }}</p></label>
+                                                <div class="row">
+                                                    <input type="text" class="form-control col-md-4" id="formGroupExampleInput">
+                                                    <button class="btn-info ml-2 col-md-3" id="changePhoneNumber">Change</button>
                                                 </div>
                                             </div>
-                                            <div class=" row form-group m-1">
-                                                <p class="text-black-50">Enter your name <strong class="text-danger">exactly as it appears on your driver's license
-                                                    </strong></p>
-                                            </div>
-                                            <div class="row form-group">
-                                                <div class="col-lg-3">
-                                                    <label for="formGroupExampleInput2">Day of birth</label>
-                                                    <input type="date" class="form-control h-75" id="formGroupExampleInput" placeholder="Example input">
-                                                </div>
-                                            </div>
-                                            <button class="btn-info">Save</button>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -192,7 +125,6 @@
                             </div>
                         </div>
                         </div>
-                        <!-- Accordion wrapper -->
                     </div>
                 </div>
             </div>
@@ -352,22 +284,4 @@
         </div>
     </div>
 
-    <div class="wheel-subscribe wheel-bg2">
-        <div class="container ">
-            <div class="row">
-                <div class="col-md-6 padd-lr0">
-                    <div class="wheel-header">
-                        <h5>Newsletter Signup </h5>
-                        <h3>Subscribe & get<span> 20% </span> Off</h3>
-                    </div>
-                </div>
-                <div class="col-md-6 padd-lr0">
-                    <form action="#">
-                        <input type="text" placeholder="Your Email Adddress">
-                        <button class="wheel-btn">Subscribe</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection

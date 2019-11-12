@@ -23,25 +23,30 @@ class SearchController extends Controller
         $cars = Car::where('status', 1)->get();
         foreach ($cars as $key => $car){
             foreach ($car->trips as $trip ) {
-                $trip_end = Carbon::createFromFormat('Y-m-d H:i:s', $trip->trip_end);
-                $trip_start = Carbon::createFromFormat('Y-m-d H:i:s', $trip->trip_start);
-                if($dateBegin->gt($trip_end)) {
-                } else if($trip_start->gt($dateBegin) && $trip_start->gt($dateEnd)){
-                } else {
-                    $cars->forget($key);
+                if($trip->status_ck == 0 || $trip->status_ck == 2 ) {
+                    $trip_end = Carbon::createFromFormat('Y-m-d H:i:s', $trip->trip_end);
+                    $trip_start = Carbon::createFromFormat('Y-m-d H:i:s', $trip->trip_start);
+                    if($dateBegin->gt($trip_end)) {
+                    } else if($trip_start->gt($dateBegin) && $trip_start->gt($dateEnd)){
+                    } else {
+                        $cars->forget($key);
+                    }
                 }
             }
         }
         $i = 0;
         $newCars = collect ([]);
+        $photos = collect ([]);
         foreach ($cars as $key => $car){
             $newCars[$i] = $car;
+            $photos[$i] = $car->photos[0];
             $i++;
         }
         $categories = Category::where('id_parent', 0)->get();
         $favorites = Favorite::where('user_id', \auth()->id())->get();
         return view('user.car-list-search', [
                                             'cars' => $newCars,
+                                            'photos' => $photos,
                                             'search' => $search,
                                             'favorites' => $favorites,
                                             'categories' => $categories]);

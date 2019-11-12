@@ -28,7 +28,7 @@
     <div class="trip-container tab-content" id="myTabContent">
         <div class="has-trip tab-pane fade show active"  id="home" role="tabpanel" aria-labelledby="home-tab">
             @foreach($checkouts as $checkout)
-                @if($checkout->status_ck == 1 || $checkout->status_ck == 3)
+                @if($checkout->status_ck == 1 || $checkout->status_ck == 3 )
                     <div class="trip-box new-box">
                         <div class="trip-header"><h4 class="car-name"><span>{{$checkout->car->name}}</span></h4></div>
                         <div class="trip-body trip-header">
@@ -94,7 +94,7 @@
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <div class="has-trip tab-pane fade show active"  id="home" role="tabpanel" aria-labelledby="home-tab">
                 @foreach($checkouts as $checkout)
-                    @if($checkout->status_ck == 2 || $checkout->status_ck == 0)
+                    @if($checkout->status_ck == 2 || $checkout->status_ck == 0 || $checkout->status_ck == 4)
                         <div class="trip-box new-box">
                             <div class="trip-header"><h4 class="car-name"><span>{{$checkout->car->name}}</span></h4></div>
                             <div class="trip-body trip-header">
@@ -117,13 +117,6 @@
                                 <div class="trip-footer">
                                     <div class="status-trips">
                                         @switch($checkout->status_ck)
-                                            @case(1)
-                                            <p>
-                                                <span class="status yellow-dot"></span>
-                                                Đang chờ chủ xe duyệt
-                                            </p>
-                                            @break
-
                                             @case(0)
                                             <p>
                                                 <span class="status red-dot"></span>
@@ -137,11 +130,10 @@
                                                 Hết hạn
                                             </p>
                                             @break
-
-                                            @case(3)
+                                            @case(4)
                                             <p>
                                                 <span class="status green-dot"></span>
-                                                Chủ xe đã duyệt
+                                                Hoàn thành chuyến
                                             </p>
                                             @break
                                             @default

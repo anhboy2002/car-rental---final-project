@@ -101,7 +101,9 @@ $( document ).ready(function() {
         localStorage.setItem('num_seat', "0");
         localStorage.setItem('brand_car', "0");
         var cars = JSON.parse(document.getElementById('dataAllCar').dataset.car);
+        var photos = JSON.parse(document.getElementById('dataAllCar').dataset.photos);
         console.log(cars);
+        console.log(photos);
         $('ul.choose-num-seat-car li').click(function(e)
         {
             localStorage.setItem('num_seat', this.value.toString());
@@ -207,7 +209,7 @@ $( document ).ready(function() {
                 var infowindow = new google.maps.InfoWindow();
                 (function(marker, data){
                     var content = '<div id="iw-container">' +
-                        '<img height="200px" width="300" src="http://localhost:8000/storage/uploads/'+ data.name +'">'+
+                        '<img height="200px" width="300" src="http://localhost:8000/storage/uploads/car_photos/'+ data.name +'">'+
                         '<a href="car/'+data.id+'"><div class="iw-title">' + data.name +'</div></a>' +
                         ' <div class="wheel-quote-stars">' +
                         '     <span class="fa fa-star checked"></span>' +
@@ -228,11 +230,11 @@ $( document ).ready(function() {
             }
         }
 
-        function setAllCarOnMap(cars) {
+        function setAllCarOnMap(cars, photos) {
             var point = {lat: 16.0472484, lng: 108.1716865};
             for (var i = 0; i < cars.length; i++) {
                 point = {lat: cars[i].lat, lng: cars[i].long};
-                createMarker(map, point, cars[i]);
+                createMarker(map, point, cars[i], photos[i].feature);
             }
         }
 
@@ -249,7 +251,7 @@ $( document ).ready(function() {
             }
         }
 
-        function createMarker(map, point, data) {
+        function createMarker(map, point, data, photo) {
             var image = {
                 url: 'http://localhost:8000/storage/uploads/car-icon.jpg',
                 // This marker is 20 pixels wide by 32 pixels high.
@@ -277,7 +279,7 @@ $( document ).ready(function() {
                 index: data.id
             });
             var content = '<div id="iw-container">' +
-                '<img height="200px" width="300" src="http://localhost:8000/storage/uploads/'+ data.name +'">'+
+                '<img height="200px" width="300" src="http://localhost:8000/storage/uploads/car_photos/'+ photo +'">'+
                 '<a href="car/'+data.id+'"><div class="iw-title">' + data.name +'</div></a>' +
                 ' <div class="wheel-quote-stars">' +
                 '     <span class="fa fa-star checked"></span>' +
@@ -483,7 +485,7 @@ $( document ).ready(function() {
             };
             $.ajax(options);
         }
-        setAllCarOnMap(cars);
+        setAllCarOnMap(cars, photos);
         loadCar(cars);
     }
 });

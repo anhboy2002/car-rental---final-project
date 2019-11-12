@@ -66,8 +66,7 @@ class CheckoutController extends Controller
 
             $checkout = Checkout::create([
                 'car_id' => $id,
-//            'user_id_1' => auth()->id,
-                'user_id_1' => 1,
+                'user_id_1' => auth()->id(),
                 'user_id_2' => $car->user->id,
                 'status_1' => 1, // pending
                 'status_2' => 1, // pending
@@ -77,11 +76,14 @@ class CheckoutController extends Controller
                 'trip_end' => $search['dateEnd']->toDateString() ." ". $search['timeEnd']->toTimeString(),
             ]);
         } else {
-
+            return response()->json([
+                'status' => '0',
+                'checkoutId' => ""
+            ]);
         }
 
         return response()->json([
-                        'status' => 'oke',
+                        'status' => '1',
                         'checkoutId' => $checkout->id
                         ]);
     }
@@ -90,5 +92,23 @@ class CheckoutController extends Controller
         $checkout = Checkout::where('id', $id)->first();
 
         return view('user.reservation', ['checkout' => $checkout]);
+    }
+
+    public function tripDepositIndex($id) {
+        $checkout = Checkout::where('id', $id)->first();
+
+        return view('user.reservation1', ['checkout' => $checkout]);
+    }
+
+    public function tripProcessIndex($id) {
+        $checkout = Checkout::where('id', $id)->first();
+
+        return view('user.reservation2', ['checkout' => $checkout]);
+    }
+
+    public function tripEndIndex($id) {
+        $checkout = Checkout::where('id', $id)->first();
+
+        return view('user.reservation3', ['checkout' => $checkout]);
     }
 }
