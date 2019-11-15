@@ -16,10 +16,10 @@
             <div class="category-content no-padding">
                 <ul class="navigation navigation-main navigation-accordion">
                     <li class="navigation-header"><span>QUẢN TRỊ</span> <i class="icon-menu" title="Main pages"></i></li>
-                    <li><a href="admin/motelrooms/list"><i class="icon-home4"></i> <span>Danh sách Phòng trọ</span></a></li>
-                    <li><a href="admin/users/list"><i class="icon-user-check"></i><span> Danh sách người dùng</span></a></li>
-                    <li><a href="admin/report"><i class="icon-bubble-notification"></i><span> Báo cáo nội dung</span></a></li>
-                    <li><a href="admin/thongke"><i class="icon-pie-chart8"></i><span> Thống kê</span></a></li>
+                    <li><a href="{{route('admin.thongke')}}"><i class="icon-pie-chart8"></i><span> Thống kê</span></a></li>
+                    <li><a href="{{route('admin.user.index')}}"><i class="icon-user-check"></i><span> Danh sách người dùng</span></a></li>
+                    <li><a href="{{route('admin.car.index')}}"><i class="icon-car"></i> <span>Danh sách xe</span></a></li>
+                    <li><a href="{{route('admin.category.index')}}"><i class="icon-database-edit2"></i><span> Hãng xe</span></a></li>
                     <li><a href=""><i class="icon-home2"></i><span> Xem Trang chủ</span></a></li>
                 </ul>
             </div>

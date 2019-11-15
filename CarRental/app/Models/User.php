@@ -47,4 +47,9 @@ class User extends Authenticatable
 
         return $this->hasMany(Car::class, 'user_id', 'id');
     }
+
+    public function trips() {
+
+        return $this->hasMany(Checkout::class, 'user_id_1', 'id');
+    }
 }

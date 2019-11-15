@@ -3,8 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Car;
+use App\Models\Checkout;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
+use App\Charts\TripChart;
 
 class AdminController extends Controller
 {
@@ -34,7 +40,28 @@ class AdminController extends Controller
     }
 
     public function getIndex() {
+        $totalUser = User::all()->count();
+        $totalCar = Car::all()->count();
+        $totalCarActive = Car::where('status', 1)->count();
+        $chart = new TripChart();
 
-        return view('admin.index');
+        $petCategories = DB::table('checkouts')
+            ->select(DB::raw('count(id) as data'),DB::raw('DATE_FORMAT(created_at, \'%D\') as dates'))->where(DB::raw("(DATE_FORMAT(created_at, '%Y'))"), date('Y'))
+            ->groupBy('dates')
+            ->orderBy('dates','desc')
+            ->get();
+
+        $labels = $petCategories->pluck('dates');
+        $values = $petCategories->pluck('data');
+
+        $chart->labels($labels);
+        $chart->dataset('Chuyến trong tháng ', 'bar', $values);
+
+        return view('admin.index', [
+            'totalUser' => $totalUser,
+            'totalCar' => $totalCar,
+            'totalCarActive' => $totalCarActive,
+            'chart' => $chart
+        ]);
     }
 }

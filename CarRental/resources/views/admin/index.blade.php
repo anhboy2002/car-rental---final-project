@@ -1,8 +1,6 @@
 @extends('admin.layout.master')
 @section('content2')
-<!-- Main content -->
 <div class="content-wrapper">
-	<!-- Page header -->
 	<div class="page-header page-header-default">
 		<div class="page-header-content">
 			<div class="page-title">
@@ -29,9 +27,9 @@
 			<div class="col-lg-4">
 				<div class="panel bg-teal-400">
 					<div class="panel-body">
-						<h3 class="no-margin">5</h3>
+						<h3 class="no-margin">{{$totalUser}}</h3>
 						Thành viên hoạt động
-						<div class="text-muted text-size-small"> 5 bị khóa</div>
+						<div class="text-muted text-size-small"> 0 bị khóa</div>
 					</div>
 					<div class="container-fluid">
 						<div id="members-online"></div>
@@ -42,9 +40,9 @@
 			<div class="col-lg-4">
 				<div class="panel bg-pink-400">
 					<div class="panel-body">
-						<h3 class="no-margin">5</h3>
+						<h3 class="no-margin">{{$totalCarActive}}</h3>
 						 Xe đã duyệt
-						<div class="text-muted text-size-small">trên tổng số 10 xe đã đăng ky</div>
+						<div class="text-muted text-size-small">trên tổng số {{$totalUser}} xe đã đăng ky</div>
 					</div>
 
 					<div id="server-load"></div>
@@ -63,9 +61,18 @@
 				</a>
 			</div>
 		</div>
-		<div class="footer text-muted">
-			&copy; 2019. <a href="#">Project Chia sẻ xe</a> by <a href="" target="_blank">Mạnh Hùng</a>
-		</div>
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    {!! $chart->container() !!}
+                </div>
+                <hr>
+                <div>
+                </div>
+            </div>
+        </div>
 	</div>
 </div>
+{!! $chart->script() !!}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js" charset="utf-8"></script>
 @endsection

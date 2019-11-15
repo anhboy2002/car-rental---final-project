@@ -19,7 +19,6 @@
 
 	<!-- Core JS files -->
     {!! Html::script('assets/js/jquery-2.2.4.min.js') !!}
-    {!! Html::script('app/js/bootstrap.min.js') !!}
     {!! Html::script('https://maps.googleapis.com/maps/api/js?key=AIzaSyBt5tJTim4lOO3ojbGARhPd1Z3O3CnE-C8&libraries=places') !!}
     {!! Html::script('app/js/fileinput/fileinput.js') !!}
     {!! Html::script('app/js/fileinput/vi.js') !!}
@@ -36,9 +35,10 @@
     {!! Html::script('admin/assets/js/plugins/forms/selects/select2.min.js') !!}
     {!! Html::script('admin/assets/js/plugins/forms/styling/uniform.min.js') !!}
     {!! Html::script('admin/assets/js/core/app.js') !!}
+    {!! Html::script('admin/assets/js/core/bootstrap.min.js') !!}
 {!! Html::script('admin/assets/js/pages/form_layouts.js') !!}
 	<!-- /theme JS files -->
-
+    {!! Html::script('app/js/gmap.js') !!}
 </head>
 
 <body>

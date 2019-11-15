@@ -185,6 +185,35 @@ Route::group(['prefix' => 'admin'], function (){
         'as' => 'admin.index',
         'uses' => 'Admin\AdminController@getIndex',
     ]);
+    Route::get('thongke', [
+        'as' => 'admin.thongke',
+        'uses' => 'Admin\AdminController@getIndex',
+    ]);
+    Route::get('user', [
+        'as' => 'admin.user.index',
+        'uses' => 'Admin\UserController@getIndex',
+    ]);
+    Route::get('user/delete/{id}', [
+        'as' => 'admin.user.delete',
+        'uses' => 'Admin\UserController@deleteUser',
+    ]);
+    Route::get('car', [
+        'as' => 'admin.car.index',
+        'uses' => 'Admin\CarController@getIndex',
+    ]);
+    Route::get('car/accept/{id}', [
+        'as' => 'admin.car.accept',
+        'uses' => 'Admin\CarController@acceptCar',
+    ]);
+    Route::get('car/reject/{id}', [
+        'as' => 'admin.car.reject',
+        'uses' => 'Admin\CarController@rejectCar',
+    ]);
+    Route::get('car/category', [
+        'as' => 'admin.category.index',
+        'uses' => 'Admin\CarController@getCategoryIndex',
+    ]);
+
 //    Route::get('thongke','AdminController@getThongke');
 //    Route::get('report','AdminController@getReport');
 //    Route::group(['prefix'=>'users'],function(){
