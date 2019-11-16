@@ -123,7 +123,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="comment-metadata">
-                                                                        <time datetime="2015-01-10T20:15:40+00:00"> {{$feedback->created_at}}</time>
+                                                                        <time datetime="2015-01-10T20:15:40+00:00"> {{$feedback->created_at->diffForHumans()}}</time>
                                                                     </div>
                                                                 </div>
                                                                 <div class="comment-content">

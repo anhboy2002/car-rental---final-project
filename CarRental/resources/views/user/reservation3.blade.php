@@ -1,15 +1,15 @@
 @extends('user.layouts.frontend')
 @section('content')
     <div class="wheel-start3">
-        <img src="images/bg7.jpg" alt="" class="wheel-img">
+        <img src="https://demos.jeweltheme.com/wheel/images/bg7.jpg" alt="" class="wheel-img">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 padd-lr0">
                     <div class="wheel-start3-body clearfix marg-lg-t255 marg-lg-b75 marg-sm-t190 marg-xs-b30">
-                        <h3>Reservation</h3>
+                        <h3>Đặt xe</h3>
                         <ol class="breadcrumb">
-                            <li><a href="#">Home</a></li>
-                            <li class="active">Khởi hành</li>
+                            <li><a href="{{route('index')}}">Trang chủ</a></li>
+                            <li class="active">Đặt xe</li>
                         </ol>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                                                         <h6 class="card-subtitle mb-2 text-muted">CHỦ XE</h6>
                                                         <div>
                                                             <h6 class="title-bill float-left"><strong>Số điện thoại :</strong></h6>
-                                                            <span class="mt-5">{{ ($checkout->status_ck == 3 || $checkout->status_ck == 4 || $checkout->status_ck == 5) ? $checkout->user1->phone : "************"}}</span>
+                                                            <span class="mt-5">{{ $checkout->user1->phone }}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -127,7 +127,7 @@
                                                         <h6 class="card-subtitle mb-2 text-muted">KHÁCH HÀNG</h6>
                                                         <div>
                                                             <h6 class="title-bill float-left"><strong>Số điện thoại :</strong></h6>
-                                                            <span class="mt-5">{{ ($checkout->status_ck == 3 || $checkout->status_ck == 4 || $checkout->status_ck == 5) ? $checkout->user2->phone : "************"}}</span>
+                                                            <span class="mt-5">{{ $checkout->user2->phone }}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -162,6 +162,7 @@
                         <button class="btn btn-primary status-wrap ol-xs-12 padd-lr0 mt-2 btnReceiveEndCar" data-toggle="modal" data-target="#modalReceiveEndCar" >Đã nhận lại xe</button>
                     @endif
                     @if($checkout->status_1 == 9)
+                            <button class="btn btn-primary status-wrap ol-xs-12 padd-lr0 mt-2 btnReceiveEndCar" data-toggle="modal" data-target="#modalReceiveEndCar" >Đã nhận lại xe</button>
                         <button class="btn btn-danger status-wrap ol-xs-12 padd-lr0 mt-2 btnReportEnd" data-toggle="modal" data-target="#modalReportEndCar" >Báo xấu</button>
                     @endif
                 @else

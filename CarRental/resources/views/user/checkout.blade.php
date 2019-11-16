@@ -3,7 +3,7 @@
     <div class="wheel-start3">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 padd-lr0">
+                <div class="col-md-12 padd-lr0">
                     <div class="wheel-start3-body clearfix marg-lg-t255 marg-lg-b75 marg-sm-t190 marg-xs-b30">
                         <h3>Checkout</h3>
                         <ol class="breadcrumb">
@@ -25,7 +25,7 @@
                                 <img src="{{ asset('storage/uploads/car_photos/'. $car->photos[0]->feature) }}" alt="{{$car->name}}" class="bg" width="320" height="250">
                             </div>
                             <div class="avatarcontainer">
-                                <img src="{{ asset('storage/uploads/profile/'. $car->user->avatar) }}" alt="{{$car->user->user_name}}"  class="avatar">
+                                <a href="#viewUser" data-toggle="modal" data-target="#viewUser"><img src="{{ asset('storage/uploads/profile/'. $car->user->avatar) }}" alt="{{$car->user->user_name}}"  class="avatar"></a>
                             </div>
                         </header>
                         <div class="content">
@@ -41,7 +41,7 @@
                                             <span class="fa fa-star"></span>
                                         @endfor
                                     </div>
-                                    <div class="col-lg-5"> <span class="trip ">. {{$car->total_trip}} trips</span></div>
+                                    <div class="col-lg-5"> <span class="trip ">. {{$car->total_trip}} chuyến</span></div>
                                 </div>
                             </div>
                             <div class="tripTime">
@@ -53,7 +53,7 @@
                                         </ul>
                                     </div>
                                     <div class="col-sm-2">
-                                        <i class="center-block">=></i>
+                                        <i class="fa fa-arrow-right"></i>
                                     </div>
                                     <div class="col-sm-5">
                                         <ul>
@@ -66,7 +66,7 @@
                             <hr>
                             <div class="tripLocation">
                                 <span>Địa điểm giao nhận xe</span>
-                                <p><i> + </i>{{$car->location_name}}</p>
+                                <p><i> + </i>{{Str::limit($car->location_name,$limit = 9 , $end = '...')}}</p>
                             </div>
                             <div class="tripLocation">
                                 <div class="">
@@ -80,7 +80,7 @@
                                 <div class="card price-card">
                                     <div class="card-body ">
                                         <ul>
-                                            <li  class="time-tripTime">{{$checkoutDetail['totalDayRental']}}-ngày: {{$checkoutDetail['totalPrice']}}/k</li>
+                                            <li  class="time-tripTime">{{$checkoutDetail['totalDayRental']}} - ngày: {{$checkoutDetail['totalPrice']}}/k</li>
                                             <li class="priceTotal">Tổng : {{$checkoutDetail['totalPrice']}}/K </li>
                                         </ul>
                                     </div>
@@ -186,7 +186,7 @@
                                         <p>Tên: Hung Tran</p>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>Điện thoại: *****************</p>
+                                        <p>Điện thoại: {{Str::limit($car->user->phone,$limit = 5 , $end = '*****')}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -194,7 +194,7 @@
                     </div>
                     <div class="mt-3">
                         <h6 class="title-list">ĐỊA CHỈ GIAO NHẬN XE</h6>
-                        <p>Sơn Trà, Đà Nẵng, Việt Nam (địa chỉ cụ thể sẽ được hiển thị sau khi đặt cọc).</p>
+                        <p>{{Str::limit($car->location_name,$limit = 9 , $end = '...')}} (địa chỉ cụ thể sẽ được hiển thị sau khi đặt cọc).</p>
                         <div class="wheel-map style-1" id = "mapSingleCar" data-lat="{{ $car->lat }}" data-lng="{{ $car->long }}" data-car="{{ $car }}" data-marker="images/marker.png" style="height: 231px; width: 760px "></div>
                     </div>
                     <div class="m-1 mt-3 row ">
@@ -278,6 +278,41 @@
                 </div>
                 <div class="modal-footer">
                     <a class="btn btn-primary" href="" role="button" id="btnViewDetailTrip">Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{--    Modal user--}}
+    <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="center-block">
+                        <img  src="{{ asset('storage/uploads/profile/'. $car->user->avatar) }}" name="{{$car->user->user_name}}" width="140" height="140" border="0" class="img-circle"></a>
+                        <h3 class="media-heading">{{$car->user->user_name}} <small>{{$car->user->address}}</small></h3>
+                        <span><strong>Thông tin: </strong></span>
+                        <span class="badge badge-warning">{{$car->user->trips->count()}} chuyến</span>
+                        <span class="badge badge-info">{{$car->user->cars->count()}} xe</span>
+                        <span class="badge badge-success">{{$car->user->created_at->toFormattedDateString()}}</span>
+                    </div>
+                    <hr>
+                    <div class="feedback-recent m-2">
+                        <p class="text-left m-2"><strong>Nhận xét gần nhất: </strong><br>
+                            {{$car->feedbacks[0]->comment}}</p>
+                        <div class="gutter--0 row u-marginTop2 m-2">
+                            <div class="media media--center">
+                                <div class="media-item u-marginTopSmallest">
+                                    <img src="{{ asset('storage/uploads/profile/'. $car->feedbacks[0]->user->avatar) }}" alt="{{$car->user->user_name}}"  style="border-radius: 100%" width="32" height="32">
+                                </div>
+                                <div class="media-body hostFeedbackDetails-authorDetails m-2">
+                                    <span class="hostFeedbackDetails-authorName">{{$car->feedbacks[0]->user->user_name}} — </span><span class="text-secondary" style="font-size: 14px">{{$car->feedbacks[0]->created_at->toFormattedDateString()}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>

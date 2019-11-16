@@ -61,6 +61,20 @@ class TripController extends Model
                     $status_2 = 6;
                 }
                 break;
+            case "4" :
+                $status = 4;
+
+                if ($request->status_2 == "4") {
+                    $message_1 = "Đã giao xe";
+                    $status_1 = 9;
+                    $status_2 = 4;
+
+                } elseif ($request->status_1 == "4") {
+                    $message_2 = "Đã nhận xe";
+                    $status_1 = 4;
+                    $status_2 = 4;
+                }
+                break;
         }
 
         $checkout->status_ck =  $status;

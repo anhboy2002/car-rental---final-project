@@ -1106,3 +1106,8 @@ a, a:hover {
     line-height: 1.2;
     font-size: 14px;
 }
+.feedback-recent {
+    border-color: #e6e6e6;
+    background-color: #fafafa;
+    border-radius: 10px;
+}

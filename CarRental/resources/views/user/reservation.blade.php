@@ -1,15 +1,15 @@
 @extends('user.layouts.frontend')
 @section('content')
     <div class="wheel-start3">
-        <img src="images/bg7.jpg" alt="" class="wheel-img">
+        <img src="https://demos.jeweltheme.com/wheel/images/bg7.jpg" alt="" class="wheel-img">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 padd-lr0">
+                <div class="col-md-12 padd-lr0">
                     <div class="wheel-start3-body clearfix marg-lg-t255 marg-lg-b75 marg-sm-t190 marg-xs-b30">
-                        <h3>Reservation</h3>
+                        <h3>Đặt xe</h3>
                         <ol class="breadcrumb">
-                            <li><a href="#">Home</a></li>
-                            <li class="active">Reservation</li>
+                            <li><a href="{{route('index')}}">Trang chủ</a></li>
+                            <li class="active">Đặt xe</li>
                         </ol>
                     </div>
                 </div>
@@ -28,17 +28,17 @@
                         </li>
                         <li class="title-wrap ">
                             <div class="title">
-                                <a  href='{{ ($checkout->status_ck == 3 || $checkout->status_ck == 4 || $checkout->status_ck == 5) ? "/trip/deposit/" .$checkout->id: ""}}'><span>2.</span>Thanh toán cọc</a>
+                                <a  href='{{ ($checkout->status_ck == 3 || $checkout->status_ck == 4 || $checkout->status_ck == 5 || $checkout->status_ck == 6) ? "/trip/deposit/" .$checkout->id: ""}}'><span>2.</span>Thanh toán cọc</a>
                             </div>
                         </li>
                         <li class="title-wrap ">
                             <div class="title">
-                                <a><span>3.</span>Khởi hành</a>
+                                <a  href='{{ ($checkout->status_ck == 3 || $checkout->status_ck == 4 || $checkout->status_ck == 6) ? "/trip/process/" .$checkout->id: ""}}'><span>3.</span>Khởi hành</a>
                             </div>
                         </li>
                         <li class="title-wrap ">
                             <div class="title">
-                                <a><span>4.</span>Kết thúc</a>
+                                <a  href='{{ ($checkout->status_1 == 6 && $checkout->status_2 == 6) ? "/trip/end/" .$checkout->id: ""}}'><span>4.</span>Kết thúc</a>
                             </div>
                         </li>
                     </ul>
@@ -105,8 +105,14 @@
                         </p>
                     </div>
                     @break
-                    @default
-                    <span>Something went wrong, please try again</span>
+                    @case(6)
+                    <div class="status-wrap col-md-12 padd-lr0 status-trip">
+                        <p>
+                            <span class="status green-dot"></span>
+                            <span>Xe đang được thuê</span></br>
+                        </p>
+                    </div>
+                    @break
                 @endswitch
                 <div class="col-md-12 padd-lr0">
                     <div class="wheel-start-form wheel-start-form2" style="background-color: #ffffff">
@@ -137,7 +143,7 @@
                                                         <h6 class="card-subtitle mb-2 text-muted">CHỦ XE</h6>
                                                         <div>
                                                             <h6 class="title-bill float-left"><strong>Số điện thoại :</strong></h6>
-                                                            <span class="mt-5">{{ ($checkout->status_ck == 3 || $checkout->status_ck == 4 || $checkout->status_ck == 5) ? $checkout->user1->phone : "************"}}</span>
+                                                            <span class="mt-5">{{ ($checkout->status_ck == 3 || $checkout->status_ck == 4 || $checkout->status_ck == 5) ? $checkout->user1->phone : Str::limit($checkout->user1->phone,$limit = 5 , $end = '*****')}}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -153,7 +159,7 @@
                                                         <h6 class="card-subtitle mb-2 text-muted">KHÁCH HÀNG</h6>
                                                         <div>
                                                             <h6 class="title-bill float-left"><strong>Số điện thoại :</strong></h6>
-                                                            <span class="mt-5">{{ ($checkout->status_ck == 3 || $checkout->status_ck == 4 || $checkout->status_ck == 5) ? $checkout->user2->phone : "************"}}</span>
+                                                            <span class="mt-5">{{$checkout->user2->phone}}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -176,7 +182,12 @@
                                 </div>
                                 <div class="mt-3">
                                     <h6 class="title-list">ĐỊA CHỈ GIAO NHẬN XE</h6>
-                                    <p class="mt-2">{{$checkout->car->location_name}}.</p>
+                                    @if($checkout->user_id_1 != auth()->id())
+                                        <p class="mt-2">{{Str::limit($checkout->car->location_name,$limit = 9 , $end = '...')}}. (Địa chỉ cụ thể sẽ hiện thị sau khi đặt cọc thành công)</p>
+                                    @else
+                                        <p class="mt-2">{{$checkout->car->location_name}}.</p>
+                                    @endif
+
                                     <div class="wheel-map style-1" id = "mapSingleCar" data-lat="{{ $checkout->car->lat }}" data-lng="{{ $checkout->car->long }}" data-car="{{ $checkout->car }}" data-marker="images/marker.png" style="height: 331px; width: 100% "></div>
                                 </div>
                                 <div class="m-1 mt-3 row ">
@@ -185,7 +196,7 @@
                                         <thead>
                                         <tr>
                                             <th>Đơn giá thuê</th>
-                                            <th>{{$checkout->car->price}} 000 / Ngày</th>
+                                            <th>{{$checkout->car->price}} K / Ngày</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -195,18 +206,18 @@
                                             </tr>
                                             <tr class="rule-row">
                                                 <td >Tổng phí thuê xe</td>
-                                                <td>{{$checkout->car->price}} 000 x <strong>2 Ngày</strong></td>
+                                                <td>{{$checkout->car->price}} K x <strong>2 Ngày</strong></td>
                                             </tr>
                                             <tr>
                                                 <th><strong>Tổng cộng</strong></th>
-                                                <th><strong>{{$checkout->price}} 000 VNĐ</strong></th>
+                                                <th><strong>{{$checkout->price}} K</strong></th>
                                             </tr>
                                         </tbody>
                                     </table>
                                     <div class="col-lg-4 mt-5">
-                                        <h4>Tiền cọc <span class="badge badge-secondary">200 000</span></h4>
+                                        <h4>Tiền cọc <span class="badge badge-secondary">{{ (float) $checkout->price * 0.3}} K</span></h4>
 
-                                        <h4 class="mt-2">Tiền trả sau <span class="badge badge-success">200 000</span></h4>
+                                        <h4 class="mt-2">Tiền trả sau <span class="badge badge-success">{{ (float) $checkout->price * 0.7 }} K</span></h4>
                                     </div>
                                 </div>
                                 <div class="mt-3">

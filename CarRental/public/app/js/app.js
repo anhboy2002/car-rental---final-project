@@ -229,11 +229,11 @@ $(document).on('click', '.bookCar', function(e){
             _token: token,
         },
         success:function(response) {
-            //show confirm view detail
             if(response.status != "0") {
                 $('#bookCarModal').modal('hide');
                 $('#modalConfirmViewDetailCheckout').modal('show');
                 $('#btnViewDetailTrip').attr("href", "http://localhost:8000/trip/detail/" + response.checkoutId);
+                localStorage.clear();
             } else {
                 alert("Lỗi");
             }
@@ -349,14 +349,17 @@ $(document).on('click', '#btnReceiveCar', function(){
             "                            </p>" +
             "                        </div>"
     );
-    $('.btnDepositTrip').hide();
-    $('.deposit-trip').hide();
+    $('.btnReceiveCar').hide();
+    $('.status-trip').hide();
+    $('.btnReport').hide();
+    $('.success-trip').show();
+
     $("html, body").animate({ scrollTop: 600 }, "slow");
 });
 
 // xac nhan da giao lai xe
 $(document).on('click', '.btnHandingEndCar', function(){
-    // changeStatusTrip(4,0,4);
+   // changeStatusTrip(4,0,4);
     $('.info-trip').prepend(
     "  <div class='status-wrap col-md-12 padd-lr0'>" +
             "                            <p>" +

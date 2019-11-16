@@ -121,7 +121,7 @@
                     <div class="tabs">
                         <div class="tabs-header">
                             <ul>
-                                <li class="active"><a href="#">Browse by category</a></li>
+                                <li class="active"><a href="#">Lựa chọn hãng xe</a></li>
                             </ul>
                         </div>
                         <div class="tabs-content  marg-lg-b30">
@@ -168,7 +168,7 @@
                     <p>Make a dent in your monthly car payments — on average, Turo hosts can cover their payments by sharing their cars just nine days per month.
 
                         As a host, you’re covered by our CA$2 million insurance policy and we’ll be here to guide you every step of the way. Or bring your own commercial rental insurance and take a bigger piece of the pie.* </p>
-                    <a href="" class="wheel-btn">Đăng ký xe</a>
+                    <a href="{{route('carRegister')}}" class="wheel-btn">Đăng ký xe</a>
                 </div>
             </div>
         </div>

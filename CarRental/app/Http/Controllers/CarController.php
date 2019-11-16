@@ -137,6 +137,7 @@ class CarController extends Controller
         $car = Car::where('id', $id)->first();
         $count = count($car->feedbacks);
         $feedbacks = $car->feedbacks ;
+
         return view('user.car-listing-details', [
                         'car' => $car,
                         'countReview' => $count,
@@ -154,6 +155,7 @@ class CarController extends Controller
             'rate' => $rating,
         ]);
         $feedback->save();
+        $feedback->ratingCar($id);
 
         return response()->json([
             'user_name' => auth()->user()->user_name,
@@ -166,16 +168,22 @@ class CarController extends Controller
     {
         $content = $request->input('content');
         $trip = Checkout::where('id', $id)->first();
-        $feedback = new Feedback([
-            'car_id' => $trip->car_id,
-            'user_id' => $trip->user_id_2,
-            'comment' => $content,
-            'rate' => $rating,
-        ]);
-        $feedback->save();
+        if($trip->status_ck == 4 ) {
+            $feedback = new Feedback([
+                'car_id' => $trip->car_id,
+                'user_id' => $trip->user_id_2,
+                'comment' => $content,
+                'rate' => (double) $rating,
+            ]);
+            $feedback->save();
+            $point = $feedback->ratingCar( $trip->car_id);
+
+            return response()->json([
+                'status' => "0" ]);
+        }
 
         return response()->json([
-            'status' => "0" ]);
+            'status' => "1" ]);
     }
 
     public function carSettingIndex($id)

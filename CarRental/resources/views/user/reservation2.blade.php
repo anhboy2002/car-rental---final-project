@@ -1,15 +1,15 @@
 @extends('user.layouts.frontend')
 @section('content')
     <div class="wheel-start3">
-        <img src="images/bg7.jpg" alt="" class="wheel-img">
+        <img src="https://demos.jeweltheme.com/wheel/images/bg7.jpg" alt="" class="wheel-img">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 padd-lr0">
                     <div class="wheel-start3-body clearfix marg-lg-t255 marg-lg-b75 marg-sm-t190 marg-xs-b30">
-                        <h3>Reservation</h3>
+                        <h3>Đặt xe</h3>
                         <ol class="breadcrumb">
-                            <li><a href="#">Home</a></li>
-                            <li class="active">Khởi hành</li>
+                            <li><a href="{{route('index')}}">Trang chủ</a></li>
+                            <li class="active">Đặt xe</li>
                         </ol>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                         </li>
                         <li class="title-wrap active">
                             <div class="title">
-                                <a  href='{{ ($checkout->status_ck == 3 || $checkout->status_ck == 4) ? "/trip/process/" .$checkout->id: ""}}'><span>3.</span>Khởi hành</a>
+                                <a  href='{{ ($checkout->status_ck == 3 || $checkout->status_ck == 4 || $checkout->status_ck == 6) ? "/trip/process/" .$checkout->id: ""}}'><span>3.</span>Khởi hành</a>
                             </div>
                         </li>
                         <li class="title-wrap ">
@@ -77,7 +77,7 @@
                             </p>
                         </div>
                         @else
-                            <div class="status-wrap col-md-12 padd-lr0 status-trip">
+                            <div class="status-wrap col-md-12 padd-lr0 status-trip success-trip">
                                 <p>
                                     <span class="status yellow-dot"></span>
                                     @if($checkout->user_id_1 == auth()->id())
@@ -88,7 +88,14 @@
                                 </p>
                             </div>
                         @endif
-
+                    @break
+                    @case(4)
+                    <div class="status-wrap col-md-12 padd-lr0 status-trip">
+                        <p>
+                            <span class="status green-dot"></span>
+                            <span>Đã hoàn thành</span></br>
+                        </p>
+                    </div>
                     @break
                 @endswitch
                 <div class="col-md-12 padd-lr0">
@@ -120,7 +127,7 @@
                                                         <h6 class="card-subtitle mb-2 text-muted">CHỦ XE</h6>
                                                         <div>
                                                             <h6 class="title-bill float-left"><strong>Số điện thoại :</strong></h6>
-                                                            <span class="mt-5">{{ ($checkout->status_ck == 3 || $checkout->status_ck == 4 || $checkout->status_ck == 5) ? $checkout->user1->phone : "************"}}</span>
+                                                            <span class="mt-5">{{ $checkout->user1->phone }}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -136,7 +143,7 @@
                                                         <h6 class="card-subtitle mb-2 text-muted">KHÁCH HÀNG</h6>
                                                         <div>
                                                             <h6 class="title-bill float-left"><strong>Số điện thoại :</strong></h6>
-                                                            <span class="mt-5">{{ ($checkout->status_ck == 3 || $checkout->status_ck == 4 || $checkout->status_ck == 5) ? $checkout->user2->phone : "************"}}</span>
+                                                            <span class="mt-5">{{$checkout->user2->phone}}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -173,6 +180,8 @@
                 @else
                     @if($checkout->status_2 == 7)
                         <button class="btn btn-danger status-wrap ol-xs-12 padd-lr0 mt-2 btnReport" data-toggle="modal" data-target="#modalReportCar" >Báo xấu</button>
+
+                        <button class="btn btn-primary status-wrap ol-xs-12 padd-lr0 mt-2 btnReceiveCar" data-toggle="modal" data-target="#modalConfirmReceiveCar" >Đã nhận xe</button>
                     @elseif($checkout->status_2 != 6)
                         <button class="btn btn-primary status-wrap ol-xs-12 padd-lr0 mt-2 btnReceiveCar" data-toggle="modal" data-target="#modalConfirmReceiveCar" >Đã nhận xe</button>
                     @endif
