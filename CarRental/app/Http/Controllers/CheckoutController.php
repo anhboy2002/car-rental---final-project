@@ -37,7 +37,7 @@ class CheckoutController extends Controller
         } else {
             $totalDay = number_format($totalHourRental/24);
         }
-        $totalPrice =  $car->price * ($totalHourRental/24);
+        $totalPrice =  $car->price * number_format($totalHourRental/24);
         $checkoutDetail =[
             'totalPrice' => number_format($totalPrice, 2),
             'totalDayRental'=> $totalDay

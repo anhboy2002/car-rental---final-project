@@ -41,14 +41,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-9 ">
                 <div class="wheel-navigation">
-                    <nav id="dl-menu">
+                    <nav id="dl-menu" style="float: right;">
                         <!-- class="dl-menu" -->
                         <ul class="main-menu dl-menu">
                             <li class="menu-item   current-menu-parent menu-item-has-children   active-color ">
-                                <a href="/index">Home</a>
+                                <a href="/index">Trang chủ</a>
                             </li>
                             <li class="menu-item   ">
                                 <a href="/list-your-car">List your car</a>

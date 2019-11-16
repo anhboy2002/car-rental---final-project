@@ -1,13 +1,13 @@
-<footer class="wheel-footer">
-    <img src="{{ asset('images/bg4.jpg') }}" alt="" class="wheel-img">
+<footer class="wheel-footer" style='background-image: url("https://demos.jeweltheme.com/wheel/images/bg4.jpg");'>
+    <img src="{{ asset('https://demos.jeweltheme.com/wheel/images/bg4.jpg') }}" alt="" class="wheel-img">
     <div class="container">
         <div class="row">
             <div class="col-md-3  col-sm-6  padd-lr0">
                 <div class="wheel-address">
                     <div class="wheel-footer-logo"><a href=""><img src="{{ asset('images/logo2.png') }}" alt=""></a></div>
                     <ul>
-                        <li><span><i class="fa fa-map-marker"></i>121 King Street, Melbourne <br>
-                                    VIC 3000, Australia  </span>
+                        <li><span><i class="fa fa-map-marker"></i>Hòa khê, Thanh khê <br>
+                                    Đà Nẵng, Việt Nam  </span>
                         </li>
                         <li><a href=""><span><i class="fa fa-phone"></i> +61 3 8376 6284</span></a></li>
                         <li><a href=""><span><i class="fa fa-envelope"></i>contact@wheel-rental.com</span></a></li>
@@ -25,13 +25,9 @@
                 <div class="wheel-footer-item">
                     <h3>Useful Links</h3>
                     <ul>
-                        <li><a href="" class="">About us</a></li>
-                        <li><a href="" class="">Customer Service</a></li>
-                        <li><a href="" class="">Contact Us</a></li>
-                        <li><a href="" class="">Safety Recall</a></li>
-                        <li><a href="" class="">Privacy policy</a></li>
-                        <li><a href="" class="">Site Map</a></li>
-                        <li><a href="" class="">Terms & condition</a></li>
+                        <li><a href="" class="">Về chúng tôi</a></li>
+                        <li><a href="" class="">Dịch vụ khách hàng</a></li>
+                        <li><a href="" class="">Quy định</a></li>
                     </ul>
                 </div>
             </div>
@@ -40,12 +36,8 @@
                     <h3>Vehicles</h3>
                     <ul>
                         <li><a href="" class="">Exotic Cars</a></li>
-                        <li><a href="" class="">SUVs</a></li>
-                        <li><a href="" class="">Trucks</a></li>
+                        <li><a href="" class="">Suvs</a></li>
                         <li><a href="" class="">Mini Vans</a></li>
-                        <li><a href="" class="">Moving Trucks</a></li>
-                        <li><a href="" class="">Vans</a></li>
-                        <li><a href="" class="">RVs</a></li>
                     </ul>
                 </div>
             </div>
@@ -71,15 +63,6 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-sm-6  padd-lr0"><span>&#169; WHEEL 2016 | Designed with Love By Manh Hung</span></div>
-            <div class="col-lg-4 col-sm-6 padd-lr0">
-                <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href=""> Pages</a></li>
-                    <li><a href=""> Listings</a></li>
-                    <li><a href=""> Reservation</a></li>
-                    <li><a href="">Location</a></li>
-                </ul>
-            </div>
         </div>
     </div>
 </div>

@@ -5,14 +5,13 @@
     <div class="page-header page-header-default">
         <div class="page-header-content">
             <div class="page-title">
-                <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Home</span> - Danh sách báo cáo từ người dùng</h4>
+                <h4><span class="text-semibold">Home</span> - Danh sách hãng xe</h4>
             </div>
         </div>
-
         <div class="breadcrumb-line">
             <ul class="breadcrumb">
                 <li><a href="admin"><i class="icon-home2 position-left"></i> Trang chủ</a></li>
-                <li class="active">Danh sách báo cáo từ người dùng</li>
+                <li class="active">Danh sách hãng xe</li>
             </ul>
         </div>
     </div>
@@ -20,12 +19,8 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="panel panel-flat">
-						<div class="panel-heading">
-							<h5 class="panel-title">Danh sách báo cáo từ người dùng <span class="badge badge-primary">5</span></h5>
-						</div>
-
 						<div class="panel-body">
-							Các <code>Báo cáo</code> được liệt kê tại đây. <strong>Dữ liệu đang cập nhật.</strong>
+							Các <code>Hãng xe</code> được liệt kê tại đây. <strong>Dữ liệu đang cập nhật.</strong>
 						</div>
                         @if(session('thongbao'))
                         <div class="alert bg-success">
@@ -59,13 +54,56 @@
                                                             <i class="icon-menu9"></i>
                                                         </a>
                                                         <ul class="dropdown-menu dropdown-menu-right">
-                                                            <li><a ><i class="icon-database-edit2"></i> Sửa Hãng xe</a></li>
-                                                            <li><a ><i class="icon-database-edit2"></i> Sửa Mẫu xe</a></li>
+                                                            <li><a href="#editBrandParent{{$category->parent->id}}" data-toggle="modal" data-target="#editBrandParent{{$category->parent->id}}"><i class="icon-database-edit2"></i> Sửa Hãng xe</a></li>
+                                                            <li><a href="#editBrandChildren{{$category->id}}" data-toggle="modal" data-target="#editBrandChildren{{$category->id}}"><i class="icon-database-edit2"></i> Sửa Mẫu xe</a></li>
                                                         </ul>
                                                     </li>
                                                 </ul>
                                             </td>
                                         </tr>
+                                        {{--    Modal--}}
+                                        <div class="modal fade" id="editBrandParent{{$category->parent->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Sửa hãng xe {{$category->parent->name}}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="{{route('admin.category.edit_brand',  ['id' => $category->parent->id])}}" method="POST" enctype="multipart/form-data">
+                                                        {{csrf_field()}}
+                                                        <div class="modal-body">
+                                                            <input  type="text" class="form-control mt-3" id="reasonSelectText" placeholder = "{{$category->parent->name}}" name="name_parent"/>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-primary" id="btnRejectTrip" type="submit">Lưu</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="editBrandChildren{{$category->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Sửa mẫu xe {{$category->name}}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="{{route('admin.category.edit_brand', ['id' => $category->id])}}" method="POST" enctype="multipart/form-data">
+                                                        {{csrf_field()}}
+                                                        <div class="modal-body">
+                                                            <input  type="text" class="form-control mt-3" id="reasonSelectText" placeholder = "{{$category->name}}" name="name_children"/>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-primary" id="btnRejectTrip" type="submit">Lưu</button>
+                                                        </div>
+                                                    <form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endif
 								@endforeach
 							</tbody>

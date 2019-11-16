@@ -180,42 +180,46 @@
                     <div class="row marg-lg-b20">
                         <div class="col-md-12 padd-lr0 xs-padd marg-lg-b60 marg-sm-b10">
                             <div class="wheel-start-form wheel-start-form2    ">
-                                <form action="{{ action("CheckoutController@checkoutCar", [$car->id]) }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{action("CheckoutController@checkoutCar", [$car->id]) }}" method="POST" enctype="multipart/form-data">
                                     {{ csrf_field()}}
-                                    <div class="clearfix">
+                                    <div  class="clearfix">
                                         <input type="hidden" id='inputLocationCar3' name="addressSearch">
-                                        <div class="wheel-date">
-                                            <span>Trip start</span>
-                                            <label class="fa fa-calendar" for="input-val22">
-                                                <input  class="date" id='dateBegin3' type="date"  value="10/26/2019" name="dateBegin">
+                                        <div class="row">
+                                            <div class="wheel-date" style="width: 34%">
+                                                <span style="width: auto">Bắt đầu</span>
+                                                <label class="fa fa-calendar" for="input-val22"  style="width: 60%">
+                                                    <input  class="date" id='dateBegin3' type="date"  value="10/26/2019" name="dateBegin">
+                                                </label>
+                                            </div>
+                                            <div class="wheel-date ">
+                                                <span>Thời gian</span>
+                                                <label for="input-val23" class="fa fa-clock-o">
+                                                    <input class="timepicker" type="text" id='timeBegin3' value="18:00" name="timeBegin">
+                                                </label>
+                                            </div>
+                                            <label for="input-val26" class="promo">
+                                                <input type="text" id="input-val26" placeholder="Promo Code (Optional)">
                                             </label>
                                         </div>
-                                        <div class="wheel-date ">
-                                            <span>Pickup time</span>
-                                            <label for="input-val23" class="fa fa-clock-o">
-                                                <input class="timepicker" type="text" id='timeBegin3' value="18:00" name="timeBegin">
-                                            </label>
-                                        </div>
-                                        <div class="wheel-date">
-                                            <span>Trip end</span>
-                                            <label class="fa fa-calendar" for="input-val24">
-                                                <input  class="date" id='dateEnd3' type="date"  value="10/26/2019" name="dateEnd">
-                                            </label>
-                                        </div>
-                                        <div class="wheel-date">
-                                            <span>Return Time</span>
-                                            <label for="input-val25" class="fa fa-clock-o">
-                                                <input class="timepicker" type="text" id='timeEnd3' value="18:00" name="timeEnd">
-                                            </label>
-                                        </div>
-                                        <label for="input-val26" class="promo">
-                                            <input type="text" id=input-val21 placeholder="Pickup & return location">
-                                        </label>
-{{--                                        @if($car->user_id != auth()->id())--}}
+                                        <div class="row">
+                                            <div class="wheel-date" style="width: 34%">
+                                                <span style="width: auto">Kết thúc</span>
+                                                <label class="fa fa-calendar" for="input-val24"  style="width: 60%">
+                                                    <input  class="date" id='dateEnd3' type="date"  value="10/26/2019" name="dateEnd">
+                                                </label>
+                                            </div>
+                                            <div class="wheel-date">
+                                                <span>Thời gian</span>
+                                                <label for="input-val25" class="fa fa-clock-o">
+                                                    <input class="timepicker" type="text" id='timeEnd3' value="18:00" name="timeEnd">
+                                                </label>
+                                            </div>
+                                            {{--      @if($car->user_id != auth()->id())--}}
                                             <label for="input-val27" class="promo promo2">
                                                 <button class="wheel-btn" >Checkout</button>
                                             </label>
-{{--                                        @endif--}}
+                                            {{--                                        @endif--}}
+                                        </div>
                                     </div>
                                 </form>
                             </div>

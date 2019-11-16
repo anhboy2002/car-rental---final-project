@@ -1089,3 +1089,20 @@ a, a:hover {
 .table-filter .media .summary {
     font-size: 14px;
 }
+
+.vehicleRatingAndTrips-trips{
+    line-height: 16px;
+    font-size: 13px;
+    font-weight: 400;
+}
+.header--6{
+    font-family: BasisGrotesque,Avenir,Helvetica Neue,Helvetica,sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    font-size: 16px;
+}
+.header--5{
+    font-family: BasisGrotesque,Avenir,Helvetica Neue,Helvetica,sans-serif;
+    line-height: 1.2;
+    font-size: 14px;
+}

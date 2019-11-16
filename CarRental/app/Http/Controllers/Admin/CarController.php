@@ -15,12 +15,6 @@ class CarController extends Controller
         return view('admin.cars.list', ['cars' => $cars]);
     }
 
-    public function getCategoryIndex() {
-        $categories = Category::all();
-
-        return view('admin.category', ['categories' => $categories]);
-    }
-
     public function acceptCar($id) {
         $car = Car::where('id', $id)->first();
         $car->status = 1;

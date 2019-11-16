@@ -7,8 +7,7 @@
                     <div class="wheel-start3-body clearfix marg-lg-t255 marg-lg-b75 marg-sm-t190 marg-xs-b30">
                         <h3>Checkout</h3>
                         <ol class="breadcrumb">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#"> pages </a></li>
+                            <li><a href="#">Trang chủ</a></li>
                             <li class="active">Checkout</li>
                         </ol>
                     </div>
@@ -23,7 +22,7 @@
                     <div class="container-checkout">
                         <header>
                             <div class="bio">
-                                <img src="{{ asset('storage/uploads/car_photos/'. $car->photos[0]->feature) }}" alt="{{$car->name}}" class="bg">
+                                <img src="{{ asset('storage/uploads/car_photos/'. $car->photos[0]->feature) }}" alt="{{$car->name}}" class="bg" width="320" height="250">
                             </div>
                             <div class="avatarcontainer">
                                 <img src="{{ asset('storage/uploads/profile/'. $car->user->avatar) }}" alt="{{$car->user->user_name}}"  class="avatar">
@@ -93,7 +92,7 @@
                 <div class="col-md-7 padd-r0">
                     <div class=" marg-lg-t150 marg-lg-b150 marg-sm-t100 marg-sm-b100">
                         <div class="wheel-header">
-                            <h3>Your <span>infomation</span></h3>
+                            <h3><span>Thông tin </span></h3>
                         </div>
                         <div class="accordion md-accordion mt-5" id="accordionEx1" role="tablist" aria-multiselectable="true">
                             <div class="card">
@@ -113,7 +112,7 @@
                                                 <label for="formGroupExampleInput2">Số điện thoại của bạn : <p class="font-weight-bold">{{ $car->user->phone }}</p></label>
                                                 <div class="row">
                                                     <input type="text" class="form-control col-md-4" id="formGroupExampleInput">
-                                                    <button class="btn-info ml-2 col-md-3" id="changePhoneNumber">Change</button>
+                                                    <button class="btn-info ml-2 col-md-3 btn" id="changePhoneNumber">Thay đổi</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -204,28 +203,28 @@
                             <thead>
                             <tr>
                                 <th scope="col">Đơn giá thuê</th>
-                                <th scope="col">800 000 / Ngày</th>
+                                <th scope="col"> {{$car->price}} K/ Ngày</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <td>Phí dịch vụ</td>
-                                <td>50 0000 / Ngày</td>
+                                <td>0/ Ngày</td>
                             </tr>
                             <tr>
                                 <td>Tổng phí thuê xe</td>
-                                <td>850 000 x 1 Ngày</td>
+                                <td>{{$car->price}} K x {{$checkoutDetail['totalDayRental']}} Ngày</td>
                             </tr>
                             <tr>
                                 <td>Tổng cộng</td>
-                                <td>850 000 VNĐ</td>
+                                <td>{{$checkoutDetail['totalPrice']}} VNĐ</td>
                             </tr>
                             </tbody>
                         </table>
                         <div class="col-lg-4 mt-5">
-                            <h4>Tiền cọc <span class="badge badge-secondary">200 000</span></h4>
+                            <h4>Tiền cọc <span class="badge badge-secondary">{{ (float) $checkoutDetail['totalPrice']*0.3 * 1000}} K</span></h4>
 
-                            <h4 class="mt-2">Tiền trả sau <span class="badge badge-success">200 000</span></h4>
+                            <h4 class="mt-2">Tiền trả sau <span class="badge badge-success">{{ (float) $checkoutDetail['totalPrice']*0.7*1000}} K</span></h4>
                         </div>
                     </div>
                     <div class="mt-3">
