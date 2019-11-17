@@ -1,15 +1,14 @@
 @extends('user.layouts.frontend')
 @section('content')
     <div class="wheel-start3">
-        <img src="images/bg7.jpg" alt="" class="wheel-img">
+        <img src="https://demos.jeweltheme.com/wheel/images/bg7.jpg" alt="" class="wheel-img">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 padd-lr0">
+                <div class="col-md-12 padd-lr0">
                     <div class="wheel-start3-body clearfix marg-lg-t255 marg-lg-b75 marg-sm-t190 marg-xs-b30">
-                        <h3>Profile</h3>
+                        <h3>Tài khoản</h3>
                         <ol class="breadcrumb">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#"> pages </a></li>
+                            <li><a href="#">Trang chủ</a></li>
                             <li class="active">Tài khoản</li>
                         </ol>
                     </div>
@@ -24,7 +23,7 @@
                     <div class="profile-img">
                         <img src="{{ asset('storage/uploads/profile/'. $user->avatar) }}" width="245px" height="163px" alt=" {{$user->user_name}}"/>
                         <div class="file btn btn-lg btn-primary">
-                            Change Photo
+                            Đổi ảnh đại diện
                             <form action="{{action('UserController@changeAvatar')}}" method="POST" enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <input type="file" name="avatar" onchange="this.form.submit()"/>
@@ -39,20 +38,24 @@
                         </h3>
                         <h6 class="mt-2">
                             Tham gia: {{ $user->created_at->toFormattedDateString()}}  -
-                            Chưa có chuyến
+                            @if($user->checkouts->count() > 0)
+                                {{$user->checkouts->count()}} chuyến
+                            @else
+                                Chưa có chuyến
+                            @endif
                         </h6>
                         <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Thông tin cơ bản</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Change password</a>
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Đổi mật khẩu</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <input type="button" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" data-toggle="modal" data-target="#editProfile"/>
+                    <input type="button" class="profile-edit-btn" name="btnAddMore" value="Sửa thông tin" data-toggle="modal" data-target="#editProfile"/>
                 </div>
             </div>
             <div class="row">
@@ -125,8 +128,8 @@
                                                                     <span class="fa fa-star"></span>
                                                                 @endfor
                                                             </div>
-                                                            <p>Sơn trà, Đà Nẵng</p>
-                                                            <a href="{{ route('car.carDetail', [ 'id' => $car->id ]) }}" class="text-decoration-none ml-2">» Detail</a>
+                                                            <p><i class="fa fa-map-marker"></i> Sơn trà, Đà Nẵng</p>
+                                                            <a href="{{ route('car.carDetail', [ 'id' => $car->id ]) }}" class="text-decoration-none ml-2">» Chi tiết</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -190,11 +193,11 @@
                                         <input name="email" type="email" maxlength="50" class="form-control" value="{{$user->email}}"/>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label" >Phone</label>
+                                        <label class="control-label" >Điện thoại</label>
                                         <input name="phone"  type="text" maxlength="50" class="form-control" value="{{$user->phone}}"/>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label" >Address</label>
+                                        <label class="control-label" >Địa chỉ</label>
                                         <input name="address" type="text" maxlength="25" class="form-control" value="{{$user->address}}"/>
                                     </div>
                                     <div class="form-group">

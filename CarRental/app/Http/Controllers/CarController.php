@@ -106,10 +106,12 @@ class CarController extends Controller
     public function getCreateCar() {
         $categories = Category::all();
         $user = User::where('id', auth()->id())->first();
+        $categories = Category::where('id_parent', 0)->get();
 
         return view('user.list-your-car', [
             'categories' => $categories,
             'user' => $user,
+            'categories' =>$categories
         ]);
     }
 
@@ -129,19 +131,25 @@ class CarController extends Controller
     public function getMyCar() {
         $user_id = auth()->id();
         $cars = Car::where('user_id', $user_id)->get();
+        $categories = Category::where('id_parent', 0)->get();
 
-        return view('user.list--car', ['cars' => $cars]);
+        return view('user.list--car', [
+                                            'cars' => $cars,
+                                            'categories' =>$categories
+                                            ]);
     }
 
     public function carSingle($id) {
         $car = Car::where('id', $id)->first();
         $count = count($car->feedbacks);
         $feedbacks = $car->feedbacks ;
+        $categories = Category::where('id_parent', 0)->get();
 
         return view('user.car-listing-details', [
                         'car' => $car,
                         'countReview' => $count,
                         'feedbacks' => $feedbacks,
+                        'categories' =>$categories
                         ]);
     }
 
@@ -190,10 +198,12 @@ class CarController extends Controller
     {
         $car = Car::where('id', $id)->first();
         $trips = Checkout::where('car_id', $id)->get();
+        $categories = Category::where('id_parent', 0)->get();
 
         return view('user.manage-car-detail', [
             'car' => $car,
             'trips' => $trips,
+            'categories' =>$categories
         ]);
     }
 

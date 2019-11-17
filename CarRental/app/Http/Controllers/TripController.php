@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Checkout;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -10,8 +11,12 @@ class TripController extends Model
 {
     public function index() {
         $checkouts = Checkout::where('user_id_2', auth()->id())->orderBy('created_at', 'desc')->get();
+        $categories = Category::where('id_parent', 0)->get();
 
-        return view('user.trip', ['checkouts' => $checkouts]);
+        return view('user.trip', [
+                                        'checkouts' => $checkouts,
+                                        'categories' =>$categories
+                                        ]);
     }
 
     public function changeStatusTrip(Request $request, $id) {

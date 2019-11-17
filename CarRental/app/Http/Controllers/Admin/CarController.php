@@ -25,7 +25,7 @@ class CarController extends Controller
 
     public function rejectCar($id) {
         $car = Car::where('id', $id)->first();
-        $car->status = -1;
+        $car->status = 2;
         $car->save();
 
         return redirect()->route('admin.car.index');

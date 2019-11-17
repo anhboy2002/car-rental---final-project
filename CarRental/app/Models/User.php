@@ -52,4 +52,9 @@ class User extends Authenticatable
 
         return $this->hasMany(Checkout::class, 'user_id_1', 'id');
     }
+
+    public function checkouts() {
+
+        return $this->hasMany(Checkout::class, 'user_id_2', 'id');
+    }
 }

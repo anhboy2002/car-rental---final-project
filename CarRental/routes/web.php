@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use App\Models\Category;
+
 Route::get('/login', [
     'as' => 'getLogin',
     'uses' => 'UserController@getLogin',
@@ -114,7 +117,7 @@ Route::post('/feedback-end/{id}/{point}', [
     'uses' => 'CarController@feedbackEndTrip',
 ]);
 
-Route::get('trip', [
+Route::get('trips', [
     'as' => 'car.trip',
     'uses' => 'TripController@index',
 ]);
@@ -217,7 +220,7 @@ Route::group(['prefix' => 'admin'], function (){
         'uses' => 'Admin\CarController@rejectCar',
     ]);
 
-    Route::get('car/category', [
+    Route::get('category/category', [
         'as' => 'admin.category.index',
         'uses' => 'Admin\CategoryController@getCategoryIndex',
     ]);
@@ -257,11 +260,13 @@ Route::group(['prefix' => 'admin'], function (){
 //    return view('welcome');
 //});
 //
-//Route::get('/commonsetting', function () {
-//    return view('user/commonsetting');
-//});
-//
-//Route::get('/category', function () {
-//    return view('user/category');
-//});
+Route::get('/commonsetting', function () {
+    $categories = Category::where('id_parent', 0)->get();
+
+    return view('user/commonsetting', ['categories' =>$categories]);
+});
+
+Route::get('/category', function () {
+    return view('user/category');
+});
 

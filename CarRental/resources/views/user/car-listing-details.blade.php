@@ -150,7 +150,7 @@
                                                         <span class="fa fa-star" data-rating="5"></span>
                                                         <input type="hidden" name="whatever1" class="rating-value" value="2.56">
                                                     </div>
-                                                    <textarea placeholder="Your Message *" class="review-text"></textarea>
+                                                    <textarea placeholder="Nhận xét của bạn *" class="review-text"></textarea>
                                                     <button class="review"  id="{{$car->id}}">Nhật xét</button>
                                                 </form>
                                             </section>

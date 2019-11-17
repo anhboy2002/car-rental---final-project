@@ -24,17 +24,21 @@
                                     @if (Auth::check())
                                       {{auth()->user()->user_name}}
                                     @else
-                                        Account
+                                        Tài khoản
                                     @endif
                                     <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu account-nav">
                                     @if (Auth::check())
-                                        <li><a href="{{ route('getLogin') }}">Profile</a></li>
-                                        <li><a href="{{ route('logout') }}">Logout</a></li>
+                                        <li class="text-center"><a href="{{ route('myProflie') }}">Tài khoản</a></li>
+                                        <li class="text-center"><a href="{{ route('car.favorite') }}">Xe yêu thích</a></li>
+                                        <li class="text-center"><a href="{{ route('myCar') }}">Xe của tôi</a></li>
+                                        <li class="text-center"><a href="{{ route('carRegister') }}">Đăng ký xe</a></li>
+                                        <li class="text-center"><a href="{{ route('car.trip') }}">Chuyến của tôi</a></li>
+                                        <li class="text-center"><a href="{{ route('logout') }}">Đăng xuất</a></li>
                                     @else
-                                        <li><a href="{{ route('getLogin') }}">Login</a></li>
-                                        <li><a href="{{ route('getLogin') }}">Register</a></li>
+                                        <li class="text-center"><a href="{{ route('getLogin') }}">Login</a></li>
+                                        <li class="text-center"><a href="{{ route('getLogin') }}">Register</a></li>
                                     @endif
                                 </ul>
                             </div>
@@ -43,29 +47,35 @@
                 </div>
                 <div class="wheel-navigation">
                     <nav id="dl-menu" style="float: right;">
-                        <!-- class="dl-menu" -->
                         <ul class="main-menu dl-menu">
-                            <li class="menu-item   current-menu-parent menu-item-has-children   active-color ">
+                            <li class="menu-item   current-menu-parent menu-item-has-children">
                                 <a href="/index">Trang chủ</a>
                             </li>
-                            <li class="menu-item   ">
-                                <a href="/list-your-car">List your car</a>
-                                <ul class="sub-menu">
-                                    <li class="menu-item "><a href="/mycar">Your car</a></li>
-                                    <li class="menu-item "><a href="/myfavorite">Your favorite car</a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item   ">
-                                <a href="/trip">Trips</a>
-                            </li>
                             <li class="menu-item menu-item-has-children  ">
-                                <a href="#">Pages</a>
+                                <a href="">Hãng xe</a>
                                 <ul class="sub-menu">
-                                    <li class="menu-item "><a href="/profile">Profile</a></li>
-                                    <li class="menu-item "><a href="/search">Search</a></li>
-                                    <li class="menu-item "><a href="/checkout">Checkout</a></li>
-                                    <li class="menu-item "><a href="/book">Book</a></li>
+                                    @foreach($categories as $category)
+                                        <li class="menu-item menu-item-has-children">
+                                            <a href="#">{{$category->name}}</a>
+                                            <ul class="sub-menu">
+                                                @foreach($category->childrens as $children)
+                                                <li class="menu-item"><a href="#">{{$children->name}}</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </li>
+                                    @endforeach
                                 </ul>
+                            </li>
+                            <li class="menu-item   current-menu-parent menu-item-has-children">
+                                <a href="">Xe</a>
+                                <ul class="sub-menu">
+                                    <li class="menu-item "><a href="{{ route('car.favorite') }}">Xe yêu thích</a></li>
+                                    <li class="menu-item "><a href="{{ route('carRegister') }}">Đăng ký xe</a></li>
+                                    <li class="menu-item "><a href="{{ route('myCar') }}">Xe của tôi</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item   ">
+                                <a href="car.trip">Chuyến đi</a>
                             </li>
                         </ul>
                         <div class="nav-menu-icon"><i></i></div>

@@ -183,9 +183,9 @@
                                 <div class="mt-3">
                                     <h6 class="title-list">ĐỊA CHỈ GIAO NHẬN XE</h6>
                                     @if($checkout->user_id_1 != auth()->id())
-                                        <p class="mt-2">{{Str::limit($checkout->car->location_name,$limit = 9 , $end = '...')}}. (Địa chỉ cụ thể sẽ hiện thị sau khi đặt cọc thành công)</p>
+                                        <p class="mt-2"><i class="fa fa-map-marker"></i> {{Str::limit($checkout->car->location_name,$limit = 9 , $end = '...')}}. (Địa chỉ cụ thể sẽ hiện thị sau khi đặt cọc thành công)</p>
                                     @else
-                                        <p class="mt-2">{{$checkout->car->location_name}}.</p>
+                                        <p class="mt-2"><i class="fa fa-map-marker"></i> {{$checkout->car->location_name}}.</p>
                                     @endif
 
                                     <div class="wheel-map style-1" id = "mapSingleCar" data-lat="{{ $checkout->car->lat }}" data-lng="{{ $checkout->car->long }}" data-car="{{ $checkout->car }}" data-marker="images/marker.png" style="height: 331px; width: 100% "></div>

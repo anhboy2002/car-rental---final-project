@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
+use App\Models\Category;
 use App\Models\Favorite;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,8 +13,9 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function getLogin() {
+        $categories = Category::where('id_parent', 0)->get();
 
-        return view('user.register');
+        return view('user.register', ['categories' =>$categories]);
     }
 
     public function postLogin(LoginUserRequest $request) {
@@ -53,8 +55,12 @@ class UserController extends Controller
 
     public function indexMyFavoriteCar() {
         $favorites = Favorite::where('user_id', \auth()->id())->get();
+        $categories = Category::where('id_parent', 0)->get();
 
-        return view('user.favorite', ['favorites' => $favorites]);
+        return view('user.favorite', [
+                                            'favorites' => $favorites,
+                                            'categories' =>$categories
+            ]);
     }
 
     public function myFavoriteCar($id) {
@@ -96,8 +102,12 @@ class UserController extends Controller
     public function profileIndex() {
         $user = User::where('id', \auth()->id())->first();
         $cars = $user->cars;
+        $categories = Category::where('id_parent', 0)->get();
+
         return view('user.profile', ['user' => $user,
-                                            'cars' => $cars]);
+                                           'cars' => $cars,
+                                           'categories' =>$categories
+            ]);
     }
 
     public function changePassword(Request $request) {

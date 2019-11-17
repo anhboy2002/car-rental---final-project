@@ -1111,3 +1111,6 @@ a, a:hover {
     background-color: #fafafa;
     border-radius: 10px;
 }
+.account-nav li :hover{
+    background-color: black;
+}

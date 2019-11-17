@@ -1,6 +1,5 @@
 @extends('admin.layout.master')
 @section('content2')
-
 <div class="content-wrapper">
     <div class="page-header page-header-default">
         <div class="page-header-content">

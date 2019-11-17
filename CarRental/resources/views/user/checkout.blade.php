@@ -1,6 +1,7 @@
 @extends('user.layouts.frontend')
 @section('content')
     <div class="wheel-start3">
+        <img src="https://demos.jeweltheme.com/wheel/images/bg7.jpg" alt="" class="wheel-img">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 padd-lr0">
@@ -194,7 +195,7 @@
                     </div>
                     <div class="mt-3">
                         <h6 class="title-list">ĐỊA CHỈ GIAO NHẬN XE</h6>
-                        <p>{{Str::limit($car->location_name,$limit = 9 , $end = '...')}} (địa chỉ cụ thể sẽ được hiển thị sau khi đặt cọc).</p>
+                         <p><i class="fa fa-map-marker"></i>  {{Str::limit($car->location_name,$limit = 9 , $end = '...')}} (địa chỉ cụ thể sẽ được hiển thị sau khi đặt cọc).</p>
                         <div class="wheel-map style-1" id = "mapSingleCar" data-lat="{{ $car->lat }}" data-lng="{{ $car->long }}" data-car="{{ $car }}" data-marker="images/marker.png" style="height: 231px; width: 760px "></div>
                     </div>
                     <div class="m-1 mt-3 row ">

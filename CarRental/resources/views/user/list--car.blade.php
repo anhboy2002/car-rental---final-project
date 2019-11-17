@@ -1,16 +1,15 @@
 @extends('user.layouts.frontend')
 @section('content')
     <div class="wheel-start3">
-        <img src="images/bg7.jpg" alt="" class="wheel-img">
+        <img src="https://demos.jeweltheme.com/wheel/images/bg7.jpg" alt="" class="wheel-img">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 padd-lr0">
+                <div class="col-md-12 padd-lr0">
                     <div class="wheel-start3-body clearfix marg-lg-t255 marg-lg-b75 marg-sm-t190 marg-xs-b30">
-                        <h3>List car</h3>
+                        <h3>Xe của tôi</h3>
                         <ol class="breadcrumb">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#"> My car </a></li>
-                            <li class="active">List car</li>
+                            <li><a href="#">Trang chủ</a></li>
+                            <li><a href="#">Xe của tôi </a></li>
                         </ol>
                     </div>
                 </div>
@@ -21,7 +20,7 @@
         <div class="row">
             <div class="col-lg-3 status-list">
                 <h1>
-                    Status
+                   Trạng thái
                 </h1>
                 <select id="choice">
                     <option value="all">
@@ -77,12 +76,10 @@
                                     @endswitch
 
                                 <div class="price-mycar">
-                                    <span>${{$car->price}}</span><sup>00</sup>/Day
+                                    <span>{{$car->price}}</span><sup>K</sup>/Ngày
                                 </div>
                             </div>
                             <hr class="line-mycar">
-{{--                            <a href="{{ route('car.carDetail', [ 'id' => $car->id ]) }}" class="btn btn-dark btn-detail btn-mycar" role="button">Detail</a>--}}
-{{--                            <button class="btn-manage btn-mycar">Manage</button>--}}
                             <a href="{{ route('car.carDetail', [ 'id' => $car->id ]) }}" class="btn btn-dark mb-2 btn-detail btn-mycar" role="button">Chi tiết</a>
                             <a href="{{route('carSetting', ['id' => $car->id])}}" class="btn btn-success mb-2 btn-manage btn-mycar" role="button">Quản lí</a>
                         </div>

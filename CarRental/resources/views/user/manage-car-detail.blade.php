@@ -31,7 +31,6 @@
             <div class="container-manage settings">
                 <div class="row collapse show no-gutters d-flex h-100 position-relative">
                     <div class="col-3 p-0 h-100 w-sidebar navbar-collapse collapse d-none d-md-flex sidebar">
-                        <!-- fixed sidebar -->
                         <div class="navbar-dark text-white h-100 align-self-start w-sidebar">
                             <ul class="nav flex-column flex-nowrap menu-list-manage">
                                 <li class="nav-item">
@@ -76,7 +75,7 @@
                                         <input type="hidden" id="inputLatCar" name="lat">
                                         <input type="hidden" id="inputLongCar" name="lng">
                                         <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#myModal">
-                                            Location
+                                            Map
                                         </button>
                                     </div>
                                     <div class="row marg-lg-t55 marg-sm-t0 marg-sm-b0 marg-lg-b5">
@@ -208,8 +207,8 @@
                                                         @foreach($trips as $key => $trip)
                                                             @switch($trip->status_ck)
                                                                 @case(0)
-                                                                <tr data-status="reject">
-                                                                    <td style="width: 5%">{{$key}}</td>
+                                                                <tr data-status="reject" href="#viewUser" data-toggle="modal" data-target="#viewUser">
+                                                                    <td style="width: 5%; font-size: 15px" class="text-secondary">{{$key}}
                                                                     <td>
                                                                         <div class="media">
                                                                             <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
@@ -217,7 +216,7 @@
                                                                             </a>
                                                                             <div class="media-body">
                                                                                 <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
-                                                                                <h4 class="title ml-2">
+                                                                                <h4 class="title ml-2" href="#viewUser" data-toggle="modal" data-target="#viewUser">
                                                                                     {{ $trip->user2->user_name }}
                                                                                     <span class="pull-right text-danger">(Bị hủy)</span>
                                                                                 </h4>
@@ -238,7 +237,8 @@
                                                                 @break
                                                                 @case(1)
                                                                 <tr data-status="pending">
-                                                                    <td style="width: 5%">{{$key}}</td>
+                                                                    <td style="width: 5%; font-size: 15px" class="text-secondary">{{$key}}
+                                                                    </td>
                                                                     <td>
                                                                         <div class="media">
                                                                             <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
@@ -246,9 +246,9 @@
                                                                             </a>
                                                                             <div class="media-body">
                                                                                 <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
-                                                                                <h4 class="title ml-2">
+                                                                                <h4 class="title ml-2" href="#viewUser" data-toggle="modal" data-target="#viewUser">
                                                                                     {{ $trip->user2->user_name }}
-                                                                                    <span class="pull-right text-warning">(Đang chờ duyệt)</span>
+                                                                                    <span class="pull-right text-warning">(Chờ duyệt)</span>
                                                                                 </h4>
                                                                                 {{--  <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
                                                                             </div>
@@ -267,7 +267,7 @@
                                                                 @break
                                                                 @case(2)
                                                                 <tr data-status="later">
-                                                                    <td style="width: 5%">{{$key}}</td>
+                                                                    <td style="width: 5%; font-size: 15px" class="text-secondary">{{$key}}
                                                                     <td>
                                                                         <div class="media">
                                                                             <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
@@ -275,9 +275,9 @@
                                                                             </a>
                                                                             <div class="media-body">
                                                                                 <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
-                                                                                <h4 class="title ml-2">
+                                                                                <h4 class="title ml-2" href="#viewUser" data-toggle="modal" data-target="#viewUser">
                                                                                     {{ $trip->user2->user_name }}
-                                                                                    <span class="pull-right text-dark">(Bị hết hạn)</span>
+                                                                                    <span class="pull-right text-dark">(Bị trễ)</span>
                                                                                 </h4>
                                                                                 {{--  <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
                                                                             </div>
@@ -296,7 +296,7 @@
                                                                 @break
                                                                 @case(3)
                                                                 <tr data-status="process">
-                                                                    <td style="width: 5%">{{$key}}</td>
+                                                                    <td style="width: 5%; font-size: 15px" class="text-secondary">{{$key}}
                                                                     <td>
                                                                         <div class="media">
                                                                             <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
@@ -304,9 +304,9 @@
                                                                             </a>
                                                                             <div class="media-body">
                                                                                 <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
-                                                                                <h4 class="title ml-2">
+                                                                                <h4 class="title ml-2" href="#viewUser" data-toggle="modal" data-target="#viewUser">
                                                                                     {{ $trip->user2->user_name }}
-                                                                                    <span class="pull-right later">(Tiến hành)</span>
+                                                                                    <span class="pull-right text-info">(Tiến hành)</span>
                                                                                 </h4>
 {{--                                                                                <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
                                                                             </div>
@@ -325,7 +325,7 @@
                                                                 @break
                                                                 @case(4)
                                                                 <tr data-status="success">
-                                                                    <td style="width: 5%">{{$key}}</td>
+                                                                    <td style="width: 5%; font-size: 15px" class="text-secondary">{{$key}}
                                                                     <td>
                                                                         <div class="media">
                                                                             <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
@@ -333,7 +333,7 @@
                                                                             </a>
                                                                             <div class="media-body">
                                                                                 <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
-                                                                                <h4 class="title ml-2">
+                                                                                <h4 class="title ml-2" href="#viewUser" data-toggle="modal" data-target="#viewUser">
                                                                                     {{ $trip->user2->user_name }}
                                                                                     <span class="pull-right text-success">(Hoàn thành)</span>
                                                                                 </h4>
@@ -353,6 +353,23 @@
                                                                 </tr>
                                                                 @break
                                                                 @endswitch
+                                                            {{--    Modal user--}}
+                                                            <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-body">
+                                                                            <div class="center-block">
+                                                                                <img  src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" name="{{$trip->user2->user_name}}" width="140" height="140" border="0" class="img-circle"></a>
+                                                                                <h3 class="media-heading">{{$trip->user2->user_name}} <small>{{$trip->user2->address}}</small></h3>
+                                                                                <span><strong>Thông tin: </strong></span>
+                                                                                <span class="badge badge-warning">{{$trip->user2->checkouts->count()}} chuyến</span>
+                                                                                <span class="badge badge-info">{{$trip->user2->cars->count()}} xe</span>
+                                                                                <span class="badge badge-success">{{$trip->user2->created_at->toFormattedDateString()}}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         @endforeach
                                                         </tbody>
                                                     </table>
@@ -361,7 +378,6 @@
                                         </div>
                                     </div>
                                 </section>
-
                             </div>
                         </div>
                     </div>
@@ -386,11 +402,6 @@
                             <div class="location-map" id="location-map">
                                 <div style="width: 600px; height: 400px;" id="map_canvas"></div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 modal_body_end">
-                            <button class="btn btn-info" id="saveCarLocation">Save</button>
                         </div>
                     </div>
                 </div>

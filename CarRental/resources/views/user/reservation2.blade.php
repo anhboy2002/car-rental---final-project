@@ -4,7 +4,7 @@
         <img src="https://demos.jeweltheme.com/wheel/images/bg7.jpg" alt="" class="wheel-img">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 padd-lr0">
+                <div class="col-md-12 padd-lr0">
                     <div class="wheel-start3-body clearfix marg-lg-t255 marg-lg-b75 marg-sm-t190 marg-xs-b30">
                         <h3>Đặt xe</h3>
                         <ol class="breadcrumb">
@@ -38,7 +38,7 @@
                         </li>
                         <li class="title-wrap ">
                             <div class="title">
-                                <a  href='{{ ($checkout->status_1 == 6 && $checkout->status_2 == 6) ? "/trip/end/" .$checkout->id: ""}}'><span>4.</span>Kết thúc</a>
+                                <a  href='{{ ($checkout->status_1 == 6 && $checkout->status_2 == 6 || $checkout->status_ck == 4) ? "/trip/end/" .$checkout->id: ""}}'><span>4.</span>Kết thúc</a>
                             </div>
                         </li>
                     </ul>
@@ -166,7 +166,7 @@
                                 </div>
                                 <div class="mt-3">
                                     <h6 class="title-list">ĐỊA CHỈ GIAO NHẬN XE</h6>
-                                    <p class="mt-2">{{$checkout->car->location_name}}.</p>
+                                    <p class="mt-2"><i class="fa fa-map-marker"></i> {{$checkout->car->location_name}}.</p>
                                     <div class="wheel-map style-1" id = "mapSingleCar" data-lat="{{ $checkout->car->lat }}" data-lng="{{ $checkout->car->long }}" data-car="{{ $checkout->car }}" data-marker="images/marker.png" style="height: 331px; width: 100% "></div>
                                 </div>
                             </div>
@@ -174,7 +174,7 @@
                     </div>
                 </div>
                 @if($checkout->user_id_1 == auth()->id())
-                    @if($checkout->status_ck != 6)
+                    @if($checkout->status_ck != 6 && $checkout->status_ck != 4)
                         <button class="btn btn-primary status-wrap ol-xs-12 padd-lr0 mt-2 btnHandingCar" data-toggle="modal" data-target="#modalConfirmHandingCar" >Đã giao xe</button>
                     @endif
                 @else
@@ -182,7 +182,7 @@
                         <button class="btn btn-danger status-wrap ol-xs-12 padd-lr0 mt-2 btnReport" data-toggle="modal" data-target="#modalReportCar" >Báo xấu</button>
 
                         <button class="btn btn-primary status-wrap ol-xs-12 padd-lr0 mt-2 btnReceiveCar" data-toggle="modal" data-target="#modalConfirmReceiveCar" >Đã nhận xe</button>
-                    @elseif($checkout->status_2 != 6)
+                    @elseif($checkout->status_2 != 6 && $checkout->status_ck != 4)
                         <button class="btn btn-primary status-wrap ol-xs-12 padd-lr0 mt-2 btnReceiveCar" data-toggle="modal" data-target="#modalConfirmReceiveCar" >Đã nhận xe</button>
                     @endif
                 @endif
