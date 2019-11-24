@@ -442,7 +442,7 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
     {!! Html::script('assets/js/jquery-2.2.4.min.js') !!}
 <script type="text/javascript">
     $(document).ready(function () {

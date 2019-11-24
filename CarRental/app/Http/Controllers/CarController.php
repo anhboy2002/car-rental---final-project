@@ -18,7 +18,7 @@ class CarController extends Controller
         $json_featured= json_encode($request->featured,JSON_FORCE_OBJECT);
         $car = Car::create([
             'user_id' => auth()->user()->id,
-            'car_category_id' => $request->selectCarCategoryChildren,
+            'car_category_id' => $request->selectCarCategoryParent,
             'year' => $request->selectCarYear,
             'description' => $request->carDescription,
             'num_seat' => $request->numSeat,
@@ -106,12 +106,12 @@ class CarController extends Controller
     public function getCreateCar() {
         $categories = Category::all();
         $user = User::where('id', auth()->id())->first();
-        $categories = Category::where('id_parent', 0)->get();
+        $categoriesHeader = Category::where('id_parent', 0)->get();
 
         return view('user.list-your-car', [
-            'categories' => $categories,
+            'categoriesPage' => $categories,
             'user' => $user,
-            'categories' =>$categories
+            'categories' =>$categoriesHeader
         ]);
     }
 

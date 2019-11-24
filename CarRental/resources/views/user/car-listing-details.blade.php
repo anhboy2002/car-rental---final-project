@@ -180,7 +180,7 @@
                     <div class="row marg-lg-b20">
                         <div class="col-md-12 padd-lr0 xs-padd marg-lg-b60 marg-sm-b10">
                             <div class="wheel-start-form wheel-start-form2    ">
-                                <form action="{{action("CheckoutController@checkoutCar", [$car->id]) }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{action("CheckoutController@checkoutCar", [$car->id]) }}" method="GET" enctype="multipart/form-data">
                                     {{ csrf_field()}}
                                     <div  class="clearfix">
                                         <input type="hidden" id='inputLocationCar3' name="addressSearch">
@@ -216,7 +216,7 @@
                                             </div>
                                             {{--      @if($car->user_id != auth()->id())--}}
                                             <label for="input-val27" class="promo promo2">
-                                                <button class="wheel-btn" >Checkout</button>
+                                                <button class="wheel-btn" type="submit" id="searchCarIndex">Checkout</button>
                                             </label>
                                             {{--                                        @endif--}}
                                         </div>

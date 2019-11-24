@@ -1114,3 +1114,115 @@ a, a:hover {
 .account-nav li :hover{
     background-color: black;
 }
+.info-display{
+    margin: 0 auto;
+    margin-bottom: 1.5rem;
+}
+.info-display--item:not(:last-child) {
+    margin-right: 1.5rem;
+    border-right: 2px solid #ccc;
+    padding-right: 1.5rem;
+}
+.info-display--item span.highlight {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: .25rem;
+    display: block;
+    text-align: center;
+}
+.info-display--item .desc {
+    text-transform: none;
+    color:#67737f;
+    font-weight: 400;
+    font-size: .875rem;
+    margin-bottom: 0;
+}
+.info-display--item .response-desc {
+    padding: 5px 10px;
+    background:
+        #f7f8fb;
+    border-radius: 5px;
+    margin-right: 10px;
+    min-height: 85px;
+}
+.response-desc {
+    display: -ms-flexbox;
+    display: flex;
+    padding-bottom: 20px;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+.summary-change{
+    font-size: 1rem;
+    margin-bottom: .75rem;
+    background:
+        #eff2f7;
+    padding: .5rem 1rem;
+    border-radius: 3px;
+    font-weight: 600;
+    color: #3c4858;
+}
+.notification {
+    background-color: #555;
+    color: white;
+    text-decoration: none;
+    padding: 15px 26px;
+    position: relative;
+    display: inline-block;
+    border-radius: 2px;
+}
+
+.notification .badge {
+    position: absolute;
+    right: -1px;
+    padding: 5px 7px;
+    border-radius: 100%;
+    background: red;
+    color: white;
+}
+.dropdown-menu{
+    top: 60px;
+    right: 0px;
+    left: unset;
+    box-shadow: 0px 5px 7px -1px #c1c1c1;
+    padding-bottom: 0px;
+    padding: 0px;
+}
+.dropdown-menu:before{
+    content: "";
+    position: absolute;
+    top: -20px;
+    right: 12px;
+    border:10px solid #343A40;
+    border-color: transparent transparent #343A40 transparent;
+}
+.head{
+    padding:5px 15px;
+    border-radius: 3px 3px 0px 0px;
+}
+.footer{
+    padding:5px 15px;
+    border-radius: 0px 0px 3px 3px;
+}
+.notification-box{
+    padding: 10px 0px;
+}
+.bg-gray{
+    background-color: #eee;
+}
+@media (max-width: 640px) {
+    .dropdown-menu{
+        top: 50px;
+        left: -16px;
+        width: 290px;
+    }
+    .nav{
+        display: block;
+    }
+    .nav .nav-item,.nav .nav-item a{
+        padding-left: 0px;
+    }
+    .message{
+        font-size: 13px;
+    }
+}

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
 use App\Models\Category;
+use App\Models\Checkout;
 use App\Models\Favorite;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,16 +34,37 @@ class UserController extends Controller
         }
     }
 
+    public function postLoginModal(LoginUserRequest $request) {
+        $login = [
+            'email' => $request->emailLogin,
+            'password' => $request->passwordLogin,
+        ];
+        if (Auth::attempt($login)) {
+
+            return redirect()->back();
+        } else {
+
+            return redirect()->back()->with('status', 'Login fail!');
+        }
+    }
+
     public function postRegister(RegisterUserRequest $request) {
+        $avatar = 'noiavatar.png';
+        $filenameWithExt = $avatar->getClientOriginalName();
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        $extension = $avatar->getClientOriginalExtension();
+        $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+
         $user = User::create([
             'user_name' => $request->userName,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'avatar' => '',
+            'avatar' => $fileNameToStore,
             'phone' => '',
             'is_admin'=> 0,
             'status' => 1
         ]);
+        $avatar->storeAs('public/uploads/profile', $fileNameToStore);
         Auth::login($user);
 
         return redirect()->route('index');
@@ -143,5 +166,35 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('myProflie');
+    }
+
+    public function myWalletIndex(Request $request) {
+//        if($request->month == '') {
+//            $month = Carbon::now()->format('M-Y');
+//        } else {
+//            $month = $request->month;
+//        }
+        $user = new User();
+        $trip = new Checkout();
+        $trips = Checkout::where(
+            'user_id_1', \auth()->id()
+
+        )->get();
+        $countTripSuccess= Checkout::where([
+                                            'user_id_1'=>auth()->id(),
+                                            'status_ck' => '4'
+                                            ]
+
+        )->count();
+        $ratingUser = $user->rating(\auth()->id());
+        $categories = Category::where('id_parent', 0)->get();
+
+        return view('user.mywallet', [
+                                            'categories' =>$categories,
+                                            'trips' =>$trips,
+                                            'totalPrice' => $trip->totalPrice($trips),
+                                            'countTripSuccess' => $countTripSuccess,
+                                            'ratingUser' => $ratingUser
+                                        ]);
     }
 }

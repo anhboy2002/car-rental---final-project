@@ -1,3 +1,4 @@
+@include('include.errors')
 <footer class="wheel-footer" style='background-image: url("https://demos.jeweltheme.com/wheel/images/bg4.jpg");'>
     <img src="{{ asset('https://demos.jeweltheme.com/wheel/images/bg4.jpg') }}" alt="" class="wheel-img">
     <div class="container">
@@ -68,37 +69,21 @@
 </div>
 
 <!-- Scripts project -->
-{{--<script type="text/javascript" src="assets/js/jquery-2.2.4.min.js"></script>--}}
 {!! Html::script('assets/js/jquery-2.2.4.min.js') !!}
-{{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>--}}
-{{--<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>--}}
 {!! Html::script('app/js/bootstrap.min.js') !!}
-{{--<script type="text/javascript" src="app/js/bootstrap.min.js"></script>--}}
 <!-- count -->
 {!! Html::script('assets/js/jquery.countTo.js') !!}
-{{--<script type="text/javascript" src='assets/js/jquery.countTo.js'></script>--}}
 <!-- google maps -->
-{{--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBt5tJTim4lOO3ojbGARhPd1Z3O3CnE-C8&libraries=places&callback=initAutocomplete"--}}
-{{--        async defer></script>--}}
 {{--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBt5tJTim4lOO3ojbGARhPd1Z3O3CnE-C8&libraries=places"></script>--}}
 {!! Html::script('https://maps.googleapis.com/maps/api/js?key=AIzaSyBt5tJTim4lOO3ojbGARhPd1Z3O3CnE-C8&libraries=places') !!}
 {{--<script type="text/javascript" src='app/js/gmap.js'></script>--}}
 {!! Html::script('app/js/gmap.js') !!}
 <!-- swiper -->
-{{--<script type="text/javascript" src="assets/js/idangerous.swiper.min.js"></script>--}}
 {!! Html::script('assets/js/idangerous.swiper.min.js') !!}
 {!! Html::script('assets/js/equalHeightsPlugin.js') !!}
 {!! Html::script('assets/js/jquery.datetimepicker.full.min.js') !!}
-{{--<script type="text/javascript" src="assets/js/equalHeightsPlugin.js"></script>--}}
-{{--<script type="text/javascript" src="assets/js/jquery.datetimepicker.full.min.js"></script>--}}
-<!-- Latest compiled and minified JavaScript -->
 {!! Html::script('assets/js/bootstrap-select.min.js') !!}
 {!! Html::script('assets/js/index.js') !!}
 {!! Html::script('app/js/app.js') !!}
 {!! Html::script('app/js/fileinput/fileinput.js') !!}
 {!! Html::script('app/js/fileinput/vi.js') !!}
-{{--<script type="text/javascript" src="assets/js/bootstrap-select.min.js"></script>--}}
-{{--<script type="text/javascript" src="assets/js/index.js"></script>--}}
-{{--<script type="text/javascript" src='app/js/app.js'></script>--}}
-{{--<script type="text/javascript" src='app/js/fileinput/fileinput.js'></script>--}}
-{{--<script type="text/javascript" src='app/js/fileinput/vi.js'></script>--}}

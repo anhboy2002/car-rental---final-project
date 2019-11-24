@@ -23,6 +23,11 @@ Route::post('/post-login', [
     'uses' => 'UserController@postLogin',
 ]);
 
+Route::post('/post-login-modal', [
+    'as' => 'postLoginModal',
+    'uses' => 'UserController@postLoginModal',
+]);
+
 Route::post('/post-register', [
     'as' => 'postRegister',
     'uses' => 'UserController@postRegister',
@@ -58,7 +63,7 @@ Route::get('/my-car', [
     'uses' => 'CarController@getMyCar',
 ]);
 
-Route::post('/search-post', [
+Route::get('/search-post', [
     'as' => 'searchCar',
     'uses' => 'SearchController@searchCar',
 ]);
@@ -72,7 +77,7 @@ Route::get('car/{id}', [
     'uses' => 'CarController@carSingle',
 ]);
 
-Route::post('checkout/{id}', [
+Route::get('checkout/{id}', [
     'as' => 'car.checkout',
     'uses' => 'CheckoutController@checkoutCar',
 ]);
@@ -120,7 +125,7 @@ Route::post('/feedback-end/{id}/{point}', [
 Route::get('trips', [
     'as' => 'car.trip',
     'uses' => 'TripController@index',
-]);
+])->middleware('auth');
 
 Route::get('my-favorite', [
     'as' => 'car.favorite',
@@ -266,7 +271,13 @@ Route::get('/commonsetting', function () {
     return view('user/commonsetting', ['categories' =>$categories]);
 });
 
-Route::get('/category', function () {
-    return view('user/category');
-});
+Route::get('/category/{id}', [
+    'as' => 'category.index',
+    'uses' => 'CarRentalController@getCategoryIndex'
+]);
+
+Route::get('/mywallet', [
+    'as' => 'mywallet',
+    'uses' => 'UserController@myWalletIndex'
+]);
 

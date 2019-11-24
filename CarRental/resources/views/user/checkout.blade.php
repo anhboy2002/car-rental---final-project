@@ -91,40 +91,72 @@
                     </div>
                 </div>
                 <div class="col-md-7 padd-r0">
-                    <div class=" marg-lg-t150 marg-lg-b150 marg-sm-t100 marg-sm-b100">
-                        <div class="wheel-header">
-                            <h3><span>Thông tin </span></h3>
-                        </div>
-                        <div class="accordion md-accordion mt-5" id="accordionEx1" role="tablist" aria-multiselectable="true">
-                            <div class="card">
-                                <div class="card-header" role="tab" id="headingThree21">
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseThree21"
-                                       aria-expanded="false" aria-controls="collapseThree21">
-                                        <h3 class="mb-0 title-list">
-                                            Số điện thoại
-                                        </h3>
-                                    </a>
-                                </div>
-                                <div id="collapseThree21" class="collapse" role="tabpanel" aria-labelledby="headingThree21"
-                                     data-parent="#accordionEx1">
-                                    <div class="card-body">
-                                        <div class="row form-group">
-                                            <div class="col-lg-10">
-                                                <label for="formGroupExampleInput2">Số điện thoại của bạn : <p class="font-weight-bold">{{ $car->user->phone }}</p></label>
-                                                <div class="row">
-                                                    <input type="text" class="form-control col-md-4" id="formGroupExampleInput">
-                                                    <button class="btn-info ml-2 col-md-3 btn" id="changePhoneNumber">Thay đổi</button>
+                    <div class=" marg-lg-t50 marg-lg-b150 marg-sm-t100 marg-sm-b100">
+                        @if(Auth::check())
+                            <div class="wheel-header">
+                                <h3><span>Thông tin </span></h3>
+                            </div>
+                            <div class="accordion md-accordion mt-5" id="accordionEx1" role="tablist" aria-multiselectable="true">
+                                <div class="card">
+                                    <div class="card-header" role="tab" id="headingThree21">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseThree21"
+                                           aria-expanded="false" aria-controls="collapseThree21">
+                                            <h3 class="mb-0 title-list">
+                                                Số điện thoại
+                                            </h3>
+                                        </a>
+                                    </div>
+                                    <div id="collapseThree21" class="collapse" role="tabpanel" aria-labelledby="headingThree21"
+                                         data-parent="#accordionEx1">
+                                        <div class="card-body">
+                                            <div class="row form-group">
+                                                <div class="col-lg-10">
+                                                    @if(auth()->user()->phone == '')
+                                                    <label for="formGroupExampleInput2">Vui lòng nhập số điện thoại :</label>
+                                                    <div class="row">
+                                                        <input type="text" class="form-control col-md-4" id="formGroupExampleInput">
+                                                        <button class="btn-info ml-2 col-md-3 btn" id="changePhoneNumber">Lưu</button>
+                                                    </div>
+                                                    @else
+                                                        <label for="formGroupExampleInput2">Số điện thoại của bạn : <p class="font-weight-bold">{{ auth()->user()->phone }}</p></label>
+                                                        <div class="row">
+                                                            <input type="text" class="form-control col-md-4" id="formGroupExampleInput">
+                                                            <button class="btn-info ml-2 col-md-3 btn" id="changePhoneNumber">Thay đổi</button>
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="p-2">
+                                    <button class="wheel-btn" id="bookCar" data-toggle="modal" data-target="#bookCarModal">Book</button>
+                                </div>
                             </div>
-                            <div class="p-2">
-                                <button class="wheel-btn" id="bookCar" data-toggle="modal" data-target="#bookCarModal">Book</button>
+                            </div>
+                        @else
+                        <div class="col-md-12 padd-l0">
+                            <div class="wheel-register-log">
+                                <div class="wheel-header">
+                                    <h5>Bạn đã có tài khoản? Đăng nhập</h5>
+                                </div>
+                                <form action="{{ action('UserController@postLoginModal') }}" method="POST">
+                                    {{ csrf_field()}}
+                                    @include('include.toast')
+                                    <label for="userName" class="fa fa-user"><input type="text" id="userName" name="emailLogin" placeholder='Email'></label>
+                                    <label for="userPass" class="fa fa-lock"><input type="password" id='userPass' name="passwordLogin" placeholder='Passsword'></label>
+                                    <button type="submit" class="wheel-btn">Đăng nhập</button>
+                                    <label class="password-sing clearfix" for="input-val2">
+                                        <a href="">Quên mật khẩu?</a>
+                                    </label>
+                                </form>
+                                <div class="wheel-register-link">
+                                    <a href="" class="wheel-btn-link wheel-bg11">Đăng nhập với Facebook</a>
+                                    <a href="" class="wheel-btn-link wheel-bg12">Đăng nhập với Twitter</a>
+                                </div>
                             </div>
                         </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -135,16 +167,16 @@
     <div class="modal fade bd-example-modal-lg" id="bookCarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="exampleModalLabel">Xác nhận đặt xe</h2>
+                <div class="modal-header" style="border-bottom: none; display: block">
+                    <h2 class="modal-title" id="exampleModalLabel" style="font-size: 2em; font-weight: bold; text-align: center; display: block">Xác nhận đặt xe</h2>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-3">
-                            <h5> {{ $car->name }}</h5>
+                        <div class="col-md-3 mt-1">
+                            <h4  style="font-size: 1.5em; font-weight: bold;"> {{ $car->name }}</h4>
                         </div>
                         <div  class="col-md-6">
                             <div class="wheel-quote-stars">
@@ -157,7 +189,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mt-2">
                         <div class="col-md-4">
                             <img src="{{ asset('storage/uploads/car_photos/'. $car->photos[0]->feature) }}" alt="{{$car->name}}" class="" width="216px" height="162px">
                         </div>

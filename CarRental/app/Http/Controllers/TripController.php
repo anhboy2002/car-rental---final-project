@@ -79,6 +79,7 @@ class TripController extends Model
                     $status_1 = 4;
                     $status_2 = 4;
                 }
+                $checkout->setTotalTrip($checkout);
                 break;
         }
 

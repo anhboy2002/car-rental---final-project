@@ -57,4 +57,17 @@ class User extends Authenticatable
 
         return $this->hasMany(Checkout::class, 'user_id_2', 'id');
     }
+
+    public function rating($id) {
+        $trips = Checkout::where(
+            'user_id_1', $id
+
+        )->get();
+        $ratingUser = 0;
+        foreach($trips as $trip){
+            $ratingUser += $trip->car->rate;
+        }
+
+        return number_format($ratingUser/count($trips));
+    }
 }

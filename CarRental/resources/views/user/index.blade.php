@@ -6,10 +6,11 @@
             <div class="row">
                 <div class="col-8 col-lg-pull-8  padd-lr0">
                     <div class="wheel-start-form" style="max-width: 790px">
-                        <form action="{{ action("SearchController@searchCar") }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ action("SearchController@searchCar") }}" method="GET" enctype="multipart/form-data">
                             {{ csrf_field()}}
                             <label for="input-val11" style="width: 82%"><span>Địa điểm</span>
-                                <input type="text" id='inputAddressSearch1' placeholder="Thành phố, sân bay" required name="addressSearch">
+                                <input type="text" id='inputAddressSearch1' placeholder="Thành phố, sân bay" name="addressSearch">
+                                <input type="hidden" name="hasCategory" value="0">
                             </label>
                             <div class="clearfix">
                                 <div class="wheel-date">
@@ -129,10 +130,10 @@
                                 <div class="swiper-container" data-autoplay="0" data-touch="1" data-mouse="0" data-xs-slides="1" data-sm-slides="2" data-md-slides="4" data-lg-slides="6" data-add-slides="6" data-slides-per-view="responsive" data-loop="1" data-speed="1000">
                                     <div class="swiper-wrapper">
                                         <div class="swiper-slide">
-                                            <div class="wheel-collect"><img src="{{ asset('images/audi.jpg') }}" alt="Audi"></div>
+                                            <div class="wheel-collect"><a href="{{route('category.index', ['id' => '1'])}}"><img src="{{ asset('images/audi.jpg') }}" alt="Audi"></a></div>
                                         </div>
                                         <div class="swiper-slide">
-                                            <div class="wheel-collect"><img  src="{{ asset('images/honda.jpg') }}" alt="Honda"></div>
+                                            <div class="wheel-collect"><a href="{{route('category.index', ['id' => '2'])}}"><img  src="{{ asset('images/honda.jpg') }}" alt="Honda"></a></div>
                                         </div>
                                         <div class="swiper-slide">
                                             <div class="wheel-collect"><img src="{{ asset('images/mitsubisi.jpg') }}" alt="mitsubisi"></div>

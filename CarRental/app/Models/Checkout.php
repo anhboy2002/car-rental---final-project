@@ -40,4 +40,32 @@ class Checkout extends Model
 
         return $this->hasOne(User::class, 'id', 'user_id_2');
     }
+
+    public function totalPrice($trips){
+        $totalPriceSuccess = 0;
+        $totalPriceReject = 0;
+        foreach($trips as $trip) {
+            if($trip->status_ck == '4'){
+                $totalPriceSuccess += $trip->price;
+            } else {
+                $totalPriceReject += $trip->price;
+            }
+        }
+
+        return $toalPrice = [
+                             'totalPriceSuccess' => number_format( $totalPriceSuccess),
+                             'totalPriceReject' => number_format($totalPriceReject),
+                             ];
+    }
+
+    public function setTotalTrip($checkout){
+        $user1 = $checkout->user1;
+        $user2= $checkout->user2;
+        $user1->total_trip = $user1->total_trip + 1 ;
+        $user2->total_trip = $user1->total_trip + 1 ;
+        $user1->save();
+        $user2->save();
+
+        return true;
+    }
 }

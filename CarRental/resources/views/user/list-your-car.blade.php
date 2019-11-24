@@ -46,9 +46,11 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-lg-2">
+                                            <input type="hidden" id="dataCategory" data-category="{{$categoriesPage}}">
                                             <label for="formGroupExampleInput2">Hãng xe</label>
                                             <select class="form-control" id="SelectCarCategoryParent" name="selectCarCategoryParent">
-                                                @foreach ($categories as $category)
+                                                <option value="default">Chọn hãng xe</option>
+                                                @foreach ($categoriesPage as $category)
                                                     @if ($category->id_parent == '0')
                                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                     @endif
@@ -58,9 +60,10 @@
                                         <div class="col-lg-2">
                                             <label for="formGroupExampleInput2">Mẫu xe</label>
                                             <select class="form-control" id="SelectCarCategoryChilren" name="selectCarCategoryChildren">
-                                                @foreach ($categories as $category)
-                                                    @if ($category->id_parent == '1')
-                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                <option value="default">Chọn mẫu xe</option>
+                                                @foreach ($categoriesPage as $category)
+                                                    @if ($category->id_parent != '0')
+                                                        <option value="{{ $category->id_parent }}">{{ $category->name }}</option>
                                                     @endif
                                                 @endforeach
                                             </select>

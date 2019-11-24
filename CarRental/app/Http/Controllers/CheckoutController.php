@@ -26,10 +26,11 @@ class CheckoutController extends Controller
             ];
         } catch (\Exception $e) {
         }
-        $this->checkoutCarDetail($search, $car);
+        $checkoutCarDetail = $this->checkoutCarDetail($search, $car);
+
         return view('user.checkout', ['car' => $car,
                                             'search' => $search,
-                                            'checkoutDetail' =>  $this->checkoutCarDetail($search, $car),
+                                            'checkoutDetail' =>  $checkoutCarDetail,
                                             'categories' =>$categories
                                             ]);
     }
@@ -37,11 +38,11 @@ class CheckoutController extends Controller
     public function checkoutCarDetail($search, $car) {
         $totalHourRental = $search['dateBegin']->diffInHours($search['dateEnd']) + $search['timeBegin']->diffInHours($search['timeEnd']);
         if (($totalHourRental/24) % 2 != 0){
-            $totalDay = number_format($totalHourRental/24) + 1;
-        } else {
             $totalDay = number_format($totalHourRental/24);
+        } else {
+            $totalDay = number_format($totalHourRental/24) + 1;
         }
-        $totalPrice =  $car->price * number_format($totalHourRental/24);
+        $totalPrice =  $car->price * $totalDay;
         $checkoutDetail =[
             'totalPrice' => number_format($totalPrice, 2),
             'totalDayRental'=> $totalDay
@@ -70,8 +71,8 @@ class CheckoutController extends Controller
 
             $checkout = Checkout::create([
                 'car_id' => $id,
-                'user_id_1' => auth()->id(),
-                'user_id_2' => $car->user->id,
+                'user_id_1' => $car->user->id,
+                'user_id_2' => auth()->id(),
                 'status_1' => 1, // pending
                 'status_2' => 1, // pending
                 'status_ck' => 1, // pending
@@ -79,6 +80,7 @@ class CheckoutController extends Controller
                 'trip_start' => $search['dateBegin']->toDateString() ." ". $search['timeBegin']->toTimeString(),
                 'trip_end' => $search['dateEnd']->toDateString() ." ". $search['timeEnd']->toTimeString(),
             ]);
+
         } else {
             return response()->json([
                 'status' => '0',

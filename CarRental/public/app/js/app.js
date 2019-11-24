@@ -1,30 +1,18 @@
-// $("#SelectCarCategoryParent").change(function(e){
-//     var idCategory =  $(this).val();
-//     var url = '/getCategoryChildren/' + idCategory;
-//     var options = {
-//         url:url,
-//         method:'GET',
-//         data:{
-//             id : idCategory,
-//         },
-//         success:function(response) {
-//             var category = response.category;
-//             var newOption = '';
-//             $('#SelectCarCategoryChilren')
-//                 .find('option')
-//                 .remove()
-//                 .end()
-//                 .append('<option value="whatever">text</option>')
-//                 .val('whatever')
-//             ;
-//         },
-//         error: function (err) {
-//                alert('error');
-//         }
-//     }
-//     e.preventDefault();
-//     $.ajax(options);
-// });
+$('#SelectCarCategoryParent').change(function() {
+    $('#SelectCarCategoryChilren option').hide();
+    $('#SelectCarCategoryChilren option[value="' + $(this).val() + '"]').show();
+    // add this code to select 1'st of streets automaticaly
+    // when city changed
+    if ($('#SelectCarCategoryChilren option[value="' + $(this).val() + '"]').length) {
+        $('#SelectCarCategoryChilren option[value="' + $(this).val() + '"]').first().prop('selected', true);
+    }
+    // in case if there's no corresponding street:
+    // reset select element
+    else {
+        $('#SelectCarCategoryChilren').val('');
+    };
+});
+
 
 // Code goes here
 
@@ -60,15 +48,10 @@ $(document).ready(function() {
         map.setCenter(myMarker.position);
         geocodeLatLng(geocoder, map, myMarker);
         google.maps.event.addListener(myMarker, 'dragend', function(evt) {
-            document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
             myLatlngNew = new google.maps.LatLng(evt.latLng.lat().toFixed(3), evt.latLng.lng().toFixed(3));
             myMarker.setPosition(myLatlngNew);
             geocodeLatLng(geocoder, map, myMarker);
         });
-        google.maps.event.addListener(myMarker, 'dragstart', function(evt) {
-            document.getElementById('current').innerHTML = '<p>Currently dragging marker...</p>';
-        });
-
     }
 
     function geocodeLatLng(geocoder, map, myMarker) {
@@ -526,3 +509,8 @@ $(document).on('click', '.btnHideCar', function(e){
     e.preventDefault();
     $.ajax(options);
 });
+$(document).on('click', '#logout-item', function(e){
+    localStorage.clear();
+});
+
+

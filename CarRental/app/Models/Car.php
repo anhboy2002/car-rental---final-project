@@ -33,6 +33,12 @@ class Car extends Model
 
         return $this->hasMany(Photo::class);
     }
+
+    public function category(){
+
+        return $this->belongsTo(Category::class, 'car_category_id', 'id');
+    }
+
     public function user(){
 
         return $this->belongsTo(User::class);
@@ -41,10 +47,5 @@ class Car extends Model
     public function feedbacks(){
 
         return $this->hasMany(Feedback::class);
-    }
-
-    public function trips(){
-
-        return $this->hasMany(Checkout::class, 'car_id', 'id');
     }
 }
