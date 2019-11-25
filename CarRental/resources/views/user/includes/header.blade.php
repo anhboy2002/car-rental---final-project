@@ -18,70 +18,77 @@
                         <div class="top-menu-item"><a href=""><i class="fa fa-envelope"></i><span>contact@wheel-rental.com</span></a></div>
 
                     </div>
+
                     <div class="wheel-top-menu-log">
-                        <div class="top-menu-item">
-                            <div class="dropdown wheel-ico">
-                                <button class="btn btn-default dropdown-toggle notification" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    Thông báo
-                                    <span class="badge" style="top:-10px">3</span>
-                                </button>
-                                <ul class="dropdown-menu" style="  width: 460px;">
-                                    <li class="head text-light bg-dark">
-                                        <div class="row">
-                                            <div class="col-lg-12 col-sm-12 col-12">
-                                                <span>Thông báo (3)</span>
-                                                <a href="" class="float-right text-light">Đánh dấu tất cả là đã đọc</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="notification-box">
-                                        <div class="row">
-                                            <div class="col-lg-3 col-sm-3 col-3 text-center">
-                                                <img src="/demo/man-profile.jpg" class="w-50 rounded-circle">
-                                            </div>
-                                            <div class="col-lg-8 col-sm-8 col-8">
-                                                <strong class="text-info">David John</strong>
-                                                <div>
-                                                    Lorem ipsum dolor sit amet, consectetur
+                        @if (Auth::check())
+                            <div class="top-menu-item">
+                                <div class="dropdown wheel-ico">
+                                    <button class="btn btn-default dropdown-toggle notification" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Thông báo
+                                        <span class="badge" style="top:-10px">{{auth()->user()->unreadnotifications()->count()}}</span>
+                                    </button>
+                                    <ul class="dropdown-menu" style="  width: 460px;">
+                                        <li class="head text-light bg-dark">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-sm-12 col-12">
+                                                    <span>Thông báo ({{auth()->user()->unreadnotifications()->count()}})</span>
+                                                    <a href="" class="float-right text-light">Đánh dấu tất cả là đã đọc</a>
                                                 </div>
-                                                <small class="text-warning">27.11.2015, 15:00</small>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li class="notification-box bg-gray">
-                                        <div class="row">
-                                            <div class="col-lg-3 col-sm-3 col-3 text-center">
-                                                <img src="/demo/man-profile.jpg" class="w-50 rounded-circle">
-                                            </div>
-                                            <div class="col-lg-8 col-sm-8 col-8">
-                                                <strong class="text-info">David John</strong>
-                                                <div>
-                                                    Lorem ipsum dolor sit amet, consectetur
-                                                </div>
-                                                <small class="text-warning">27.11.2015, 15:00</small>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="notification-box">
-                                        <div class="row">
-                                            <div class="col-lg-3 col-sm-3 col-3 text-center">
-                                                <img src="/demo/man-profile.jpg" class="w-50 rounded-circle">
-                                            </div>
-                                            <div class="col-lg-8 col-sm-8 col-8">
-                                                <strong class="text-info">David John</strong>
-                                                <div>
-                                                    Lorem ipsum dolor sit amet, consectetur
-                                                </div>
-                                                <small class="text-warning">27.11.2015, 15:00</small>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="footer bg-dark text-center">
-                                        <a href="" class="text-light">Xem tất cả</a>
-                                    </li>
-                                </ul>
+                                        </li>
+                                        @foreach(auth()->user()->notifications as $notification)
+                                            @if($notification->type == 'App\\Notifications\\NewReservation')
+                                                <li class="notification-box @if($notification->unread()) bg-gray @endif" >
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-sm-3 col-3 text-center">
+                                                            <img  src="{{ asset('storage/uploads/car_photos/'. $notification->data['avatar_car']) }}" class="w-75 rounded-circle"/>
+                                                        </div>
+                                                        <div class="col-lg-8 col-sm-8 col-8">
+                                                            <strong class="text-info">{{ $notification->data['user_name_2'] }}</strong>
+                                                            <div>
+                                                                Xe Honda Civic đã được đặt.
+                                                                <a href="{{ route('trip.detail', [ 'id' =>$notification->data['transaction_id'] ]) }}"><span class="badge-warning badge"> Chờ duyệt</span></a>
+                                                            </div>
+                                                            <small class="text-warning">{{ $notification->created_at->diffForHumans() }}</small>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            @elseif($notification->type == 'App\\Notifications\\ChangeReservationStatus')
+                                                <li class="notification-box @if($notification->unread()) bg-gray @endif" href="{{ route('trip.detail', [ 'id' =>$notification->data['transaction_id'] ]) }}">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-sm-3 col-3 text-center">
+                                                            <img  src="{{ asset('storage/uploads/car_photos/'. $notification->data['avatar_car']) }}" class="w-75 rounded-circle"/>
+                                                        </div>
+                                                        <div class="col-lg-8 col-sm-8 col-8">
+                                                            <strong class="text-info">{{ $notification->data['user_name_1'] }}</strong>
+                                                            <div>
+                                                                @if($notification->data['status_ck'] == 1)
+                                                                    Chuyến của bạn đang chờ duyệt
+                                                                    <a href="{{ route('trip.detail', [ 'id' =>$notification->data['transaction_id'] ]) }}"><span class="badge-warning badge"> Chờ duyệt</span></a>
+                                                                @elseif($notification->data['status_ck'] == 0)
+                                                                    Chuyến của bạn đã bị hủy
+                                                                    <a href="{{ route('trip.detail', [ 'id' =>$notification->data['transaction_id'] ]) }}"><span class="badge-danger badge"> Bị hủy</span></a>
+                                                                @elseif($notification->data['status_ck'] == 2)
+                                                                    Chuyến của bạn đã bị hết hạn
+                                                                    <a href="{{ route('trip.detail', [ 'id' =>$notification->data['transaction_id'] ]) }}"><span class="badge-dark badge"> Hết hạn</span></a>
+                                                                @elseif($notification->data['status_ck'] == 3)
+                                                                    Chuyến của bạn đang tiến hành
+                                                                    <a href="{{ route('trip.detail', [ 'id' =>$notification->data['transaction_id'] ]) }}"><span class="badge-info badge"> Tiến hành</span></a>
+                                                                @endif
+                                                            </div>
+                                                            <small class="text-warning">{{ $notification->created_at->diffForHumans() }}</small>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                        <li class="footer bg-dark text-center">
+                                            <a href="" class="text-light">Xem tất cả</a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                         <div class="top-menu-item">
                             <div class="dropdown wheel-user-ico">
                                 <button class="btn btn-default dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -120,7 +127,7 @@
                                 <ul class="sub-menu">
                                     @foreach($categories as $category)
                                         <li class="menu-item menu-item-has-children">
-                                            <a href="#">{{$category->name}}</a>
+                                            <a href="{{ route('category.index', ['id' => $category->id]) }}">{{$category->name}}</a>
                                             <ul class="sub-menu">
                                                 @foreach($category->childrens as $children)
                                                 <li class="menu-item"><a href="#">{{$children->name}}</a></li>

@@ -49,22 +49,17 @@ class UserController extends Controller
     }
 
     public function postRegister(RegisterUserRequest $request) {
-        $avatar = 'noiavatar.png';
-        $filenameWithExt = $avatar->getClientOriginalName();
-        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-        $extension = $avatar->getClientOriginalExtension();
-        $fileNameToStore = $filename . '_' . time() . '.' . $extension;
 
         $user = User::create([
             'user_name' => $request->userName,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'avatar' => $fileNameToStore,
+            'avatar' => 'noiavatar.png',
             'phone' => '',
+            'address' => '',
             'is_admin'=> 0,
             'status' => 1
         ]);
-        $avatar->storeAs('public/uploads/profile', $fileNameToStore);
         Auth::login($user);
 
         return redirect()->route('index');
@@ -162,7 +157,8 @@ class UserController extends Controller
         $user = User::where('id', \auth()->id())->update([
             'user_name' => $request->user_name,
             'email' => $request->email,
-            'phone' => $request->phone
+            'phone' => $request->phone,
+            'address' => $request->address
         ]);
 
         return redirect()->route('myProflie');

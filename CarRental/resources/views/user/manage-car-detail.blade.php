@@ -103,14 +103,14 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <label class="col-lg-4">Đơn giá thuê:</label>
-                                            <input class="form-control" value="{{$car->price}} K" type="text"/>
+                                            <input class="form-control" value="{{$car->price}}" type="text" name="priceCar"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Mô tả:</label>
                                     <div class="col-lg-12">
-                                        <textarea class="textarea-describe" name="description" placeholder="{{$car->description}}" type="text"></textarea>
+                                        <textarea class="textarea-describe" name="description" type="text">{{$car->description}}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -189,193 +189,197 @@
                                 <section class="content">
                                     <h1>Quản lí chuyến</h1>
                                     <div class="col-md-12 col-md-offset-2">
-                                        <div class="panel panel-default">
-                                            <div class="panel-body">
-                                                <div class="pull-right">
-                                                    <div class="btn-group">
-                                                        <button type="button" class="btn btn-success btn-filter" data-target="success">Hoàn thành</button>
-                                                        <button type="button" class="btn btn-primary btn-filter" data-target="process">Tiến hành</button>
-                                                        <button type="button" class="btn btn-warning btn-filter" data-target="pending">Chờ duyệt</button>
-                                                        <button type="button" class="btn btn-dark btn-filter" data-target="later">Bị trễ</button>
-                                                        <button type="button" class="btn btn-danger btn-filter" data-target="reject">Bị hủy</button>
-                                                        <button type="button" class="btn btn-secondary btn-filter" data-target="all">Tất cả</button>
+                                        @if(count($trips) > 0)
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="pull-right">
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-success btn-filter" data-target="success">Hoàn thành</button>
+                                                            <button type="button" class="btn btn-primary btn-filter" data-target="process">Tiến hành</button>
+                                                            <button type="button" class="btn btn-warning btn-filter" data-target="pending">Chờ duyệt</button>
+                                                            <button type="button" class="btn btn-dark btn-filter" data-target="later">Bị trễ</button>
+                                                            <button type="button" class="btn btn-danger btn-filter" data-target="reject">Bị hủy</button>
+                                                            <button type="button" class="btn btn-secondary btn-filter" data-target="all">Tất cả</button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="table-container">
-                                                    <table class="table table-filter">
-                                                        <tbody>
-                                                        @foreach($trips as $key => $trip)
-                                                            @switch($trip->status_ck)
-                                                                @case(0)
-                                                                <tr data-status="reject" href="#viewUser" data-toggle="modal" data-target="#viewUser">
-                                                                    <td style="width: 5%; font-size: 15px" class="text-secondary">{{$key}}
-                                                                    <td>
-                                                                        <div class="media">
-                                                                            <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
-                                                                                <img src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" class="media-photo" width="35px" height="35px">
-                                                                            </a>
-                                                                            <div class="media-body">
-                                                                                <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
-                                                                                <h4 class="title ml-2" href="#viewUser" data-toggle="modal" data-target="#viewUser">
-                                                                                    {{ $trip->user2->user_name }}
-                                                                                    <span class="pull-right text-danger">(Bị hủy)</span>
-                                                                                </h4>
-        {{--                                                                        <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
+                                                    <div class="table-container">
+                                                        <table class="table table-filter">
+                                                            <tbody>
+                                                            @foreach($trips as $key => $trip)
+                                                                @switch($trip->status_ck)
+                                                                    @case(0)
+                                                                    <tr data-status="reject" href="#viewUser" data-toggle="modal" data-target="#viewUser">
+                                                                        <td style="width: 5%; font-size: 15px" class="text-secondary">{{$key}}
+                                                                        <td>
+                                                                            <div class="media">
+                                                                                <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
+                                                                                    <img src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" class="media-photo" width="35px" height="35px">
+                                                                                </a>
+                                                                                <div class="media-body">
+                                                                                    <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
+                                                                                    <h4 class="title ml-2" href="#viewUser" data-toggle="modal" data-target="#viewUser">
+                                                                                        {{ $trip->user2->user_name }}
+                                                                                        <span class="pull-right text-danger">(Bị hủy)</span>
+                                                                                    </h4>
+            {{--                                                                        <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td style="width: 10%">
-                                                                        <div class="media">
-                                                                            <div class="media-body">
-                                                                                <h4 class="title">
-                                                                                    <span class="pull-right "> {{ $trip->price }} K</span>
-                                                                                </h4>
+                                                                        </td>
+                                                                        <td style="width: 10%">
+                                                                            <div class="media">
+                                                                                <div class="media-body">
+                                                                                    <h4 class="title">
+                                                                                        <span class="pull-right "> {{ $trip->price }} K</span>
+                                                                                    </h4>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                @break
-                                                                @case(1)
-                                                                <tr data-status="pending">
-                                                                    <td style="width: 5%; font-size: 15px" class="text-secondary">{{$key}}
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="media">
-                                                                            <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
-                                                                                <img src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" class="media-photo" width="35px" height="35px">
-                                                                            </a>
-                                                                            <div class="media-body">
-                                                                                <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
-                                                                                <h4 class="title ml-2" href="#viewUser" data-toggle="modal" data-target="#viewUser">
-                                                                                    {{ $trip->user2->user_name }}
-                                                                                    <span class="pull-right text-warning">(Chờ duyệt)</span>
-                                                                                </h4>
-                                                                                {{--  <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
+                                                                        </td>
+                                                                    </tr>
+                                                                    @break
+                                                                    @case(1)
+                                                                    <tr data-status="pending">
+                                                                        <td style="width: 5%; font-size: 15px" class="text-secondary">{{$key}}
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="media">
+                                                                                <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
+                                                                                    <img src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" class="media-photo" width="35px" height="35px">
+                                                                                </a>
+                                                                                <div class="media-body">
+                                                                                    <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
+                                                                                    <h4 class="title ml-2" href="#viewUser" data-toggle="modal" data-target="#viewUser">
+                                                                                        {{ $trip->user2->user_name }}
+                                                                                        <span class="pull-right text-warning">(Chờ duyệt)</span>
+                                                                                    </h4>
+                                                                                    {{--  <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td style="width: 10%">
-                                                                        <div class="media">
-                                                                            <div class="media-body">
-                                                                                <h4 class="title">
-                                                                                    <span class="pull-right "> {{ $trip->price }} K</span>
-                                                                                </h4>
+                                                                        </td>
+                                                                        <td style="width: 10%">
+                                                                            <div class="media">
+                                                                                <div class="media-body">
+                                                                                    <h4 class="title">
+                                                                                        <span class="pull-right "> {{ $trip->price }} K</span>
+                                                                                    </h4>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                @break
-                                                                @case(2)
-                                                                <tr data-status="later">
-                                                                    <td style="width: 5%; font-size: 15px" class="text-secondary">{{$key}}
-                                                                    <td>
-                                                                        <div class="media">
-                                                                            <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
-                                                                                <img src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" class="media-photo" width="35px" height="35px">
-                                                                            </a>
-                                                                            <div class="media-body">
-                                                                                <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
-                                                                                <h4 class="title ml-2" href="#viewUser" data-toggle="modal" data-target="#viewUser">
-                                                                                    {{ $trip->user2->user_name }}
-                                                                                    <span class="pull-right text-dark">(Bị trễ)</span>
-                                                                                </h4>
-                                                                                {{--  <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
+                                                                        </td>
+                                                                    </tr>
+                                                                    @break
+                                                                    @case(2)
+                                                                    <tr data-status="later">
+                                                                        <td style="width: 5%; font-size: 15px" class="text-secondary">{{$key}}
+                                                                        <td>
+                                                                            <div class="media">
+                                                                                <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
+                                                                                    <img src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" class="media-photo" width="35px" height="35px">
+                                                                                </a>
+                                                                                <div class="media-body">
+                                                                                    <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
+                                                                                    <h4 class="title ml-2" href="#viewUser" data-toggle="modal" data-target="#viewUser">
+                                                                                        {{ $trip->user2->user_name }}
+                                                                                        <span class="pull-right text-dark">(Bị trễ)</span>
+                                                                                    </h4>
+                                                                                    {{--  <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td style="width: 10%">
-                                                                        <div class="media">
-                                                                            <div class="media-body">
-                                                                                <h4 class="title">
-                                                                                    <span class="pull-right "> {{ $trip->price }} K</span>
-                                                                                </h4>
+                                                                        </td>
+                                                                        <td style="width: 10%">
+                                                                            <div class="media">
+                                                                                <div class="media-body">
+                                                                                    <h4 class="title">
+                                                                                        <span class="pull-right "> {{ $trip->price }} K</span>
+                                                                                    </h4>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                @break
-                                                                @case(3)
-                                                                <tr data-status="process">
-                                                                    <td style="width: 5%; font-size: 15px" class="text-secondary">{{$key}}
-                                                                    <td>
-                                                                        <div class="media">
-                                                                            <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
-                                                                                <img src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" class="media-photo" width="35px" height="35px">
-                                                                            </a>
-                                                                            <div class="media-body">
-                                                                                <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
-                                                                                <h4 class="title ml-2" href="#viewUser" data-toggle="modal" data-target="#viewUser">
-                                                                                    {{ $trip->user2->user_name }}
-                                                                                    <span class="pull-right text-info">(Tiến hành)</span>
-                                                                                </h4>
-{{--                                                                                <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
+                                                                        </td>
+                                                                    </tr>
+                                                                    @break
+                                                                    @case(3)
+                                                                    <tr data-status="process">
+                                                                        <td style="width: 5%; font-size: 15px" class="text-secondary">{{$key}}
+                                                                        <td>
+                                                                            <div class="media">
+                                                                                <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
+                                                                                    <img src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" class="media-photo" width="35px" height="35px">
+                                                                                </a>
+                                                                                <div class="media-body">
+                                                                                    <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
+                                                                                    <h4 class="title ml-2" href="#viewUser" data-toggle="modal" data-target="#viewUser">
+                                                                                        {{ $trip->user2->user_name }}
+                                                                                        <span class="pull-right text-info">(Tiến hành)</span>
+                                                                                    </h4>
+    {{--                                                                                <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td style="width: 10%">
-                                                                        <div class="media">
-                                                                            <div class="media-body">
-                                                                                <h4 class="title">
-                                                                                    <span class="pull-right "> {{ $trip->price }} K</span>
-                                                                                </h4>
+                                                                        </td>
+                                                                        <td style="width: 10%">
+                                                                            <div class="media">
+                                                                                <div class="media-body">
+                                                                                    <h4 class="title">
+                                                                                        <span class="pull-right "> {{ $trip->price }} K</span>
+                                                                                    </h4>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                @break
-                                                                @case(4)
-                                                                <tr data-status="success">
-                                                                    <td style="width: 5%; font-size: 15px" class="text-secondary">{{$key}}
-                                                                    <td>
-                                                                        <div class="media">
-                                                                            <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
-                                                                                <img src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" class="media-photo" width="35px" height="35px">
-                                                                            </a>
-                                                                            <div class="media-body">
-                                                                                <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
-                                                                                <h4 class="title ml-2" href="#viewUser" data-toggle="modal" data-target="#viewUser">
-                                                                                    {{ $trip->user2->user_name }}
-                                                                                    <span class="pull-right text-success">(Hoàn thành)</span>
-                                                                                </h4>
-                                                                                {{-- <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
+                                                                        </td>
+                                                                    </tr>
+                                                                    @break
+                                                                    @case(4)
+                                                                    <tr data-status="success">
+                                                                        <td style="width: 5%; font-size: 15px" class="text-secondary">{{$key}}
+                                                                        <td>
+                                                                            <div class="media">
+                                                                                <a href="{{ route('trip.detail', [ 'id' => $trip->id ]) }}" class="pull-left">
+                                                                                    <img src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" class="media-photo" width="35px" height="35px">
+                                                                                </a>
+                                                                                <div class="media-body">
+                                                                                    <span class="media-meta pull-right">{{ $trip->created_at->toFormattedDateString() }}</span>
+                                                                                    <h4 class="title ml-2" href="#viewUser" data-toggle="modal" data-target="#viewUser">
+                                                                                        {{ $trip->user2->user_name }}
+                                                                                        <span class="pull-right text-success">(Hoàn thành)</span>
+                                                                                    </h4>
+                                                                                    {{-- <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p>--}}
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td style="width: 10%">
-                                                                        <div class="media">
-                                                                            <div class="media-body">
-                                                                                <h4 class="title">
-                                                                                    <span class="pull-right "> {{ $trip->price }} K</span>
-                                                                                </h4>
+                                                                        </td>
+                                                                        <td style="width: 10%">
+                                                                            <div class="media">
+                                                                                <div class="media-body">
+                                                                                    <h4 class="title">
+                                                                                        <span class="pull-right "> {{ $trip->price }} K</span>
+                                                                                    </h4>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </td>
-                                                                </tr>
-                                                                @break
-                                                                @endswitch
-                                                            {{--    Modal user--}}
-                                                            <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-body">
-                                                                            <div class="center-block">
-                                                                                <img  src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" name="{{$trip->user2->user_name}}" width="140" height="140" border="0" class="img-circle"></a>
-                                                                                <h3 class="media-heading">{{$trip->user2->user_name}} <small>{{$trip->user2->address}}</small></h3>
-                                                                                <span><strong>Thông tin: </strong></span>
-                                                                                <span class="badge badge-warning">{{$trip->user2->checkouts->count()}} chuyến</span>
-                                                                                <span class="badge badge-info">{{$trip->user2->cars->count()}} xe</span>
-                                                                                <span class="badge badge-success">{{$trip->user2->created_at->toFormattedDateString()}}</span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    @break
+                                                                    @endswitch
+                                                                {{--    Modal user--}}
+                                                                <div class="modal fade" id="viewUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-body">
+                                                                                <div class="center-block">
+                                                                                    <img  src="{{ asset('storage/uploads/profile/'. $trip->user2->avatar) }}" name="{{$trip->user2->user_name}}" width="140" height="140" border="0" class="img-circle"></a>
+                                                                                    <h3 class="media-heading">{{$trip->user2->user_name}} <small>{{$trip->user2->address}}</small></h3>
+                                                                                    <span><strong>Thông tin: </strong></span>
+                                                                                    <span class="badge badge-warning">{{$trip->user2->checkouts->count()}} chuyến</span>
+                                                                                    <span class="badge badge-info">{{$trip->user2->cars->count()}} xe</span>
+                                                                                    <span class="badge badge-success">{{$trip->user2->created_at->toFormattedDateString()}}</span>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        @endforeach
-                                                        </tbody>
-                                                    </table>
+                                                            @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @else
+                                            Hiện tại chưa có chuyến!
+                                        @endif
                                     </div>
                                 </section>
                             </div>
@@ -423,13 +427,16 @@
                     <p>
                         @if($car->status == 2)
                             Xe của bạn đã bị từ chối. Bạn không thể thực hiện chức năng này.
+                        @elseif($car->status == 3)
+                            <span>
+                            Xe của bạn sẽ chuyển sang trạng thái hoạt động trở lại.
+                            </span>
                         @else
                             <span>
                             Xe của bạn sẽ chuyển sang trạng thái tạm ngưng hoạt động và không được tìm thấy trên hệ thống.
                             <strong class="text-danger">Lưu ý: Toàn bộ các yêu cầu đặt xe này (nếu có) sẽ được huỷ.</strong>
                         </span>
                         @endif
-
                     </p>
                 </div>
                 <div class="modal-footer">

@@ -329,20 +329,22 @@
                         <span class="badge badge-success">{{$car->user->created_at->toFormattedDateString()}}</span>
                     </div>
                     <hr>
-                    <div class="feedback-recent m-2">
-                        <p class="text-left m-2"><strong>Nhận xét gần nhất: </strong><br>
-                            {{$car->feedbacks[0]->comment}}</p>
-                        <div class="gutter--0 row u-marginTop2 m-2">
-                            <div class="media media--center">
-                                <div class="media-item u-marginTopSmallest">
-                                    <img src="{{ asset('storage/uploads/profile/'. $car->feedbacks[0]->user->avatar) }}" alt="{{$car->user->user_name}}"  style="border-radius: 100%" width="32" height="32">
-                                </div>
-                                <div class="media-body hostFeedbackDetails-authorDetails m-2">
-                                    <span class="hostFeedbackDetails-authorName">{{$car->feedbacks[0]->user->user_name}} — </span><span class="text-secondary" style="font-size: 14px">{{$car->feedbacks[0]->created_at->toFormattedDateString()}}</span>
+                    @if(count($car->feedbacks) > 0)
+                        <div class="feedback-recent m-2">
+                            <p class="text-left m-2"><strong>Nhận xét gần nhất: </strong><br>
+                                {{$car->feedbacks[0]->comment}}</p>
+                            <div class="gutter--0 row u-marginTop2 m-2">
+                                <div class="media media--center">
+                                    <div class="media-item u-marginTopSmallest">
+                                        <img src="{{ asset('storage/uploads/profile/'. $car->feedbacks[0]->user->avatar) }}" alt="{{$car->user->user_name}}"  style="border-radius: 100%" width="32" height="32">
+                                    </div>
+                                    <div class="media-body hostFeedbackDetails-authorDetails m-2">
+                                        <span class="hostFeedbackDetails-authorName">{{$car->feedbacks[0]->user->user_name}} — </span><span class="text-secondary" style="font-size: 14px">{{$car->feedbacks[0]->created_at->toFormattedDateString()}}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
                 <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>

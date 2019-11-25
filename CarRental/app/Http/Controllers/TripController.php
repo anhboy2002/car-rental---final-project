@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Checkout;
+use App\Notifications\ChangeReservationStatus;
+use Notifications;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -87,6 +89,8 @@ class TripController extends Model
         $checkout->status_1 =  $status_1;
         $checkout->status_2 =  $status_2;
         $checkout->save();
+        Notification::send($checkout->user2, new ChangeReservationStatus($checkout));
+
         return response()->json([
             'status' => 'oke'
         ]);

@@ -48,13 +48,20 @@ $(document).ready(function() {
         map.setCenter(myMarker.position);
         geocodeLatLng(geocoder, map, myMarker);
         google.maps.event.addListener(myMarker, 'dragend', function(evt) {
-            myLatlngNew = new google.maps.LatLng(evt.latLng.lat().toFixed(3), evt.latLng.lng().toFixed(3));
+            myLatlngNew = new google.maps.LatLng(evt.latLng.lat(), evt.latLng.lng());
             myMarker.setPosition(myLatlngNew);
             geocodeLatLng(geocoder, map, myMarker);
         });
+        // google.maps.event.addListener(myMarker, 'dragstart', function(evt){
+        //     myLatlngNew = new google.maps.LatLng(evt.latLng.lat(), evt.latLng.lng());
+        //     myMarker.setPosition(myLatlngNew);
+        //     console.log(myMarker);
+        //     document.getElementById('current').innerHTML = '<p>Currently dragging marker...'+ myMarker.getPosition().lat() +'</p>';
+        // });
     }
 
     function geocodeLatLng(geocoder, map, myMarker) {
+        console.log(myMarker);
         geocoder.geocode({'location': myMarker.getPosition()}, function(results, status) {
             if (status === 'OK') {
                 if (results[0]) {
@@ -500,6 +507,9 @@ $(document).on('click', '.btnHideCar', function(e){
             if(response.status === "1") {
                 $('#modalConfirmHideCar').modal('hide');
                 $('#btnDisableCar').text('Đã tạm ngưng');
+            }else if(response.status === "0"){
+                $('#modalConfirmHideCar').modal('hide');
+                $('#btnDisableCar').text('Ẩn xe');
             }
         },
         error: function (err) {

@@ -29,7 +29,11 @@
             @foreach($checkouts as $checkout)
                 @if($checkout->status_ck == 1 || $checkout->status_ck == 3 )
                     <div class="trip-box new-box">
-                        <div class="trip-header"><h4 class="car-name"><span>{{$checkout->car->name}}</span></h4></div>
+                        <div class="trip-header">
+                            <h4 class="car-name">
+                                <span>{{$checkout->car->name}}</span>
+                            </h4>
+                        </div>
                         <div class="trip-body trip-header">
                             <div class="left">
                                 <div class="car-img">

@@ -98,12 +98,12 @@
                                 <div class="form-group">
                                     <p class="text-secondary">Chúng tôi xin số của bạn để liên lạc với bạn về chuyến đi của bạn và kết nối chủ nhà với khách..</p>
                                     <label for="formGroupExampleInput2">Số điện thoại</label>
-                                    <input type="text" class="form-control w-25" id="formGroupExampleInput" name="phone" value="{{($user->phone != "") ? "" : $user->phone }}">
+                                    <input type="text" class="form-control w-25" id="formGroupExampleInput" name="phone" value="{{($user->phone == "") ? "" : $user->phone }}">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-lg-12">
 
-                                        @if($user->avatar != "")
+                                        @if($user->avatar != "noiavatar.png")
                                             <img src="{{ asset('storage/uploads/profile/'. $user->avatar) }}" width="245px" height="163px" alt=" {{$user->user_name}}"/>
                                         @else
                                             <label for="formGroupExampleInput2">Ảnh cá nhân</label>
@@ -156,8 +156,7 @@
                                     </div>
                                 <div class="row form-group m-1">
                                         <label for="formGroupExampleInput2">Mô tả</label>
-                                        <textarea  cols="2" class="form-control" name="carDescription" placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách.
-                                            Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe trang bị hệ thống cảm biến lùi, gạt mưa tự động, đèn pha tự động, camera hành trình, hệ thống giải trí AV cùng nhiều tiện nghi khác.."></textarea>
+                                        <textarea  cols="2" class="form-control" name="carDescription" style="height: 100px" placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách. Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe trang bị hệ thống cảm biến lùi, gạt mưa tự động, đèn pha tự động, camera hành trình, hệ thống giải trí AV cùng nhiều tiện nghi khác.."></textarea>
                                     </div>
                                 <div class="row form-group mt-3">
                                         <div class="col-lg-3">

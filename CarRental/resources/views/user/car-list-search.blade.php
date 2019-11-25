@@ -90,24 +90,24 @@
                     <div class="col-lg-6  col-md-10 car{{ $car->id }}">
                         <div class="product-table wheel-bg1 marg-lg-b35">
                             <div class="text-wrap text-wrap2 product-cell">
-                                <div class="title">{{ $car->name }}</div>
-                                <div class="price-wrap product-cell">
-                                    <span>{{ $car->price }}</span><sup>K</sup>/Ngày
+                                <div class="title badge badge-light">{{ $car->name }}</div>
+                                <div class="price-wrap product-cell text-white">
+                                    <span class="">{{ $car->price }}</span><sup class="text-white">K</sup>/Ngày
                                 </div>
                             </div>
                             <div class="img-wrap img-wrap3 product-cell">
                                 <a href="{{ route('car.carDetail', [ 'id' => $car->id ]) }}" target="_blank"><img width="400" height="300" src="{{ asset('storage/uploads/car_photos/'. $car->photos[0]->feature) }}" alt="{{$car->name}}"></a>
                             </div>
                             <div class="row m-2">
-                                <div class="wheel-quote-stars col-lg-3">
+                                <div class="wheel-quote-stars col-lg-8">
                                     @for($i = 0; $i <$car->rate; $i++)
                                         <span class="fa fa-star checked"></span>
                                     @endfor
                                     @for($i =0; $i < 5 -$car->rate; $i++)
                                         <span class="fa fa-star"></span>
                                     @endfor
+                                    <span class="vehicleRatingAndTrips-trips ml-2">  .{{$car->total_trip}} chuyến</span>
                                 </div>
-                                <div class="col-lg-5 mt-1"><span class="vehicleRatingAndTrips-trips">{{$car->total_trip}} trips</span></div>
                                 <div class="col-lg-4">
                                     @if (Auth::check())
                                         <button class="btn btn-success btnFavorite btnFavorite{{$car->id}}" id="{{$car->id}}">Yêu thích</button>
@@ -121,8 +121,8 @@
                     @endforeach
                 </div>
             </div>
-            <div class="searchResultsMap col-lg-5" id="map">
-            </div>
+                <div class="searchResultsMap col-lg-5" id="map">
+                </div>
         </div>
     </div>
 

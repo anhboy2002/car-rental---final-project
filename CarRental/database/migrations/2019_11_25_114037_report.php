@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class Trip extends Migration
+class Report extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class Trip extends Migration
      */
     public function up()
     {
-        Schema::create('trips', function (Blueprint $table) {
+        Schema::create('checkouts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('checkout_id');
+            $table->integer('car_id');
+            $table->tinyInteger('status');
+            $table->string('content');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class Trip extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trips');
+        Schema::dropIfExists('checkouts');
     }
 }

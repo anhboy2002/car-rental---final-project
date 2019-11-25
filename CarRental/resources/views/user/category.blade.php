@@ -10,9 +10,7 @@
                             {{ csrf_field()}}
                             <label for="input-val11" style="width: 82%"><span>Địa điểm</span>
                                 <input type="text" id='inputAddressSearch1' placeholder="Thành phố, sân bay" required name="addressSearch">
-                                @if(count($cars) != null )
-                                    <input type="hidden" name="hasCategory" value="{{$cars[0]->category->id}}">
-                                @endif
+                                <input type="hidden" name="hasCategory" @if(count($cars) > 0 ) value="{{$cars[0]->category->id}}" @else value="0" @endif>
                             </label>
                             <div class="clearfix">
                                 <div class="wheel-date">
@@ -60,8 +58,10 @@
             <div class="row">
                 <div class="col-sm-8">
                     <header class="wheel-header marg-lg-t25 marg-lg-b65">
-                        @if(count($cars) != null )
+                        @if(count($cars) > 0 )
                             <h3>Những xe hãng {{$cars[0]->category->name}} được đánh giá cao</h3>
+                        @else
+                            <h3>Chưa có xe nào đăng ký ứng dụng</h3>
                         @endif
                     </header>
                 </div>
@@ -70,7 +70,7 @@
         <div class="container padd-lr0 xs-padd">
             <div class="product-list product-list2 wheel-bgt clearfix">
                 <div class="row">
-                    @if(count($cars)  != null )
+                    @if(count($cars) > 0)
                         @foreach($cars as $car)
                             <div class="col-lg-4  col-md-6">
                                 <div class="product-elem-style2 product-elem-style  wheel-bg1 clearfix">
@@ -108,57 +108,65 @@
                 </div>
             </div>
         </div>
-        <div class="container padd-lr0 xs-padd">
-            <div class="row">
-                <div class="col-sm-12">
-                    <header class="wheel-header marg-lg-t25 marg-lg-b65">
-                        <h3 class="text-center">Những nhận xét của khách hàng</h3>
-                    </header>
+        @if(count($cars) > 0)
+            @if(count($cars[0]->feedbacks) > 0)
+                <div class="container padd-lr0 xs-padd">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <header class="wheel-header marg-lg-t25 marg-lg-b65">
+                                <h3 class="text-center">Những nhận xét của khách hàng</h3>
+                            </header>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            @endif
+        @endif
     </div>
-    <div class="container-feedback">
-        <div class="row">
-            @if(count($cars) != null )
-                @foreach($cars as $car)
-                    @foreach($car->feedbacks as $feedback)
-                        @if($feedback->rate > 3)
-                            <div class="col-lg-4  col-md-6">
-                                <div class="card mb-3" style="max-width: 540px;">
-                                    <div class="row no-gutters">
-                                        <div class="col-md-4">
-                                            <img src="{{ asset('storage/uploads/profile/'. $feedback->user->avatar) }}" class="avatar-user" alt="..." width="125" height="125">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <div class="card-title">
-                                                    <a href="{{ route('car.carDetail', [ 'id' => $car->id ]) }}" target="_blank"><h5 class="title-car-feedback">{{$car->name}}</h5></a>
+    @if(count($cars) > 0)
+        @if(count($cars[0]->feedbacks) > 0 )
+            <div class="container-feedback">
+            <div class="row">
+                @if(count($cars) != null )
+                    @foreach($cars as $car)
+                        @foreach($car->feedbacks as $feedback)
+                            @if($feedback->rate > 3)
+                                <div class="col-lg-4  col-md-6">
+                                    <div class="card mb-3" style="max-width: 540px;">
+                                        <div class="row no-gutters">
+                                            <div class="col-md-4">
+                                                <img src="{{ asset('storage/uploads/profile/'. $feedback->user->avatar) }}" class="avatar-user" alt="..." width="125" height="125">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    <div class="card-title">
+                                                        <a href="{{ route('car.carDetail', [ 'id' => $car->id ]) }}" target="_blank"><h5 class="title-car-feedback">{{$car->name}}</h5></a>
+                                                    </div>
+                                                    <div class="wheel-quote-stars ratings">
+                                                        @for($i = 0; $i <$feedback->rate; $i++)
+                                                            <span class="fa fa-star checked"></span>
+                                                        @endfor
+                                                        @for($i =0; $i < 5 - $feedback->rate; $i++)
+                                                            <span class="fa fa-star"></span>
+                                                        @endfor
+                                                    </div>
+                                                    <p class="card-text">{{$feedback->comment}}</p>
+                                                    <p class="card-text"><strong>{{$feedback->user->user_name}}.</strong> - <small class="text-muted">{{$feedback->created_at->diffForHumans()}}</small></p>
                                                 </div>
-                                                <div class="wheel-quote-stars ratings">
-                                                    @for($i = 0; $i <$feedback->rate; $i++)
-                                                        <span class="fa fa-star checked"></span>
-                                                    @endfor
-                                                    @for($i =0; $i < 5 - $feedback->rate; $i++)
-                                                        <span class="fa fa-star"></span>
-                                                    @endfor
-                                                </div>
-                                                <p class="card-text">{{$feedback->comment}}</p>
-                                                <p class="card-text"><strong>{{$feedback->user->user_name}}.</strong> - <small class="text-muted">{{$feedback->created_at->diffForHumans()}}</small></p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endif
+                            @endif
+                        @endforeach
                     @endforeach
-                @endforeach
-            @endif
+                @endif
+            </div>
+            <div>
+                <button class="btn btn-dark">Show more</button>
+            </div>
         </div>
-        <div>
-            <button class="btn btn-dark">Show more</button>
-        </div>
-    </div>
+        @endif
+    @endif
     <div class="wheel-collection wheel-bg2">
         <div class="container">
             <div class="row">
@@ -166,7 +174,9 @@
                     <div class="tabs">
                         <div class="tabs-header">
                             <ul>
-                                <li class="active"><a href="#">Lựa chọn hãng xe</a></li>
+                                <li class="active">
+                                    <a href="#">Lựa chọn hãng xe</a>
+                                </li>
                             </ul>
                         </div>
                         <div class="tabs-content  marg-lg-b30">

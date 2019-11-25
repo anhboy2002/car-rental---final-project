@@ -24,6 +24,8 @@ class Checkout extends Migration
             $table->dateTime('trip_start');
             $table->dateTime('trip_end');
             $table->float('price');
+            $table->string('message_1');
+            $table->string('message_2');
             $table->timestamps();
         });
     }

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Car;
 use App\Models\Category;
 use App\Models\Checkout;
+use App\Notifications\ChangeReservationStatus;
+use App\Notifications\NewReservation;
+use Notification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -44,7 +47,7 @@ class CheckoutController extends Controller
         }
         $totalPrice =  $car->price * $totalDay;
         $checkoutDetail =[
-            'totalPrice' => number_format($totalPrice, 2),
+            'totalPrice' => number_format($totalPrice),
             'totalDayRental'=> $totalDay
         ];
 
@@ -80,7 +83,8 @@ class CheckoutController extends Controller
                 'trip_start' => $search['dateBegin']->toDateString() ." ". $search['timeBegin']->toTimeString(),
                 'trip_end' => $search['dateEnd']->toDateString() ." ". $search['timeEnd']->toTimeString(),
             ]);
-
+            Notification::send($car->user, new NewReservation($checkout));
+            Notification::send($checkout->user2, new ChangeReservationStatus($checkout));
         } else {
             return response()->json([
                 'status' => '0',

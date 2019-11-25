@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CarRegisterRequest;
 use App\Models\Car;
 use App\Models\Category;
 use App\Models\Checkout;
@@ -13,7 +14,7 @@ use Carbon\Carbon;
 
 class CarController extends Controller
 {
-    public function createCar(Request $request) {
+    public function createCar(CarRegisterRequest $request) {
         $carName = $this->getCarName($request->selectCarCategoryChildren, $request->selectCarYear);
         $json_featured= json_encode($request->featured,JSON_FORCE_OBJECT);
         $car = Car::create([
@@ -56,7 +57,7 @@ class CarController extends Controller
     }
 
     public function getCarName($selectCarCategoryChildren, $selectCarYear) {
-        $brandCarName = Category::where('id', $selectCarCategoryChildren)->first();
+        $brandCarName = Category::where('id_parent', $selectCarCategoryChildren)->first();
         $name = $brandCarName->parent->name . ' ' . $brandCarName->name . ' ' . $selectCarYear;
         return $name;
     }

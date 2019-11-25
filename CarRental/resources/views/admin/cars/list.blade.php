@@ -65,6 +65,8 @@
                                         <span class="label label-success">Đã kiểm duyệt</span>
                                     @elseif($car->status == 0)
                                         <span class="label label-danger">Chờ Phê Duyệt</span>
+                                    @elseif($car->status == 3)
+                                        <span class="label label-default">Bị ẩn</span>
                                     @else
                                         <span class="label label-danger">Bị từ chối</span>
                                     @endif
@@ -82,7 +84,7 @@
                                                     <li><a href="{{route("admin.car.reject", ['id'=> $car->id])}}"><i class="icon-file-pdf"></i> Từ chối xe</a></li>
                                                 @elseif($car->status == 0)
                                                     <li><a href="{{route("admin.car.accept", ['id'=> $car->id])}}"><i class="icon-file-pdf"></i> Kiểm duyệt</a></li>
-                                                @else($car->status == -1)
+                                                @elseif($car->status == -1)
                                                     <li><a href="{{route("admin.car.accept", ['id'=> $car->id])}}"><i class="icon-file-pdf"></i> Chấp nhận</a></li>
                                                 @endif
                                             </ul>
@@ -99,7 +101,7 @@
                                                 <img  src="{{ asset('storage/uploads/car_photos/'. $car->photos[0]->feature) }}" alt="{{$car->name}}" width="300" height="200"></a>
                                                 <h3 class="media-heading">{{$car->name}} <small>{{$car->address}}</small></h3>
                                                 <span><strong>Thông tin: </strong></span>
-                                                <span class="label label-warning">{{$car->trips->count()}} chuyến</span>
+                                                <span class="label label-warning">{{($car->trips == null) ? 0 : $car->trips->count()}} chuyến</span>
                                                 <span class="label label-info">{{$car->price}} K</span>
                                                 <span class="label label-success">{{$car->created_at->toFormattedDateString()}}</span>
                                             </center>

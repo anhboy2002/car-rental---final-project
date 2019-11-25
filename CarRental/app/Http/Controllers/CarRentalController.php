@@ -20,6 +20,7 @@ class CarRentalController extends Controller
     public function getCategoryIndex($id) {
         $categoriesHearder = Category::where('id_parent', 0)->get();
         $cars = Car::where('car_category_id', $id)->get();
+
         return view('user/category',[
                                             'categories' => $categoriesHearder,
                                             'cars' => $cars,

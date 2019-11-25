@@ -6,13 +6,13 @@
     padding-left: 25px;
 }
 .searchResultsMap{
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    padding-top: 50%;
+    height: 850px;
 }
 .searchResultsGrid{
-    width: 60%;
+    width:65%;
+    overflow-y:auto;
+    overflow-x: hidden;
+    max-height: 850px;
 }
 
 .container-list-car{
@@ -535,7 +535,7 @@ ul.thumbnails {
     margin-bottom: 5px;
 }
 .checked{
-    color: orange;
+    color: #ff7043 ;
 }
 .caption p {
     color: #999;
