@@ -239,9 +239,10 @@
                    <label>Bạn chưa nhận được ô tô? Báo xấu chủ xe.  </label>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-danger" id="btnReport" >Báo xấu</button>
+                    <button class="btn btn-danger btnReport" id="{{$checkout->id}}" >Báo xấu</button>
                 </div>
             </div>
         </div>
     </div>
+    @include('user.includes.footer')
 @endsection

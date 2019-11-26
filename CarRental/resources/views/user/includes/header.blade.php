@@ -73,7 +73,13 @@
                                                                     <a href="{{ route('trip.detail', [ 'id' =>$notification->data['transaction_id'] ]) }}"><span class="badge-dark badge"> Hết hạn</span></a>
                                                                 @elseif($notification->data['status_ck'] == 3)
                                                                     Chuyến của bạn đang tiến hành
-                                                                    <a href="{{ route('trip.detail', [ 'id' =>$notification->data['transaction_id'] ]) }}"><span class="badge-info badge"> Tiến hành</span></a>
+                                                                    <a href="{{ route('trip.process', [ 'id' =>$notification->data['transaction_id'] ]) }}"><span class="badge-info badge"> Tiến hành</span></a>
+                                                                @elseif($notification->data['status_ck'] == 5)
+                                                                    Chuyến của bạn đã được duyệt
+                                                                    <a href="{{ route('trip.deposit', [ 'id' =>$notification->data['transaction_id'] ]) }}"><span class="badge-info badge"> Đặt cọc</span></a>
+                                                                @elseif($notification->data['status_ck'] == 6)
+                                                                    Chủ xe đã giao xe
+                                                                    <a href="{{ route('trip.deposit', [ 'id' =>$notification->data['transaction_id'] ]) }}"></a>
                                                                 @endif
                                                             </div>
                                                             <small class="text-warning">{{ $notification->created_at->diffForHumans() }}</small>
@@ -106,6 +112,7 @@
                                         <li class="text-center"><a href="{{ route('myCar') }}">Xe của tôi</a></li>
                                         <li class="text-center"><a href="{{ route('carRegister') }}">Đăng ký xe</a></li>
                                         <li class="text-center"><a href="{{ route('car.trip') }}">Chuyến của tôi</a></li>
+                                        <li class="text-center"><a href="{{ route('mywallet') }}">Thống kê</a></li>
                                         <li class="text-center" id="logout-item"><a href="{{ route('logout') }}">Đăng xuất</a></li>
                                     @else
                                         <li class="text-center"><a href="{{ route('getLogin') }}">Đăng nhập</a></li>

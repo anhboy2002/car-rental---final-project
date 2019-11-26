@@ -93,4 +93,5 @@
             </div>
         @endif
     </div>
+    @include('user.includes.footer')
 @endsection

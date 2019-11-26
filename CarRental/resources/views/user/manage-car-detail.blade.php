@@ -474,4 +474,5 @@
 
     });
 </script>
+    @include('user.includes.footer')
 @endsection

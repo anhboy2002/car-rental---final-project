@@ -25,20 +25,18 @@
                         </div>
                     <div class="line-form col-md-2 mt-1">
                         <div class="wrap-select custom-select--dark">
-                            <select>
-                                <option value="1572541200000">Tháng 12-2019</option>
-                                <option value="1572541200000" selected>Tháng 11-2019</option>
-                                <option value="1569862800000">Tháng 10-2019</option>
-                                <option value="1567270800000">Tháng 09-2019</option>
-                                <option value="1564592400000">Tháng 08-2019</option>
-                                <option value="1561914000000">Tháng 07-2019</option>
-                                <option value="1559322000000">Tháng 06-2019</option>
-                                <option value="1556643600000">Tháng 05-2019</option>
-                                <option value="1554051600000">Tháng 04-2019</option>
-                                <option value="1551373200000">Tháng 03-2019</option>
-                                <option value="1548954000000">Tháng 02-2019</option>
-                                <option value="1546275600000">Tháng 01-2019</option>
-                            </select>
+                            <form action="{{route('mywallet')}}" method="GET" enctype="multipart/form-data" id="form-month">
+                                {{csrf_field()}}
+                                <select name="month">
+                                    @for($i = 1; $i<12; $i++)
+                                        @if($i == (float)$month)
+                                            <option value="{{$i}}" selected>Tháng {{$i}}-2019</option>
+                                        @else
+                                            <option value="{{$i}}">Tháng {{$i}}-2019</option>
+                                        @endif
+                                    @endfor
+                                </select>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -150,4 +148,5 @@
             </div>
         </div>
     </div>
+    @include('user.includes.footer')
 @endsection

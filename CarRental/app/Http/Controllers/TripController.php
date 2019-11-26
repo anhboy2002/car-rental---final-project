@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Checkout;
+use App\Models\Reports;
 use App\Notifications\ChangeReservationStatus;
-use Notifications;
+use Notification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,17 @@ class TripController extends Model
                                         'checkouts' => $checkouts,
                                         'categories' =>$categories
                                         ]);
+    }
+
+    public function reportCar($id) {
+        $checkout = Checkout::where('id', $id)->first();
+        $report = Reports::create([
+                    'car_id' => $checkout->car_id,
+                    'status' => 0,
+                    'content' => 'Chu xe chua giao xe',
+        ]);
+
+        return response('status');
     }
 
     public function changeStatusTrip(Request $request, $id) {
@@ -88,6 +100,8 @@ class TripController extends Model
         $checkout->status_ck =  $status;
         $checkout->status_1 =  $status_1;
         $checkout->status_2 =  $status_2;
+        $checkout->message_1 =  $message_1;
+        $checkout->message_2 =  $message_2;
         $checkout->save();
         Notification::send($checkout->user2, new ChangeReservationStatus($checkout));
 

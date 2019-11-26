@@ -27,7 +27,7 @@
     <div class="trip-container tab-content" id="myTabContent">
         <div class="has-trip tab-pane fade show active"  id="home" role="tabpanel" aria-labelledby="home-tab">
             @foreach($checkouts as $checkout)
-                @if($checkout->status_ck == 1 || $checkout->status_ck == 3 )
+                @if($checkout->status_ck == 1 || $checkout->status_ck == 3 || $checkout->status_ck == 5 || $checkout->status_ck == 6 )
                     <div class="trip-box new-box">
                         <div class="trip-header">
                             <h4 class="car-name">
@@ -79,6 +79,18 @@
                                         <p>
                                             <span class="status green-dot"></span>
                                             Chủ xe đã duyệt
+                                        </p>
+                                        @break
+                                        @case(5)
+                                        <p>
+                                            <span class="status yellow-dot"></span>
+                                            chờ đặt cọc
+                                        </p>
+                                        @break
+                                        @case(6)
+                                        <p>
+                                            <span class="status green-dot"></span>
+                                            Đang tiến hành
                                         </p>
                                         @break
                                         @default
@@ -154,4 +166,5 @@
             </div>
         </div>
     </div>
+    @include('user.includes.footer')
 @endsection

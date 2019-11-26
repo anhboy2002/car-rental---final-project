@@ -48,4 +48,9 @@ class Car extends Model
 
         return $this->hasMany(Feedback::class);
     }
+
+    public function trips(){
+
+        return $this->hasMany(Checkout::class, 'car_id', 'id');
+    }
 }

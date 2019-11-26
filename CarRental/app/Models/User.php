@@ -68,7 +68,11 @@ class User extends Authenticatable
         foreach($trips as $trip){
             $ratingUser += $trip->car->rate;
         }
-
-        return number_format($ratingUser/count($trips));
+        if(count($trips) == 0) {
+            $count = 1;
+        } else {
+            $count = count($trips);
+        }
+        return number_format($ratingUser/$count);
     }
 }

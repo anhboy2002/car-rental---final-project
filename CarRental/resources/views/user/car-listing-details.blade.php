@@ -2,24 +2,12 @@
 @section('content')
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-{{--            <div class="carousel-item active">--}}
-{{--                <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(45).jpg"--}}
-{{--                     alt="First slide" height="500">--}}
-{{--            </div>--}}
-{{--            <div class="carousel-item">--}}
-{{--                <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(46).jpg"--}}
-{{--                     alt="Second slide" height="500px">--}}
-{{--            </div>--}}
-{{--            <div class="carousel-item">--}}
-{{--                <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(47).jpg"--}}
-{{--                     alt="Third slide" height="500px">--}}
-{{--            </div>--}}
-                            @for($i = 0; $i < count($car->photos); $i++)
-                                <div class="carousel-item {{ $i == 0 ? "active" : "" }}">
-                                    <img class="d-block" src="{{ asset('storage/uploads/car_photos/'. $car->photos[$i]->feature) }}" alt="{{$car->name}}"  height="800px" width="1841px">
-{{--                                    <img class="d-block w-100" src="https://d1zgdcrdir5wgt.cloudfront.net/media/vehicle/images/Kd_26FQjQcW8NamybrVTFA.1440x700.jpg" alt="{{$car->name}}"  height="750px">--}}
-                                </div>
-                            @endfor
+            @for($i = 0; $i < count($car->photos); $i++)
+                <div class="carousel-item {{ $i == 0 ? "active" : "" }}">
+                    <img class="d-block" src="{{ asset('storage/uploads/car_photos/'. $car->photos[$i]->feature) }}" alt="{{$car->name}}"  height="800px" width="1841px">
+                    {{--                                    <img class="d-block w-100" src="https://d1zgdcrdir5wgt.cloudfront.net/media/vehicle/images/Kd_26FQjQcW8NamybrVTFA.1440x700.jpg" alt="{{$car->name}}"  height="750px">--}}
+                </div>
+            @endfor
             </div>
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -228,4 +216,5 @@
                 </div>
             </div>
         </div>
+    @include('user.includes.footer')
     @endsection

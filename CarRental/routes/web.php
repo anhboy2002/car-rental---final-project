@@ -281,3 +281,7 @@ Route::get('/mywallet', [
     'uses' => 'UserController@myWalletIndex'
 ]);
 
+Route::post('/report-car/{id}', [
+    'as' => 'car.report',
+    'uses' => 'TripController@reportCar'
+]);

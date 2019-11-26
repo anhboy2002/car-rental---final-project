@@ -13,7 +13,7 @@ class Report extends Migration
      */
     public function up()
     {
-        Schema::create('checkouts', function (Blueprint $table) {
+        Schema::create('reports', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('car_id');
             $table->tinyInteger('status');
@@ -29,6 +29,6 @@ class Report extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('checkouts');
+        Schema::dropIfExists('reports');
     }
 }

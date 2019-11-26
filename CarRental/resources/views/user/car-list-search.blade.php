@@ -23,7 +23,7 @@
                     <div id="dataAllCar" style="display: none;" data-car="{{ $cars }}" data-photos="{{ $photos }}"></div>
                         <form action="{{ action("SearchController@searchCar") }}" method="GET" enctype="multipart/form-data" >
                             {{ csrf_field()}}
-                            <label for="input-val11"style="width: 82%"><span>Địa điểm</span>
+                            <label for="input-val11"style="width: 82%; padding-top:6px;"><span>Địa điểm</span>
                                 <input type="text" id='inputAddressSearch1' placeholder="Thành phố, sân bay" value="{{$search['location']}}" name="addressSearch">
                             </label>
                             <div class="clearfix">
@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                             <label for="input-val18" class="promo promo2">
-                                <button class="btn wheel-btn" id="searchCarIndex" type="submit">Search</button>
+                                <button class="btn wheel-btn" id="searchCarIndex" type="submit">Tìm kiếm</button>
                             </label>
                         </form>
                 </div>
@@ -65,9 +65,9 @@
                     </div>
                     <div class="select select-1 mt-2">
                         <span class="">Loại xe</span>
-                        <ul class="list choose-num-seat-car">
+                        <ul class="list choose-num-seat-car" >
                             <li value="0">Tất cả</li>
-                            <li value="4">4 chỗ</li>
+                            <li value="4" >4 chỗ</li>
                             <li value="7">7 chỗ</li>
                         </ul>
                     </div>
@@ -127,7 +127,7 @@
     </div>
 
 @extends('include.loginModal')
-{!! Html::script('assets/js/jquery-2.2.4.min.js') !!}
+@include('user.includes.footer-search')
 <script>
     $( document ).ready(function() {
             var markers = [];
@@ -174,6 +174,7 @@
                 brandCarSearch();
                 // ajaxSearch1();
             });
+
             $('#btnSearch').click(function(e)
             {
                 var data = {

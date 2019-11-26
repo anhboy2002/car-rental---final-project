@@ -519,6 +519,32 @@ $(document).on('click', '.btnHideCar', function(e){
     e.preventDefault();
     $.ajax(options);
 });
+
+$('#form-month select').on('change', function(){
+    $(this).closest('form').submit();
+});
+
+$(document).on('click', '.btnReport', function(e){
+    var token = $('meta[name="csrf-token"]').attr('content');
+    var id = $(this).attr('id');
+    var url = "/report-car/" + id;
+    var options = {
+        url:url,
+        method:"post",
+        data:{
+            _token: token
+        },
+        success:function(response) {
+           alert('oke');
+        },
+        error: function (err) {
+            console.log(arguments);
+        }
+    };
+    e.preventDefault();
+    $.ajax(options);
+});
+
 $(document).on('click', '#logout-item', function(e){
     localStorage.clear();
 });

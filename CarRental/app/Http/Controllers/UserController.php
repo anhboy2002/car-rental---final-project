@@ -11,6 +11,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class UserController extends Controller
 {
@@ -165,23 +166,21 @@ class UserController extends Controller
     }
 
     public function myWalletIndex(Request $request) {
-//        if($request->month == '') {
-//            $month = Carbon::now()->format('M-Y');
-//        } else {
-//            $month = $request->month;
-//        }
+        if(!$request->month) {
+            $month = Carbon::now()->format('m');
+        } else {
+            $month = $request->month;
+        }
+
         $user = new User();
         $trip = new Checkout();
-        $trips = Checkout::where(
-            'user_id_1', \auth()->id()
+        $trips = Checkout::where('user_id_1', \auth()->id())->where(DB::raw("(DATE_FORMAT(created_at, '%m'))"), $month)->get();
 
-        )->get();
         $countTripSuccess= Checkout::where([
-                                            'user_id_1'=>auth()->id(),
-                                            'status_ck' => '4'
-                                            ]
+                'user_id_1'=>auth()->id(),
+                'status_ck' => '4',
+                ])->where(DB::raw("(DATE_FORMAT(created_at, '%m'))"), $month)->count();
 
-        )->count();
         $ratingUser = $user->rating(\auth()->id());
         $categories = Category::where('id_parent', 0)->get();
 
@@ -190,7 +189,8 @@ class UserController extends Controller
                                             'trips' =>$trips,
                                             'totalPrice' => $trip->totalPrice($trips),
                                             'countTripSuccess' => $countTripSuccess,
-                                            'ratingUser' => $ratingUser
+                                            'ratingUser' => $ratingUser,
+                                            'month' => $month
                                         ]);
     }
 }

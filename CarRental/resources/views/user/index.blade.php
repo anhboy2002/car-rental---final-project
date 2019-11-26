@@ -8,13 +8,13 @@
                     <div class="wheel-start-form" style="max-width: 790px">
                         <form action="{{ action("SearchController@searchCar") }}" method="GET" enctype="multipart/form-data">
                             {{ csrf_field()}}
-                            <label for="input-val11" style="width: 82%"><span>Địa điểm</span>
+                            <label for="input-val11" style="width: 82%; padding-top: 6px;"><span>Địa điểm</span>
                                 <input type="text" id='inputAddressSearch1' placeholder="Thành phố, sân bay" name="addressSearch">
                                 <input type="hidden" name="hasCategory" value="0">
                             </label>
                             <div class="clearfix">
                                 <div class="wheel-date">
-                                    <span style="width: 32%">Ngày bắt đầu</span>
+                                    <span style="width: 32%; ">Ngày bắt đầu</span>
                                     <label for="input-val13" class="fa fa-calendar" style="width: 60%">
                                         <input class="date" id='dateBegin1' type="date"  value="10/26/2019" name="dateBegin">
                                     </label>
@@ -169,7 +169,11 @@
                     <p>Make a dent in your monthly car payments — on average, Turo hosts can cover their payments by sharing their cars just nine days per month.
 
                         As a host, you’re covered by our CA$2 million insurance policy and we’ll be here to guide you every step of the way. Or bring your own commercial rental insurance and take a bigger piece of the pie.* </p>
-                    <a href="{{route('carRegister')}}" class="wheel-btn">Đăng ký xe</a>
+                    @if (Auth::check())
+                        <a href="{{route('carRegister')}}" class="wheel-btn">Đăng ký xe</a>
+                    @else
+                        <a class="wheel-btn"  href="#loginModal" data-toggle="modal" data-target="#loginModal">Đăng ký xe</a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -226,5 +230,6 @@
             </div>
         </div>
     </div>
+    @include('user.includes.footer')
 @endsection
 

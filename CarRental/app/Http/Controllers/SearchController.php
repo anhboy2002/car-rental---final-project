@@ -22,8 +22,7 @@ class SearchController extends Controller
         $dateBegin = new Carbon($request->dateBegin . " ". $request->timeBegin );
         $dateEnd = new Carbon($request->dateEnd . " ". $request->timeEnd );
 
-        if($request->hasCategory != '0') {
-            dd("oke");
+        if($request->hasCategory && $request->hasCategory != '0') {
             $cars = Car::where([
                 'status'=> 1,
                 'car_category_id' => $request->hasCategory
@@ -32,17 +31,16 @@ class SearchController extends Controller
             $cars = Car::where('status', 1)->get();
         }
         foreach ($cars as $key => $car){
-            if($car->trips != null){
+            if($car->trips->count() > 0){
                 foreach ($car->trips as $trip ) {
-                    if($trip->status_ck == 0 || $trip->status_ck == 2 ) {
                         $trip_end = Carbon::createFromFormat('Y-m-d H:i:s', $trip->trip_end);
                         $trip_start = Carbon::createFromFormat('Y-m-d H:i:s', $trip->trip_start);
                         if($dateBegin->gt($trip_end)) {
                         } else if($trip_start->gt($dateBegin) && $trip_start->gt($dateEnd)){
+
                         } else {
                             $cars->forget($key);
                         }
-                    }
                 }
             }
         }

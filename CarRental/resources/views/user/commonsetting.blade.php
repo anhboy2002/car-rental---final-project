@@ -56,4 +56,5 @@
             </form>
         </div>
     </div>
+    @include('user.includes.footer')
 @endsection

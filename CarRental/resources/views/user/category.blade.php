@@ -81,9 +81,9 @@
                                     </div>
                                     <div class="product-table3  ">
                                         <div class="text-wrap text-wrap2 product-cell">
-                                            <div class="title">{{$car->name}}</div>
-                                            <div class="price-wrap product-cell">
-                                                <span>{{$car->price}}</span><sup>K</sup>/Ngày
+                                            <div class="title badge badge-light">{{ $car->name }}</div>
+                                            <div class="price-wrap product-cell text-white">
+                                                <span class="">{{ $car->price }}</span><sup class="text-white">K</sup>/Ngày
                                             </div>
                                         </div>
                                         <div class="img-wrap img-wrap3 product-cell">
@@ -207,4 +207,5 @@
             </div>
         </div>
     </div>
+    @include('user.includes.footer')
 @endsection

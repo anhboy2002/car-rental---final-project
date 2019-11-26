@@ -23,7 +23,7 @@
                     <ul class="steps">
                         <li class="title-wrap active" data-toggle="collapse" href="#reservation1" aria-expanded="false" aria-controls="reservation1">
                             <div class="title">
-                                <a><span>1.</span>Duyệt yêu cầu</a>
+                                <a href="/trip/detail/{{$checkout->id}}"><span>1.</span>Duyệt yêu cầu</a>
                             </div>
                         </li>
                         <li class="title-wrap ">
@@ -301,4 +301,5 @@
             </div>
         </div>
     </div>
+    @include('user.includes.footer')
 @endsection
