@@ -112,16 +112,16 @@
                                             <div class="row form-group">
                                                 <div class="col-lg-10">
                                                     @if(auth()->user()->phone == '')
-                                                    <label for="formGroupExampleInput2">Vui lòng nhập số điện thoại :</label>
+                                                    <label class="labelInputPhone">Vui lòng nhập số điện thoại :</label>
                                                     <div class="row">
-                                                        <input type="text" class="form-control col-md-4" id="formGroupExampleInput">
-                                                        <button class="btn-info ml-2 col-md-3 btn" id="changePhoneNumber">Lưu</button>
+                                                        <input type="text" class="form-control col-md-4" id="phoneNumberCheckout">
+                                                        <button class="btn-info ml-2 col-md-3 btn changePhoneNumber" id="1" >Lưu</button>
                                                     </div>
                                                     @else
-                                                        <label for="formGroupExampleInput2">Số điện thoại của bạn : <p class="font-weight-bold">{{ auth()->user()->phone }}</p></label>
+                                                        <label for="formGroupExampleInput2">Số điện thoại của bạn : <p class="font-weight-bold phoneOld">{{ auth()->user()->phone }}</p></label>
                                                         <div class="row">
-                                                            <input type="text" class="form-control col-md-4" id="formGroupExampleInput">
-                                                            <button class="btn-info ml-2 col-md-3 btn" id="changePhoneNumber">Thay đổi</button>
+                                                            <input type="text" class="form-control col-md-4" id="phoneNumberCheckout">
+                                                            <button class="btn-info ml-2 col-md-3 btn changePhoneNumber" id="2">Thay đổi</button>
                                                         </div>
                                                     @endif
                                                 </div>
@@ -216,7 +216,7 @@
                                 <h6 class="title-list">CHỦ XE</h6>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <p>Tên: Hung Tran</p>
+                                        <p>Tên: {{$car->user->user_name}}</p>
                                     </div>
                                     <div class="col-md-6">
                                         <p>Điện thoại: {{Str::limit($car->user->phone,$limit = 5 , $end = '*****')}}</p>

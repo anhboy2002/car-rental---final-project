@@ -179,7 +179,7 @@
                     @endif
                 @else
                     @if($checkout->status_2 == 7)
-                        <button class="btn btn-danger status-wrap ol-xs-12 padd-lr0 mt-2 btnReport" data-toggle="modal" data-target="#modalReportCar" >Báo xấu</button>
+                        <button class="btn btn-danger status-wrap ol-xs-12 padd-lr0 mt-2" data-toggle="modal" data-target="#modalReportCar" >Báo xấu</button>
 
                         <button class="btn btn-primary status-wrap ol-xs-12 padd-lr0 mt-2 btnReceiveCar" data-toggle="modal" data-target="#modalConfirmReceiveCar" >Đã nhận xe</button>
                     @elseif($checkout->status_2 != 6 && $checkout->status_ck != 4)

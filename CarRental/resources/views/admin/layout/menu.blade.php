@@ -20,6 +20,7 @@
                     <li><a href="{{route('admin.user.index')}}"><i class="icon-user-check"></i><span> Danh sách người dùng</span></a></li>
                     <li><a href="{{route('admin.car.index')}}"><i class="icon-car"></i> <span>Danh sách xe</span></a></li>
                     <li><a href="{{route('admin.category.index')}}"><i class="icon-database-edit2"></i><span> Hãng xe</span></a></li>
+                    <li><a href="{{route('admin.report.index')}}"><i class="icon-database-edit2"></i><span> Báo xấu</span></a></li>
                     <li><a href="{{route('index')}}"><i class="icon-home2"></i><span>Xem Trang chủ</span></a></li>
                 </ul>
             </div>

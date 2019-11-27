@@ -75,4 +75,9 @@ class User extends Authenticatable
         }
         return number_format($ratingUser/$count);
     }
+
+    public function isAdmin()
+    {
+        return $this->is_admin;
+    }
 }

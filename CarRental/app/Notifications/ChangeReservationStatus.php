@@ -45,6 +45,7 @@ class ChangeReservationStatus extends Notification
             'id' => $this->id,
             'user_name_1' => $this->transaction->user1->user_name,
             'avatar_car' => $this->transaction->car->photos[0]->feature,
+            'car_name' => $this->transaction->car->name,
             'status_ck' =>  $this->transaction->status_ck,
             'transaction_id' => $this->transaction->id,
         ];

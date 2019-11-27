@@ -165,6 +165,17 @@ class UserController extends Controller
         return redirect()->route('myProflie');
     }
 
+    public function updatePhone(Request $request) {
+
+        $user = User::where('id', \auth()->id())->update([
+            'phone' => $request->phone
+        ]);
+
+        return response()->json([
+            'status' => '0',
+        ]);
+    }
+
     public function myWalletIndex(Request $request) {
         if(!$request->month) {
             $month = Carbon::now()->format('m');

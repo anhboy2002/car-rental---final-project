@@ -59,12 +59,9 @@ class Checkout extends Model
     }
 
     public function setTotalTrip($checkout){
-        $user1 = $checkout->user1;
-        $user2= $checkout->user2;
-        $user1->total_trip = $user1->total_trip + 1 ;
-        $user2->total_trip = $user1->total_trip + 1 ;
-        $user1->save();
-        $user2->save();
+        $car = $checkout->car;
+        $car->total_trip = $car->total_trip + 1 ;
+        $car->save();
 
         return true;
     }

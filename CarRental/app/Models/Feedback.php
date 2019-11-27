@@ -24,7 +24,7 @@ class Feedback extends Model
 
     public function ratingCar($id){
         $car = Car::where('id', $id)->first();
-        $pointRating = (double) Feedback::where('car_id', $id)->avg('rate');
+        $pointRating = (int) Feedback::where('car_id', $id)->avg('rate');
         $car->rate = $pointRating;
         $car->save();
 

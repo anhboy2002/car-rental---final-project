@@ -16,7 +16,7 @@
                                 <div class="wheel-date">
                                     <span style="width: 32%; ">Ngày bắt đầu</span>
                                     <label for="input-val13" class="fa fa-calendar" style="width: 60%">
-                                        <input class="date" id='dateBegin1' type="date"  value="10/26/2019" name="dateBegin">
+                                        <input class="date" id='dateBegin1' type="date"  value="11/29/2019" name="dateBegin">
                                     </label>
                                 </div>
                                 <div class="wheel-date " style="width: 31%">
@@ -28,7 +28,7 @@
                                 <div class="wheel-date">
                                     <span  style="width: 32%">Ngày kết thúc</span>
                                     <label for="input-val15" class="fa fa-calendar" style="width: 60%">
-                                        <input  class="" id='dateEnd1' type="date" value="10/26/2019" data-date-format="DD MMMM YYYY" name="dateEnd">
+                                        <input  class="" id='dateEnd1' type="date" value="11/30/2019" name="dateEnd">
                                     </label>
                                 </div>
                                 <div class="wheel-date " style="width: 31%">

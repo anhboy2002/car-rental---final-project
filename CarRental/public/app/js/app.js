@@ -133,15 +133,23 @@ $(document).on('click', '.review', function(e){
         },
         success:function(response) {
             // $('.single__review_user').remove();
+            $starRating ="";
+            for(var i = 1; i <= point; i++){
+                $starRating += "<span class='fa fa-star checked'></span>"
+            }
+            for(var i = point; i < 5; i++){
+                $starRating += "<span class='fa fa-star '></span>"
+            }
+
             $('.review__wrapper ul').append(
                 "<li>" +
                 "    <div class='wheel-comment-body'>" +
                 "        <div class='clearfix'>" +
                 "            <div class='comment-author'>" +
-                "                <img src='http://localhost:8000/"+ response.avatar +"'alt='"+ response.user_name +"'>" +
+                "                <img width='90' height='90'src='http://localhost:8000/storage/uploads/profile/"+ response.avatar +"'alt='"+ response.user_name +"'>" +
                 "                    <a href=''> " + response.user_name + "</a>" +
                 "                        <div class='ratings'>" +
-                "                            <img src='images/stars.png' alt=''>" +
+                    $starRating +
                 "                        </div>" +
                 "            </div>" +
                 "            <div class='comment-metadata'>" +
@@ -186,6 +194,7 @@ $(document).on('click', '.review-end-car', function(e){
 });
 
 $(document).on('click', '#searchCarIndex', function(){
+
     var data = {
         addressSearch : $('#inputAddressSearch1').val(),
         dateBegin :  $('#dateBegin1').val(),
@@ -362,9 +371,10 @@ $(document).on('click', '.btnHandingEndCar', function(){
     $('.btnHandingEndCar').hide();
     $("html, body").animate({ scrollTop: 600 }, "slow");
 });
+
 // xac nhan da nhan lai xe
 $(document).on('click', '#btnReceiveEndCar', function(){
-    // changeStatusTrip(4,4,0);
+    changeStatusTrip(4,4,0);
     $('#modalReceiveEndCar').modal('hide');
     $('.info-trip').prepend(
     "  <div class='status-wrap col-md-12 padd-lr0'>" +
@@ -536,6 +546,35 @@ $(document).on('click', '.btnReport', function(e){
         },
         success:function(response) {
            alert('oke');
+        },
+        error: function (err) {
+            console.log(arguments);
+        }
+    };
+    e.preventDefault();
+    $.ajax(options);
+});
+
+$(document).on('click', '.changePhoneNumber', function(e){
+    var token = $('meta[name="csrf-token"]').attr('content');
+    var phone = $('#phoneNumberCheckout').val();
+    var id = $(this).attr('id');
+    var url = "/update-phone" ;
+    var options = {
+        url:url,
+        method:"post",
+        data:{
+            _token: token,
+            phone : phone
+        },
+        success:function(response) {
+            if (id === "1") {
+                $('.labelInputPhone').text('Số điện thoại của bạn là:');
+
+            } else {
+                $('.phoneOld').hide();
+            }
+            $('.changePhoneNumber').hide();
         },
         error: function (err) {
             console.log(arguments);

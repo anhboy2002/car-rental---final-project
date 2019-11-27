@@ -4,7 +4,7 @@
     <div class="page-header page-header-default">
         <div class="page-header-content">
             <div class="page-title">
-                <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Home</span> - Danh sách xe đăng ký</h4>
+                <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Home</span> - Danh sách các báo cáo</h4>
             </div>
         </div>
 
@@ -20,18 +20,12 @@
 			<div class="col-12">
 				<div class="panel panel-flat">
                     <div class="panel-heading">
-                        <h5 class="panel-title">Danh sách các xe đăng ký <span class="badge badge-primary">{{$cars->count()}}</span></h5>
+                        <h5 class="panel-title">Danh sách các báo cáo <span class="badge badge-primary">{{$reports->count()}}</span></h5>
                     </div>
 
                     <div class="panel-body">
                         Các <code>xe đăng ký</code> được liệt kê tại đây. <strong>Dữ liệu đang cập nhật.</strong>
                     </div>
-                    @if(session('thongbao'))
-                        <div class="alert bg-success">
-                            <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-                            <span class="text-semibold">Well done!</span>  {{session('thongbao')}}
-                        </div>
-                    @endif
                     <div class="m-5 col-md-4">
                         <input class="form-control" id="myInput" type="text" placeholder="Search..">
                     </div>
@@ -40,35 +34,30 @@
                         <tr class="bg-blue">
                             <th>ID</th>
 
-                            <th>Tên</th>
-                            <th>Vị trí</th>
-                            <th>Giá</th>
+                            <th>Tên xe</th>
+                            <th>Nội dung</th>
+                            <th>Ngày</th>
                             <th>Chủ xe</th>
-                            <th>Chuyến</th>
                             <th>Trạng thái</th>
                             <th class="text-center">Actions</th>
                         </tr>
                         </thead>
                         <tbody id="myTable">
-                        @foreach($cars as $car)
+                        @foreach($reports as $report)
                             <tr>
-                                <td>{{$car->id}}</td>
+                                <td>{{$report->id}}</td>
 
-                                <td><a href="{{ route('car.carDetail', [ 'id' => $car->id ]) }}" target="_blank">{{$car->name}}</a></td>
-                                <td>{{$car->location_name}}</td>
+                                <td><a href="{{ route('car.carDetail', [ 'id' => $report->car->id ]) }}" target="_blank">{{$report->car->name}}</a></td>
+                                <td>{{$report->content}}</td>
 
-                                <td>{{$car->price}}</td>
-                                <td><a href="#viewUser{{$car->user->id}}" data-toggle="modal" data-target="#viewUser{{$car->user->id}}">{{$car->user->user_name}}</a></td>
-                                <td>{{$car->total_trip}}</td>
+{{--                                <td>{{$report->created_at->toFormattedDateString()}}</td>--}}
+                                <td>4/4/2019</td>
+                                <td><a href="#viewUser{{$report->car->user->id}}" data-toggle="modal" data-target="#viewUser{{$report->car->user->id}}">{{$report->car->user->user_name}}</a></td>
                                 <td>
-                                    @if($car->status == 1)
-                                        <span class="label label-success">Đã kiểm duyệt</span>
-                                    @elseif($car->status == 0)
-                                        <span class="label label-danger">Chờ Phê Duyệt</span>
-                                    @elseif($car->status == 3)
-                                        <span class="label label-default">Bị ẩn</span>
+                                    @if($report->status == 0)
+                                        <span class="label label-danger">Chờ xử lí</span>
                                     @else
-                                        <span class="label label-danger">Bị từ chối</span>
+                                        <span class="label label-success">Đã xử lí</span>
                                     @endif
                                 </td>
                                 <td class="text-center">
@@ -77,33 +66,28 @@
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                                 <i class="icon-menu9"></i>
                                             </a>
-
                                             <ul class="dropdown-menu dropdown-menu-right">
-                                                <li><a  href="#viewCar{{$car->id}}" data-toggle="modal" data-target="#viewCar{{$car->id}}"><i class="icon-search4"></i> Xem chi tiêt</a></li>
-                                                @if($car->status == 1)
-                                                    <li><a href="{{route("admin.car.reject", ['id'=> $car->id])}}"><i class="icon-file-pdf"></i> Từ chối xe</a></li>
-                                                @elseif($car->status == 0)
-                                                    <li><a href="{{route("admin.car.accept", ['id'=> $car->id])}}"><i class="icon-file-pdf"></i> Kiểm duyệt</a></li>
-                                                @elseif($car->status == -1)
-                                                    <li><a href="{{route("admin.car.accept", ['id'=> $car->id])}}"><i class="icon-file-pdf"></i> Chấp nhận</a></li>
-                                                @endif
+                                                <li><a  href="#viewCar{{$report->car->id}}" data-toggle="modal" data-target="#viewCar{{$report->car->id}}"><i class="icon-search4"></i> Xem chi tiêt</a></li>
+                                                    <li><a href=""><i class="icon-file-pdf"></i> Hủy chuyến</a></li>
+                                                    <li><a href=""><i class="icon-file-pdf"></i> Khóa người dùng</a></li>
+                                                    <li><a href=""><i class="icon-file-pdf"></i> Khóa xe</a></li>
                                             </ul>
                                         </li>
                                     </ul>
                                 </td>
                             </tr>
                             {{--    Modal--}}
-                            <div class="modal fade" id="viewCar{{$car->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="viewCar{{$report->car->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-body">
                                             <center>
-                                                <img  src="{{ asset('storage/uploads/car_photos/'. $car->photos[0]->feature) }}" alt="{{$car->name}}" width="300" height="200"></a>
-                                                <h3 class="media-heading">{{$car->name}} <small>{{$car->address}}</small></h3>
+                                                <img  src="{{ asset('storage/uploads/car_photos/'. $report->car->photos[0]->feature) }}" alt="{{$report->car->name}}" width="300" height="200"></a>
+                                                <h3 class="media-heading">{{$report->car->name}} <small>{{$report->car->address}}</small></h3>
                                                 <span><strong>Thông tin: </strong></span>
-                                                <span class="label label-warning">{{($car->trips == null) ? 0 : $car->trips->count()}} chuyến</span>
-                                                <span class="label label-info">{{$car->price}} K</span>
-                                                <span class="label label-success">{{$car->created_at->toFormattedDateString()}}</span>
+                                                <span class="label label-warning">{{($report->car->trips == null) ? 0 : $report->car->trips->count()}} chuyến</span>
+                                                <span class="label label-info">{{$report->car->price}} K</span>
+                                                <span class="label label-success">{{$report->car->created_at->toFormattedDateString()}}</span>
                                             </center>
                                             <hr>
                                             <center>
@@ -112,7 +96,7 @@
                                                 <br>
                                             </center>
                                                 <div class="marg-lg-b75 marg-sm-b0 padd-lr0">
-                                                    <div class="wheel-map style-1" id = "mapSingleCar" data-lat="{{ $car->lat }}" data-lng="{{ $car->long }}" data-car="{{ $car }}" data-marker="images/marker.png"></div>
+                                                    <div class="wheel-map style-1" id = "mapSingleCar" data-lat="{{ $report->car->lat }}" data-lng="{{ $report->car->long }}" data-car="{{ $report->car }}" data-marker="images/marker.png"></div>
                                                 </div>
                                         </div>
                                         <div class="modal-footer">
@@ -124,17 +108,17 @@
                                 </div>
                             </div>
                             {{--    Modal user--}}
-                            <div class="modal fade" id="viewUser{{$car->user->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="viewUser{{$report->car->user->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-body">
                                             <center>
-                                                <img  src="{{ asset('storage/uploads/profile/'. $car->user->avatar) }}" name="{{$car->user->user_name}}" width="140" height="140" border="0" class="img-circle"></a>
-                                                <h3 class="media-heading">{{$car->user->user_name}} <small>{{$car->user->address}}</small></h3>
+                                                <img  src="{{ asset('storage/uploads/profile/'. $report->car->user->avatar) }}" name="{{$report->car->user->user_name}}" width="140" height="140" border="0" class="img-circle"></a>
+                                                <h3 class="media-heading">{{$report->car->user->user_name}} <small>{{$report->car->user->address}}</small></h3>
                                                 <span><strong>Thông tin: </strong></span>
-                                                <span class="label label-warning">{{$car->user->trips->count()}} chuyến</span>
-                                                <span class="label label-info">{{$car->user->cars->count()}} xe</span>
-                                                <span class="label label-success">{{$car->user->created_at->toFormattedDateString()}}</span>
+                                                <span class="label label-warning">{{$report->car->user->trips->count()}} chuyến</span>
+                                                <span class="label label-info">{{$report->car->user->cars->count()}} xe</span>
+                                                <span class="label label-success">{{$report->car->user->created_at->toFormattedDateString()}}</span>
                                             </center>
                                             <hr>
                                             <center>

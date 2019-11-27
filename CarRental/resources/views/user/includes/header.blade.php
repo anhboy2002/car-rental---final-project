@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="wheel-top-menu-log">
-                        @if (Auth::check())
+                        @if (Auth::check() && auth()->user()->notifications->count() > 0)
                             <div class="top-menu-item">
                                 <div class="dropdown wheel-ico">
                                     <button class="btn btn-default dropdown-toggle notification" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -41,12 +41,12 @@
                                                 <li class="notification-box @if($notification->unread()) bg-gray @endif" >
                                                     <div class="row">
                                                         <div class="col-lg-3 col-sm-3 col-3 text-center">
-                                                            <img  src="{{ asset('storage/uploads/car_photos/'. $notification->data['avatar_car']) }}" class="w-75 rounded-circle"/>
+                                                            <img  src="{{ asset('storage/uploads/car_photos/'. $notification->data['avatar_car']) }}" class="rounded-circle"  height="85" width="85"/>
                                                         </div>
                                                         <div class="col-lg-8 col-sm-8 col-8">
                                                             <strong class="text-info">{{ $notification->data['user_name_2'] }}</strong>
                                                             <div>
-                                                                Xe Honda Civic đã được đặt.
+                                                                Xe {{ $notification->data['car_name']  }} đã được đặt.
                                                                 <a href="{{ route('trip.detail', [ 'id' =>$notification->data['transaction_id'] ]) }}"><span class="badge-warning badge"> Chờ duyệt</span></a>
                                                             </div>
                                                             <small class="text-warning">{{ $notification->created_at->diffForHumans() }}</small>
@@ -57,7 +57,7 @@
                                                 <li class="notification-box @if($notification->unread()) bg-gray @endif" href="{{ route('trip.detail', [ 'id' =>$notification->data['transaction_id'] ]) }}">
                                                     <div class="row">
                                                         <div class="col-lg-3 col-sm-3 col-3 text-center">
-                                                            <img  src="{{ asset('storage/uploads/car_photos/'. $notification->data['avatar_car']) }}" class="w-75 rounded-circle"/>
+                                                            <img  src="{{ asset('storage/uploads/car_photos/'. $notification->data['avatar_car']) }}" class="rounded-circle" height="85" width="85"/>
                                                         </div>
                                                         <div class="col-lg-8 col-sm-8 col-8">
                                                             <strong class="text-info">{{ $notification->data['user_name_1'] }}</strong>

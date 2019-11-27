@@ -46,6 +46,7 @@ class NewReservation extends Notification
             'user_name_2' => $this->transaction->user2->user_name,
             'avatar_car' => $this->transaction->car->photos[0]->feature,
             'status_ck' =>  $this->transaction->status_ck,
+            'car_name' => $this->transaction->car->name,
             'transaction_id' => $this->transaction->id,
         ];
     }

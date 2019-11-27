@@ -42,7 +42,7 @@
 					<div class="panel-body">
 						<h3 class="no-margin">{{$totalCarActive}}</h3>
 						 Xe đã duyệt
-						<div class="text-muted text-size-small">trên tổng số {{$totalUser}} xe đã đăng ky</div>
+						<div class="text-muted text-size-small">trên tổng số {{$totalCar}} xe đã đăng ký</div>
 					</div>
 
 					<div id="server-load"></div>
@@ -52,7 +52,7 @@
 				<a href="admin/thongke">
 					<div class="panel bg-blue-400">
 						<div class="panel-body">
-							<h3 class="no-margin">5</h3>
+							<h3 class="no-margin">0</h3>
 							Báo cáo
 							<div class="text-muted text-size-small">từ người dùng</div>
 						</div>

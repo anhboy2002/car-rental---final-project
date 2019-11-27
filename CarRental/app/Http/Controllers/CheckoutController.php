@@ -40,11 +40,15 @@ class CheckoutController extends Controller
 
     public function checkoutCarDetail($search, $car) {
         $totalHourRental = $search['dateBegin']->diffInHours($search['dateEnd']) + $search['timeBegin']->diffInHours($search['timeEnd']);
-        if (($totalHourRental/24) % 2 != 0){
-            $totalDay = number_format($totalHourRental/24);
-        } else {
+        if (($totalHourRental % 24) != 0){
             $totalDay = number_format($totalHourRental/24) + 1;
+        } else {
+            $totalDay = number_format($totalHourRental/24);
         }
+        if ($totalDay == "1") {
+            $totalDay = 1;
+        }
+
         $totalPrice =  $car->price * $totalDay;
         $checkoutDetail =[
             'totalPrice' => number_format($totalPrice),
@@ -79,6 +83,8 @@ class CheckoutController extends Controller
                 'status_1' => 1, // pending
                 'status_2' => 1, // pending
                 'status_ck' => 1, // pending
+                'message_1' => '',
+                'message_2' => '',
                 'price' => (float) Str::replaceArray(',', [''], $checkoutDetail['totalPrice']),
                 'trip_start' => $search['dateBegin']->toDateString() ." ". $search['timeBegin']->toTimeString(),
                 'trip_end' => $search['dateEnd']->toDateString() ." ". $search['timeEnd']->toTimeString(),

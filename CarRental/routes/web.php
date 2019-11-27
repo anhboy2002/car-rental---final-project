@@ -182,12 +182,17 @@ Route::post('update-image-car/{id}', [
     'uses' => 'CarController@updateImageCar',
 ]);
 
+Route::post('update-phone', [
+    'as' => 'updatePhoneCheckout',
+    'uses' => 'UserController@updatePhone',
+]);
+
 
 /* Admin */
-Route::get('admin/login','Admin\AdminController@getLogin');
+Route::get('admin/login','Admin\AdminController@getLogin')->name('admin.getlogin');
 Route::post('admin/login','Admin\AdminController@postLogin')->name('admin.login');
 
-Route::group(['prefix' => 'admin'], function (){
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){
     Route::get('logout','Admin\AdminController@logout');
 
     Route::get('index', [
@@ -203,6 +208,11 @@ Route::group(['prefix' => 'admin'], function (){
     Route::get('user', [
         'as' => 'admin.user.index',
         'uses' => 'Admin\UserController@getIndex',
+    ]);
+
+    Route::get('reports', [
+        'as' => 'admin.report.index',
+        'uses' => 'Admin\UserController@getReportIndex',
     ]);
 
     Route::get('user/delete/{id}', [
@@ -233,6 +243,11 @@ Route::group(['prefix' => 'admin'], function (){
     Route::post('car/category-edit-brand/{id}', [
         'as' => 'admin.category.edit_brand',
         'uses' => 'Admin\CategoryController@editBrandParent',
+    ]);
+
+    Route::post('car/category-register', [
+        'as' => 'admin.category.register',
+        'uses' => 'Admin\CategoryController@registerCategory',
     ]);
 
 

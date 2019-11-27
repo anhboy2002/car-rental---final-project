@@ -14,7 +14,9 @@
                                 <span class="fa fa-star"></span>
                             @endfor
                         </div>
-                        <button class="btn btn-secondary mt-5 " id="btnDisableCar" style="width: 25%" data-toggle="modal" data-target="#modalConfirmHideCar" >{{ ($car->status == 3) ? "Đã tạm ngưng" : "Ẩn xe" }}</button>
+                        @if($car->user->id == auth()->id())
+                            <button class="btn btn-secondary mt-5 " id="btnDisableCar" style="width: 25%" data-toggle="modal" data-target="#modalConfirmHideCar" >{{ ($car->status == 3) ? "Đã tạm ngưng" : "Ẩn xe" }}</button>
+                        @endif
                     </header>
                 </div>
                 <div class="col-lg-6 col-lg-pull-6  padd-lr0">

@@ -16,31 +16,31 @@
     </div>
 	<div class="content">
 		<div class="row">
-			<div class="col-12">
+			<div class="col-12">.
 				<div class="panel panel-flat">
-						<div class="panel-body">
-							Các <code>Hãng xe</code> được liệt kê tại đây. <strong>Dữ liệu đang cập nhật.</strong>
-						</div>
-                        @if(session('thongbao'))
-                        <div class="alert bg-success">
-							<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-							<span class="text-semibold">Well done!</span>  {{session('thongbao')}}
-						</div>
-                        @endif
-                        <div class="m-5 col-md-4">
-                            <input class="form-control" id="myInput" type="text" placeholder="Search..">
-                        </div>
-						<table class="table datatable-show-all">
-							<thead>
-								<tr class="bg-blue">
-									<th>STT</th>
-									<th>Hãng xe</th>
-									<th>Mẫu xe</th>
+                        <ul id="tabsJustified" class="nav nav-tabs">
+                            <li class="nav-item active"><a data-target="#list" href="#list" role="tab" data-toggle="tab"  aria-controls="list" class="nav-link small text-uppercase active">Danh sách hãng xe</a></li>
+                            <li class="nav-item"><a data-target="#create" href="#create"  role="tab" data-toggle="tab"  aria-controls="create" class="nav-link small text-uppercase ">Thêm mới hãng xe</a></li>
+                        </ul>
+                    <div class="trip-container tab-content" id="myTabContent">
+                        <div class="has-trip tab-pane fade in active"  id="list" role="tabpanel" aria-labelledby="list-tab">
+                            <div class="panel-body">
+                                Các <code>Hãng xe</code> được liệt kê tại đây. <strong>Dữ liệu đang cập nhật.</strong>
+                            </div>
+                            <div class="m-5 col-md-4">
+                                <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                            </div>
+                            <table class="table datatable-show-all">
+                                <thead>
+                                <tr class="bg-blue">
+                                    <th>STT</th>
+                                    <th>Hãng xe</th>
+                                    <th>Mẫu xe</th>
                                     <th class="text-center">Actions</th>
-								</tr>
-							</thead>
-							<tbody id="myTable">
-								@foreach($categories as $key => $category)
+                                </tr>
+                                </thead>
+                                <tbody id="myTable">
+                                @foreach($categories as $key => $category)
                                     @if($category->id_parent > 0)
                                         <tr>
                                             <td>{{$key}}</td>
@@ -60,7 +60,7 @@
                                                 </ul>
                                             </td>
                                         </tr>
-                                        {{--    Modal--}}
+{{--                                        Modal--}}
                                         <div class="modal fade" id="editBrandParent{{$category->parent->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -99,15 +99,36 @@
                                                         <div class="modal-footer">
                                                             <button class="btn btn-primary" id="btnRejectTrip" type="submit">Lưu</button>
                                                         </div>
-                                                    <form>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
                                     @endif
-								@endforeach
-							</tbody>
-						</table>
-					</div>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="create" role="tabpanel" aria-labelledby="create-tab">
+                            <div class="panel-body">
+                                <div class="row">
+                                    Đăng ký mới  <code>Mẫu xe</code>
+                                </div>
+                                <form class="mt-5" action="{{route('admin.category.register')}}" method="POST">
+                                    {{csrf_field()}}
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Tên mẫu xe</label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" name="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Chọn hãng xe</label>
+                                        {{ Form::select('parent_id', $categoriesSelect->put(config('setting.default_value_0'), 'Parent'), old('parent_id', config('setting.default_value_0')), ['class' => 'form-control']) }}
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Đăng ký</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</div>

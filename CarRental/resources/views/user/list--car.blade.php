@@ -73,11 +73,12 @@
                                                 Đang tạm ngừng
                                             </span>
                                         @break
+                                        @case(4)
+                                        <span class="badge badge-info">
+                                                Đang có chuyến
+                                            </span>
+                                        @break
                                     @endswitch
-
-                                    <div class="price-mycar">
-                                        <span>{{$car->price}}</span><sup>K</sup>/Ngày
-                                    </div>
                                 </div>
                                 <hr class="line-mycar">
                                 <a href="{{ route('car.carDetail', [ 'id' => $car->id ]) }}" class="btn btn-dark mb-2 btn-detail btn-mycar" role="button">Chi tiết</a>
