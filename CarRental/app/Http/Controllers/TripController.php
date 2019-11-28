@@ -139,7 +139,9 @@ class TripController extends Model
         $checkout->status_1 =  $status_1;
         $checkout->status_2 =  $status_2;
         $checkout->save();
-        $this->updateStatusCar($checkout->car, $status);
+        if($request->status != "5"){
+            $this->updateStatusCar($checkout->car, $status);
+        }
 
         Notification::send($checkout->user2, new ChangeReservationStatus($checkout));
         Notification::send($checkout->user1, new ChangeReservationStatus($checkout));

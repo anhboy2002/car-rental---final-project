@@ -311,6 +311,16 @@ Route::get('/mywallet', [
     'uses' => 'UserController@myWalletIndex'
 ]);
 
+Route::get('/notification/mark/{id}', [
+    'as' => 'notification.mark',
+    'uses' => 'CarRentalController@markNotificationSingle'
+]);
+
+Route::get('/notifications/marks', [
+    'as' => 'notifications.markAll',
+    'uses' => 'CarRentalController@markNotificationAll'
+]);
+
 Route::post('/report-car/{id}', [
     'as' => 'car.report',
     'uses' => 'TripController@reportCar'

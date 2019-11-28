@@ -1,12 +1,3 @@
-var id = $('meta[name="id_user"]').attr('content');
-var count = $('meta[name="count"]').attr('content');
-$(document).ready(function() {
-    window.Echo.private(`App.Models.User.` + id)
-        .notification((notification) => {
-            addNotifications([notification], '#notifications', '#count-notification', parseInt(count) );
-        });
-});
-
 $('#SelectCarCategoryParent').change(function() {
     $('#SelectCarCategoryChilren option').hide();
     $('#SelectCarCategoryChilren option[value="' + $(this).val() + '"]').show();
@@ -597,4 +588,45 @@ $(document).on('click', '#logout-item', function(e){
     localStorage.clear();
 });
 
+//notification
+$(document).on('click', '.notification-box', function(){
+    var id = $(this).attr('id');
+    $(this).removeClass("bg-gray");
+    var url = "/notification/mark/" + id;
+    var options = {
+        url:url,
+        type:"get",
+        data:{
+            id : id,
+        },
+        success:function(response)
+        {
+            if($('.count-notification').html() > 0){
+                $('.count-notification').html($('.count-notification').html() - 1);
+            }
+        },
+        error: function (request, error) {
+            alert( Lang.get('en.notify.error_ajax') + error);
+        }
+    };
+    $.ajax(options);
+});
+
+$(document).on('click', '.seenAll', function(e){
+    var url = "/notifications/marks";
+    var options = {
+        url:url,
+        type:"get",
+        success:function(response)
+        {
+            $('.count-notification').hide();
+            $('.notification-box').removeClass('bg-gray');
+        },
+        error: function (request, error) {
+            alert(Lang.get('en.notify.error_ajax') + error);
+        }
+    };
+    e.preventDefault();
+    $.ajax(options);
+});
 

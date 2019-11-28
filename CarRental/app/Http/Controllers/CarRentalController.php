@@ -26,4 +26,34 @@ class CarRentalController extends Controller
                                             'cars' => $cars,
                                             ]);
     }
+
+    public function markNotificationSingle($id) {
+        try {
+            $notification = auth()->user()->notifications()->findOrFail($id);
+            $notification->markAsRead();
+            return response()->json([
+                'status' => 1,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 0,
+            ]);
+        }
+    }
+
+    public function markNotificationAll(){
+        try {
+            $notifications = auth()->user()->notifications()->get();
+            foreach ($notifications as $notification){
+                $notification->markAsRead();
+            }
+            return response()->json([
+                'status' => 1,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 0,
+            ]);
+        }
+    }
 }
