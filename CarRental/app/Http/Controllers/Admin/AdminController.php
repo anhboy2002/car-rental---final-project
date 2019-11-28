@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Car;
 use App\Models\Checkout;
+use App\Models\Reports;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -42,6 +43,8 @@ class AdminController extends Controller
     public function getIndex() {
         $totalUser = User::all()->count();
         $totalCar = Car::all()->count();
+        $totalReport = Reports::all()->count();
+        $totalReportActive = Reports::where('status', 1)->count();
         $totalCarActive = Car::where('status', 1)->count();
         $chart = new TripChart();
 
@@ -61,6 +64,7 @@ class AdminController extends Controller
             'totalUser' => $totalUser,
             'totalCar' => $totalCar,
             'totalCarActive' => $totalCarActive,
+            'totalReport' => $totalReport,
             'chart' => $chart
         ]);
     }

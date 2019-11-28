@@ -5,10 +5,9 @@ namespace App\Notifications;
 use App\Models\Checkout;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ChangeReservationStatus extends Notification
+class ChangeReservationStatus extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -44,8 +43,11 @@ class ChangeReservationStatus extends Notification
         return [
             'id' => $this->id,
             'user_name_1' => $this->transaction->user1->user_name,
+            'user_name_2' => $this->transaction->user2->user_name,
             'avatar_car' => $this->transaction->car->photos[0]->feature,
             'car_name' => $this->transaction->car->name,
+            'message_1' => $this->transaction->message_1,
+            'message_2' => $this->transaction->message_2,
             'status_ck' =>  $this->transaction->status_ck,
             'transaction_id' => $this->transaction->id,
         ];

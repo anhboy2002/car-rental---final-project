@@ -41,6 +41,10 @@ class TripController extends Model
                 $status_1 = 2;
                 $status_2 = 2;
                 $status= 1;
+                $message_1 = "Chuyến của bạn đã hết hạn";
+                $checkout->message_1 =  $message_1;
+                $message_2 = "Chuyến của bạn đã hết hạn";
+                $checkout->message_2 =  $message_2;
                 break;
 
             case "0" :
@@ -48,12 +52,16 @@ class TripController extends Model
                 $status_1 = 0;
                 $status_2 = 0;
                 if ($request->status_1 == "0") {
-                    $message_1 = "Chủ xe hủy chuyến";
+                    $message_1 = "Chủ xe hủy chuyến xe của bạn";
+                    $message_2 = "Bạn đã hủy chuyến xe";
                     $checkout->message_1 =  $message_1;
+                    $checkout->message_2 =  $message_2;
 
                 } elseif ($request->status_2 == "0") {
-                    $message_2 = "Khách hàng hủy chuyên";
-                    $checkout->message_1 =  $message_2;
+                    $message_1 = "Khách hàng hủy chuyến xe của bạn";
+                    $message_2 = "Bạn hủy chuyến xe";
+                    $checkout->message_2 =  $message_2;
+                    $checkout->message_1 =  $message_1;
                 }
                 $status= 1;
                 break;
@@ -63,26 +71,39 @@ class TripController extends Model
                 $status_1 = 3;
                 $status_2 = 3;
                 $status= 4;
+                $message_2 = "Chuyến của bạn đang được tiến hành. Chờ chủ xe giao xe";
+                $message_1 = "Chuyến của bạn đang được tiến hành. Hãy giao xe cho khách";
+                $checkout->message_1 =  $message_1;
+                $checkout->message_2 =  $message_2;
+
                 break;
 
             case "5" :
                 $status_ck = 5;
                 $status_1 = 5;
                 $status_2 = 5;
+                $message_1 = "Hãy đặt cọc tiền cho chủ xe";
+                $message_2 = "Chờ khách hàng đặt cọc";
+                $checkout->message_1 =  $message_1;
+                $checkout->message_2 =  $message_2;
                 break;
 
             case "6" :
                 $status_ck = 6;
 
                 if ($request->status_1 == "6") {
-                    $message_1 = "Đã giao xe";
+                    $message_2 = "Chủ xe đã giao xe. Bạn đã nhận được xe?";
+                    $message_1 = "Bạn đã giao xe cho khách hàng, chờ xác nhận";
                     $checkout->message_1 =  $message_1;
+                    $checkout->message_2 =  $message_2;
                     $status_1 = 6;
                     $status_2 = 7;
 
                 } elseif ($request->status_2 == "6") {
-                    $message_2 = "Đã nhận xe";
-                    $checkout->message_1 =  $message_2;
+                    $message_2 = "Chuyến của bạn đã thành công";
+                    $message_1 = "Khách hàng đã nhận được xe, chuyến đã thành công";
+                    $checkout->message_2 =  $message_2;
+                    $checkout->message_1 =  $message_1;
                     $status_1 = 6;
                     $status_2 = 6;
                 }
@@ -92,14 +113,18 @@ class TripController extends Model
                 $status_ck = 4;
 
                 if ($request->status_2 == "4") {
-                    $message_1 = "Đã giao xe";
+                    $message_2 = "Chuyến của bạn đã hoàn thành";
+                    $message_1 = "Khách hàng đã trả được xe, bạn hãy xác nhận";
+                    $checkout->message_2 =  $message_2;
                     $checkout->message_1 =  $message_1;
                     $status_1 = 9;
                     $status_2 = 4;
 
                 } elseif ($request->status_1 == "4") {
-                    $message_2 = "Đã nhận xe";
+                    $message_2 = "Chuyến của bạn đã hoàn thành";
+                    $message_1 = "Bạn đã nhận được xe, chuyến đã hoàn thành";
                     $checkout->message_2 =  $message_2;
+                    $checkout->message_1 =  $message_1;
                     $status_1 = 4;
                     $status_2 = 4;
 
@@ -115,8 +140,9 @@ class TripController extends Model
         $checkout->status_2 =  $status_2;
         $checkout->save();
         $this->updateStatusCar($checkout->car, $status);
-        dd($checkout->car);
+
         Notification::send($checkout->user2, new ChangeReservationStatus($checkout));
+        Notification::send($checkout->user1, new ChangeReservationStatus($checkout));
 
         return response()->json([
             'status' => 'oke'

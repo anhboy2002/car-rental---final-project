@@ -1,3 +1,12 @@
+var id = $('meta[name="id_user"]').attr('content');
+var count = $('meta[name="count"]').attr('content');
+$(document).ready(function() {
+    window.Echo.private(`App.Models.User.` + id)
+        .notification((notification) => {
+            addNotifications([notification], '#notifications', '#count-notification', parseInt(count) );
+        });
+});
+
 $('#SelectCarCategoryParent').change(function() {
     $('#SelectCarCategoryChilren option').hide();
     $('#SelectCarCategoryChilren option[value="' + $(this).val() + '"]').show();
@@ -358,7 +367,7 @@ $(document).on('click', '#btnReceiveCar', function(){
 
 // xac nhan da giao lai xe
 $(document).on('click', '.btnHandingEndCar', function(){
-   // changeStatusTrip(4,0,4);
+   changeStatusTrip(4,0,4);
     $('.info-trip').prepend(
     "  <div class='status-wrap col-md-12 padd-lr0'>" +
             "                            <p>" +

@@ -44,8 +44,11 @@ class NewReservation extends Notification
         return [
             'id' => $this->id,
             'user_name_2' => $this->transaction->user2->user_name,
+            'user_name_1' => $this->transaction->user1->user_name,
             'avatar_car' => $this->transaction->car->photos[0]->feature,
             'status_ck' =>  $this->transaction->status_ck,
+            'message_1' => $this->transaction->message_1,
+            'message_2' => $this->transaction->message_2,
             'car_name' => $this->transaction->car->name,
             'transaction_id' => $this->transaction->id,
         ];

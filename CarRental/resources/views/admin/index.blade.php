@@ -29,7 +29,7 @@
 					<div class="panel-body">
 						<h3 class="no-margin">{{$totalUser}}</h3>
 						Thành viên hoạt động
-						<div class="text-muted text-size-small"> 0 bị khóa</div>
+						<div class="text-muted text-size-small"> trên hệ thống</div>
 					</div>
 					<div class="container-fluid">
 						<div id="members-online"></div>
@@ -52,7 +52,7 @@
 				<a href="admin/thongke">
 					<div class="panel bg-blue-400">
 						<div class="panel-body">
-							<h3 class="no-margin">0</h3>
+							<h3 class="no-margin">{{$totalReport}}</h3>
 							Báo cáo
 							<div class="text-muted text-size-small">từ người dùng</div>
 						</div>

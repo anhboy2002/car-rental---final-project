@@ -235,6 +235,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){
         'uses' => 'Admin\CarController@rejectCar',
     ]);
 
+    Route::get('user/block/{id}', [
+        'as' => 'admin.user.block',
+        'uses' => 'Admin\UserController@blockUser',
+    ]);
+
+    Route::get('user/accept/{id}', [
+        'as' => 'admin.user.accept',
+        'uses' => 'Admin\UserController@acceptUser',
+    ]);
+
     Route::get('category/category', [
         'as' => 'admin.category.index',
         'uses' => 'Admin\CategoryController@getCategoryIndex',
@@ -248,6 +258,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){
     Route::post('car/category-register', [
         'as' => 'admin.category.register',
         'uses' => 'Admin\CategoryController@registerCategory',
+    ]);
+
+    Route::post('trip/rẹject/{id}', [
+        'as' => 'admin.trip.rẹject',
+        'uses' => 'Admin\UserController@rejectTrip',
     ]);
 
 

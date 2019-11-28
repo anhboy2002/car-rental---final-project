@@ -83,13 +83,14 @@ class CheckoutController extends Controller
                 'status_1' => 1, // pending
                 'status_2' => 1, // pending
                 'status_ck' => 1, // pending
-                'message_1' => '',
-                'message_2' => '',
+                'message_1' => 'Bạn có một chuyến mới.',
+                'message_2' => 'Chuyến của bạn đang chờ chủ xe duyệt.',
                 'price' => (float) Str::replaceArray(',', [''], $checkoutDetail['totalPrice']),
                 'trip_start' => $search['dateBegin']->toDateString() ." ". $search['timeBegin']->toTimeString(),
                 'trip_end' => $search['dateEnd']->toDateString() ." ". $search['timeEnd']->toTimeString(),
             ]);
-            Notification::send($car->user, new NewReservation($checkout));
+
+            Notification::send($car->user, new ChangeReservationStatus($checkout));
             Notification::send($checkout->user2, new ChangeReservationStatus($checkout));
         } else {
             return response()->json([

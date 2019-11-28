@@ -21,6 +21,8 @@ class Checkout extends Model
         'status_2',
         'trip_start',
         'trip_end',
+        'message_1',
+        'message_2',
         'price',
         'total_time_rental',
         'status_ck'

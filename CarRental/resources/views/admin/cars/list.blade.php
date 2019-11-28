@@ -54,7 +54,7 @@
                             <tr>
                                 <td>{{$car->id}}</td>
 
-                                <td><a href="{{ route('car.carDetail', [ 'id' => $car->id ]) }}" target="_blank">{{$car->name}}</a></td>
+                                <td><a target="_blank" href="#viewCar{{$car->id}}" data-toggle="modal" data-target="#viewCar{{$car->id}}">{{$car->name}}</a></td>
                                 <td>{{$car->location_name}}</td>
 
                                 <td>{{$car->price}}</td>
@@ -79,7 +79,7 @@
                                             </a>
 
                                             <ul class="dropdown-menu dropdown-menu-right">
-                                                <li><a  href="#viewCar{{$car->id}}" data-toggle="modal" data-target="#viewCar{{$car->id}}"><i class="icon-search4"></i> Xem chi tiêt</a></li>
+                                                <li><a href="{{ route('car.carDetail', [ 'id' => $car->id ]) }}"><i class="icon-search4"></i> Xem chi tiêt</a></li>
                                                 @if($car->status == 1)
                                                     <li><a href="{{route("admin.car.reject", ['id'=> $car->id])}}"><i class="icon-file-pdf"></i> Từ chối xe</a></li>
                                                 @elseif($car->status == 0)

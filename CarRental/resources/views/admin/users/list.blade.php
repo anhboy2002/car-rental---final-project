@@ -59,7 +59,7 @@
                                 <th>
                                     @if($user->status == 1)
                                         <span class="badge-success badge">Không có</span>
-                                    @else($user->status == -1)
+                                    @elseif($user->status == 0)
                                         <span class="badge-danger badge">Bị khóa</span>
                                     @endif
                                     @foreach($user->cars as $car)
@@ -79,9 +79,9 @@
                                                 <li><a href="#viewUser{{$user->id}}" data-toggle="modal" data-target="#viewUser{{$user->id}}"><i class="icon-zoomin3"></i> Xem chi tiêt</a></li>
                                                 <li><a href="{{route('admin.user.delete', ['id' => $user->id])}}"><i class="icon-file-excel"></i> Xóa</a></li>
                                                 @if($user->status == 1)
-                                                    <li><a href="{{route("admin.car.reject", ['id'=> $user->id])}}"><i class="icon-file-pdf"></i>Khóa nguời dùng</a></li>
-                                                @else($user->status == -1)
-                                                    <li><a href="{{route("admin.car.accept", ['id'=> $user->id])}}"><i class="icon-file-pdf"></i>Mở khóa người dùng</a></li>
+                                                    <li><a href="{{route("admin.user.block", ['id'=> $user->id])}}"><i class="icon-file-pdf"></i>Khóa nguời dùng</a></li>
+                                                @else($user->status == 0)
+                                                    <li><a href="{{route("admin.user.accept", ['id'=> $user->id])}}"><i class="icon-file-pdf"></i>Mở khóa người dùng</a></li>
                                                 @endif
                                             </ul>
                                         </li>

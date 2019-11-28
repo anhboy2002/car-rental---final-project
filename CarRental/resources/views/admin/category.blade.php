@@ -27,6 +27,12 @@
                             <div class="panel-body">
                                 Các <code>Hãng xe</code> được liệt kê tại đây. <strong>Dữ liệu đang cập nhật.</strong>
                             </div>
+                            @if(session('thongbao'))
+                                <div class="alert bg-success">
+                                    <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
+                                    <span class="text-semibold">Well done!</span>  {{session('thongbao')}}
+                                </div>
+                            @endif
                             <div class="m-5 col-md-4">
                                 <input class="form-control" id="myInput" type="text" placeholder="Search..">
                             </div>

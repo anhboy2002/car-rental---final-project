@@ -20,14 +20,14 @@ class CarController extends Controller
         $car->status = 1;
         $car->save();
 
-        return  redirect()->route('admin.car.index');
+        return  redirect()->route('admin.car.index')->with('thongbao','Đã chấp nhận xe');
     }
 
     public function rejectCar($id) {
         $car = Car::where('id', $id)->first();
-        $car->status = 2;
+        $car->status = -1;
         $car->save();
 
-        return redirect()->route('admin.car.index');
+        return redirect()->route('admin.car.index')->with('thongbao','Đã từ chối xe');
     }
 }

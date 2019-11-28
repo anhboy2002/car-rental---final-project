@@ -6,6 +6,10 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="description" content=" Car Rental Website ">
         <meta name="keywords" content="">
+        @if(auth()->check())
+            <meta name="id_user" content="{{ auth()->id() }}">
+            <meta name="count" content="{{auth()->user()->unreadnotifications()->count()}}">
+        @endif
         <title>Car Rental Website</title>
         <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
         {!! Html::style('app/css/app.css') !!}
