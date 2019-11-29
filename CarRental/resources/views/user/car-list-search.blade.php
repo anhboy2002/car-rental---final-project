@@ -109,8 +109,18 @@
                                     <span class="vehicleRatingAndTrips-trips ml-2">  .{{$car->total_trip}} chuyến</span>
                                 </div>
                                 <div class="col-lg-4">
+                                    <?php $flag = 0?>
                                     @if (Auth::check())
-                                        <button class="btn btn-success btnFavorite btnFavorite{{$car->id}}" id="{{$car->id}}">Yêu thích</button>
+                                        @for($i=0; $i<count($favorites);$i++)
+                                            @if($car->id == $favorites[$i]->car_id)
+                                                    <?php $flag = 1?>
+                                            @endif
+                                        @endfor
+                                        @if( $flag == 1)
+                                            <button class="btn btn-success btnFavorite btnFavorite{{$car->id}}" id="{{$car->id}}">Đã yêu thích</button>
+                                        @else
+                                            <button class="btn btn-success btnFavorite btnFavorite{{$car->id}}" id="{{$car->id}}">Yêu thích</button>
+                                        @endif
                                     @else
                                         <button class="btn btn-success"  href="#loginModal" data-toggle="modal" data-target="#loginModal">Yêu thích</button>
                                     @endif

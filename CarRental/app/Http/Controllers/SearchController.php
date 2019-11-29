@@ -53,7 +53,7 @@ class SearchController extends Controller
             $i++;
         }
         $categories = Category::where('id_parent', 0)->get();
-        $favorites = Favorite::where('user_id', \auth()->id())->get();
+        $favorites = Favorite::all();
         return view('user.car-list-search', [
                                             'cars' => $newCars,
                                             'photos' => $photos,

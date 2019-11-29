@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-img">
-                        <img src="{{ asset('storage/uploads/profile/'. $user->avatar) }}" width="245px" height="163px" alt=" {{$user->user_name}}"/>
+                        <img src="{{ asset('storage/uploads/profile/'. $user->avatar) }}" width="245px" height="230px" alt=" {{$user->user_name}}"/>
                         <div class="file btn btn-lg btn-primary">
                             Đổi ảnh đại diện
                             <form action="{{action('UserController@changeAvatar')}}" method="POST" enctype="multipart/form-data">
