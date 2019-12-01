@@ -82,8 +82,8 @@ class TripController extends Model
                 $status_ck = 5;
                 $status_1 = 5;
                 $status_2 = 5;
-                $message_1 = "Hãy đặt cọc tiền cho chủ xe";
-                $message_2 = "Chờ khách hàng đặt cọc";
+                $message_2 = "Hãy đặt cọc tiền cho chủ xe";
+                $message_1 = "Chờ khách hàng đặt cọc";
                 $checkout->message_1 =  $message_1;
                 $checkout->message_2 =  $message_2;
                 break;

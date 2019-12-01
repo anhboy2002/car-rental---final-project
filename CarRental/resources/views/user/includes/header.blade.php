@@ -38,28 +38,36 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        @foreach(auth()->user()->notifications as $notification)
+                                        @foreach(auth()->user()->notifications->take(5) as $notification)
                                                 @if($notification->type == 'App\\Notifications\\ChangeReservationStatus')
-                                                <li class="notification-box @if($notification->unread()) bg-gray @endif" href="{{ route('trip.detail', [ 'id' =>$notification->data['transaction_id'] ]) }}" id="{{$notification->data['id']}}">
+                                                <li class="notification-box @if($notification->unread()) bg-gray @endif" id="{{$notification->data['id']}}">
                                                     <div class="row">
                                                         <div class="col-lg-3 col-sm-3 col-3 text-center">
                                                             <img  src="{{ asset('storage/uploads/car_photos/'. $notification->data['avatar_car']) }}" class="rounded-circle" height="85" width="85"/>
                                                         </div>
                                                         <div class="col-lg-8 col-sm-8 col-8">
-                                                                @if( $notification->data['user_name_1'] == auth()->user()->user_name)
-                                                                    <strong class="text-info">{{ $notification->data['user_name_2'] }}</strong>
-                                                                    <div>
-                                                                    {{ $notification->data['message_1']  }}
-                                                                @else
-                                                                    <strong class="text-info">{{ $notification->data['user_name_1'] }}</strong>
-                                                                    <div>
-                                                                    {{ $notification->data['message_2']  }}
-                                                                @endif
-                                                                    <a href="{{ route('trip.detail', [ 'id' =>$notification->data['transaction_id'] ]) }}"><span class="badge-info badge"> Chi tiết</span></a>
+                                                            @if( $notification->data['user_name_1'] == auth()->user()->user_name)
+                                                                <strong class="text-info">{{ $notification->data['user_name_2'] }}</strong>
+                                                            <div>
+                                                                {{ $notification->data['message_1']  }}
+                                                            @else
+                                                                <strong class="text-info">{{ $notification->data['user_name_1'] }}</strong>
+                                                                <div>
+                                                                {{ $notification->data['message_2']  }}
+                                                            @endif
+                                                            @if($notification->data['status_ck'] == "1" || $notification->data['status_ck'] == "2" || $notification->data['status_ck'] == "0")
+                                                                <a href="{{ route('trip.detail', [ 'id' =>$notification->data['transaction_id'] ]) }}"> <span class="badge-info badge"> Chi tiết</span></a>
+                                                            @elseif($notification->data['status_ck'] == "5")
+                                                                <a href="{{ route('trip.deposit', [ 'id' =>$notification->data['transaction_id'] ]) }}"> <span class="badge-info badge"> Chi tiết</span></a>
+                                                            @elseif($notification->data['status_ck'] == "3")
+                                                                <a href="{{ route('trip.process', [ 'id' =>$notification->data['transaction_id'] ]) }}"> <span class="badge-info badge"> Chi tiết</span></a>
+                                                            @elseif($notification->data['status_ck'] == "4" || $notification->data['status_ck'] == "6" )
+                                                                <a href="{{ route('trip.end', [ 'id' =>$notification->data['transaction_id'] ]) }}"> <span class="badge-info badge"> Chi tiết</span></a>
+                                                            @endif
                                                             </div>
-                                                            <small class="text-warning">{{ $notification->created_at->diffForHumans() }}</small>
+                                                                <small class="text-warning">{{ $notification->created_at->diffForHumans() }}</small>
                                                         </div>
-                                                    </div>
+                                                        </div>
                                                 </li>
                                             @endif
                                         @endforeach

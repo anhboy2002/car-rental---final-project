@@ -9,9 +9,11 @@
         @if(auth()->check())
             <meta name="id_user" content="{{ auth()->id() }}">
             <meta name="count" content="{{auth()->user()->unreadnotifications()->count()}}">
+            <meta name="name" content="{{auth()->user()->user_name}}">
         @endif
         <title>Car Rental Website</title>
         <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
+        {!! Html::script('js/app.js') !!}
         {!! Html::style('app/css/app.css') !!}
         {!! Html::style('app/css/fileinput.css') !!}
         <!-- reset css -->
@@ -32,6 +34,5 @@
     <body>
         @include('user.includes.header')
         @yield('content')
-
     </body>
 </html>

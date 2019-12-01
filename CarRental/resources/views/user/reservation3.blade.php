@@ -228,7 +228,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                   <label>Bạn chưa nhận được ô tô? Báo xấu chủ xe.  </label>
+                   <label>Bạn chưa nhận được ô tô? Báo xấu khách hàng.  </label>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-danger" id="btnReport" >Báo xấu</button>

@@ -17,5 +17,6 @@
 {!! Html::script('assets/js/bootstrap-select.min.js') !!}
 {!! Html::script('assets/js/index.js') !!}
 {!! Html::script('app/js/app.js') !!}
+{!! Html::script('app/js/notification.js') !!}
 {!! Html::script('app/js/fileinput/fileinput.js') !!}
 {!! Html::script('app/js/fileinput/vi.js') !!}
